@@ -1,0 +1,111 @@
+.main_box {
+  display: flex;
+  flex-wrap: wrap; }
+
+.logo {
+  font-family: sans-serif, Arial, Helvetica;
+  display: inline-block;
+  color: white;
+  height: 50px;
+  line-height: 15px;
+  font-size: 18px;
+  padding-top: 20px;
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 40%; }
+
+.row {
+  flex-grow: 2;
+  display: inline-flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  /*width: 60%;*/
+  flex-wrap: wrap;
+  float: right; }
+
+.row_child {
+  height: 30px;
+  flex-grow: 1; }
+
+.row_child a {
+  transition: 0.3s;
+  display: block;
+  height: 100%;
+  text-align: center;
+  padding-top: 20px;
+  background-color: #523b71;
+  text-decoration: none;
+  font-family: sans-serif, Arial, Helvetica;
+  color: white;
+  font-weight: 600;
+  line-height: 15px;
+  font-size: 18px; }
+
+.row_child a:hover {
+  background-color: #3e52aa; }
+
+.nav_button {
+  width: 50px;
+  height: 50px;
+  display: none;
+  margin: 5px; }
+
+.nav_button img {
+  width: 50px;
+  color: aliceblue; }
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+/*****************/
+@media (min-width: 320px) and (max-width: 1024px) {
+  .nav_button_ct {
+    flex-basis: 60%;
+    flex-grow: 3; }
+
+  .nav_button {
+    display: block;
+    float: right; }
+
+  .row {
+    -webkit-flex-flow: column wrap;
+    flex-flow: column wrap;
+    padding: 0;
+    order: 3;
+    display: flex;
+    flex-basis: 500px;
+    visibility: hidden;
+    opacity: 0; }
+
+  .row_child {
+    height: 50px;
+    flex-grow: 1; } }
+/******************************************/
+.row_appear {
+  visibility: visible;
+  opacity: 1;
+  transition: 0.5s; }
+
+/*# sourceMappingURL=nav.css.map */

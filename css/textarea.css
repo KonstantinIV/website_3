@@ -1,0 +1,37 @@
+.textarea_ct {
+  width: 90%;
+  height: 300px;
+  margin: 0 auto;
+  background-color: #36274b;
+  border-radius: 10px;
+  padding-top: 10px; }
+
+.textarea {
+  display: block;
+  width: 90%;
+  height: 190px;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: #694d92;
+  border: none;
+  color: white; }
+
+.button_ct {
+  width: 90%;
+  height: 40px;
+  margin: 0 auto; }
+
+.add_post {
+  width: 80px;
+  height: 40px;
+  background-color: #7cf04f;
+  float: right;
+  margin: 5px 0;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 5ex;
+  font-family: sans-serif;
+  font-weight: 600;
+  color: #36274b; }
+
+/*# sourceMappingURL=textarea.css.map */
