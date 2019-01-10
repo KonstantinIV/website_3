@@ -9,7 +9,7 @@ $(document).on('click', '.nav_button', function() {
     console.log($(".textarea").val());
     $.ajax({
      
-      url: "../php/post.php",
+      url: "../php/post_pd.php",
       method: "POST",
       data:{text: $(".textarea").val()},
       success: function(data){
