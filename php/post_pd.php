@@ -5,13 +5,13 @@ function san_dt($text){
     if($text != strip_tags($text)){
         echo "Contains html tags";
     }else{
-
         ins_dt($text);
 
     }
 }
 
 function con_db(){
+    //data
     $host = "localhost";
     $username = "root";
     $password = "qwerty";
@@ -23,6 +23,7 @@ function con_db(){
         $pdo = new PDO($dsn, $username, $password);
         return $pdo;
     }catch(PDOException $e){
+        //conection failed
         return false;
     }
 
@@ -31,24 +32,34 @@ function con_db(){
 
 //insert function
 function ins_dt($text){
+    //Pdo object
     $pdo = con_db();
     //Check if connection was succesful before inserting
     if ($pdo){
-        $stmt = $pdo->prepare('insert into post (name, text) values ("kd",?)');
+        $stmt = $pdo->prepare('insert into post (name, text, c_date ) values ("kd",?, DATE_FORMAT(now(), "%Y-%m-%d %H:%i") )');
         $stmt->execute([$text]);
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        echo $data;
+        //$data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+        echo "Success";
     }else {
-        echo "222";
+        // ERROR
+        echo "ERROR 222";
     }
    
-
+    //Close connection
     $pdo = null;
 
 
 }
 
-san_dt($_POST['text']);
+//Check if user sends get or post important
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //Start
+    san_dt($_POST['text']);
+}
+
+
 
 
 

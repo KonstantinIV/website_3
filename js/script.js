@@ -4,19 +4,19 @@ $(document).on('click', '.nav_button', function() {
   });
 
 
+
+
+  
   $(document).on('click', '#add', function() {
     //$(".row").toggleClass('hoops');
     console.log($(".textarea").val());
     $.ajax({
-     
       url: "../php/post_pd.php",
       method: "POST",
       data:{text: $(".textarea").val()},
       success: function(data){
         console.log(data);
-
       }
-
     });
 });
 
