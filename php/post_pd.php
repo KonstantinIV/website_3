@@ -1,11 +1,11 @@
 <?php 
 
-function san_dt($text){
+function san_dt($title,$text){
     //Check if text contains html tags , ex <div>
-    if($text != strip_tags($text)){
+    if($text != strip_tags($text) ||  $title != strip_tags($title)){
         echo "Contains html tags";
     }else{
-        ins_dt($text);
+        ins_dt($title,$text);
 
     }
 }
@@ -31,13 +31,13 @@ function con_db(){
 }
 
 //insert function
-function ins_dt($text){
+function ins_dt($title, $text){
     //Pdo object
     $pdo = con_db();
     //Check if connection was succesful before inserting
     if ($pdo){
-        $stmt = $pdo->prepare('insert into post (name, text, c_date ) values ("kd",?, DATE_FORMAT(now(), "%Y-%m-%d %H:%i") )');
-        $stmt->execute([$text]);
+        $stmt = $pdo->prepare('insert into post (name, text, c_date ) values (?,?, DATE_FORMAT(now(), "%Y-%m-%d %H:%i") )');
+        $stmt->execute([$title,$text]);
         //$data = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
@@ -56,7 +56,7 @@ function ins_dt($text){
 //Check if user sends get or post important
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Start
-    san_dt($_POST['text']);
+    san_dt( $_POST['title'], $_POST['text']);
 }
 
 
