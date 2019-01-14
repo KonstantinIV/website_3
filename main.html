@@ -7,6 +7,9 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/nav.css">
 <link rel="stylesheet" type="text/css" href="css/textarea.css">
+<link rel="stylesheet" type="text/css" href="css/datepicker.css">
+<link rel="stylesheet" type="text/css" href="css/popular_container.css">
+
 
 
 <script type="text/javascript" src="http://livejs.com/live.js"></script>
@@ -44,6 +47,16 @@
         
                 
                 <textarea class="textarea p_header" type="text" id="title" placeholder="Title" ></textarea>
+                <div class="da_cont">
+                        <div class="datepicker">
+                                <textarea class="textarea year" type="text" id="year" placeholder="yyyy" ></textarea>
+                                <textarea class="textarea date" type="text" id="month" placeholder="mm" ></textarea>
+                                <textarea class="textarea date" type="text" id="day" placeholder="dd" ></textarea>
+                                <div class="dat_text">Insert the date of the release</div>
+                        </div>
+                </div>
+                        
+
                 <textarea class="textarea" type="text"          id="text"  placeholder="Your prediction..." ></textarea>
                 <div class="button_ct"> 
                         <div class="add_post" id="add">POST</div>
@@ -58,20 +71,32 @@
 
 <div class="pop_post_cont">
         <div class="post_cont">
-                <div>
-                     <div class="post_header">HEADER</div> 
-                     <div class="post_date">DATE</div>
-                </div>
-                <hr>
+                <div class="column_2">
+                        <div class="text_cont">
+                                <div class="post_header">Title</div> 
+                                
+                                <hr>
+                                
+                                
+                                
 
-                <div class="post_text">Random text</div>
+                                <div class="post_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+                               
+                        </div>
+
+                        <div class="date_cont">
+                                <div ></div>
+                                <div class="post_date_1">2018-04-03</div>
+                                <div class="post_date_2">DATE</div>
+                                <div class="post_date_3">DATE</div>
+                                <div class="post_date_4">DATE</div>
+                         </div>
+                </div>
                 <div class="post_buttons">
-                        <div class="like_button"></div>
-                        <div class="dislike_button"></div>
-                        <div class="comment_button"></div>
-                </div>
-
-
+                                <div class="like_button"></div>
+                                <div class="dislike_button"></div>
+                                <div class="comment_button"></div>
+                        </div>
         </div>
 
 </div>
