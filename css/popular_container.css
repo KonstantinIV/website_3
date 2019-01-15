@@ -7,20 +7,19 @@
 .post_cont {
   background-color: #36274b;
   border-radius: 5px;
-  width: 97%;
+  width: max-content;
   height: 350px;
   max-width: 700px; }
 
 .column_2 {
   display: flex;
   flex-direction: row;
-  height: 83%;
+  height: 64%;
   align-items: stretch; }
 
 .text_cont {
   display: block;
   min-width: 0;
-  overflow: hidden;
   text-align: left;
   flex-grow: 2;
   flex-basis: 75%; }
@@ -32,7 +31,7 @@
 
 .post_header {
   line-height: 30px;
-  font-size: 18px;
+  font-size: 30px;
   color: white;
   height: 30px;
   line-height: 30px;
@@ -41,7 +40,13 @@
   padding-top: 10px;
   font-family: sans-serif; }
 
-.text_cont hr {
+.post_user {
+  margin-left: 20px;
+  line-height: 0px;
+  margin-bottom: 20px;
+  color: #575f8d; }
+
+.post_cont hr {
   margin: 10px auto;
   width: 92%; }
 
@@ -53,8 +58,16 @@
   line-height: 30px;
   margin-bottom: 8px;
   margin-left: 20px;
-  padding-top: 10px;
-  font-family: sans-serif; }
+  overflow: hidden;
+  font-family: sans-serif;
+  height: 90%; }
+
+.expand_text {
+  overflow: none;
+  height: fit-content; }
+
+.expand_cont {
+  height: fit-content; }
 
 .date_cont * {
   text-align: center;
@@ -77,9 +90,26 @@
 .post_buttons * {
   height: 40px;
   flex-grow: 1;
-  background-color: #7cf04f;
   margin: 2px 4px;
   border-radius: 5px;
-  margin-bottom: 30px; }
+  margin-bottom: 30px;
+  line-height: 40px;
+  font-size: 18px;
+  font-weight: 550;
+  color: #3f4566;
+  font-family: sans-serif;
+  text-align: center; }
+
+.post_buttons div:nth-child(3) {
+  background-color: transparent; }
+
+.like_button {
+  background-color: #7cf04f; }
+
+.dislike_button {
+  background-color: #ca3939; }
+
+.comment_button {
+  background-color: gray; }
 
 /*# sourceMappingURL=popular_container.css.map */
