@@ -7,9 +7,10 @@
 .post_cont {
   background-color: #36274b;
   border-radius: 5px;
-  width: max-content;
+  width: 100%;
   height: 350px;
-  max-width: 700px; }
+  max-width: 700px;
+  margin-bottom: 20px; }
 
 .column_2 {
   display: flex;
@@ -21,13 +22,35 @@
   display: block;
   min-width: 0;
   text-align: left;
-  flex-grow: 2;
-  flex-basis: 75%; }
+  flex-grow: 1;
+  flex-basis: 65%;
+  position: relative; }
 
 .date_cont {
   display: block;
-  flex-grow: 1;
+  flex-grow: 4;
   border-color: aquamarine; }
+
+.expand_post {
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+  cursor: pointer; }
+
+.expand_post div {
+  bottom: 0;
+  text-align: center;
+  width: 30%;
+  font-family: sans-serif;
+  font-size: 25px;
+  background-color: #694d92;
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-top: 3px; }
+
+.expand_post:hover div {
+  color: #7878f3; }
 
 .post_header {
   line-height: 30px;
@@ -51,16 +74,15 @@
   width: 92%; }
 
 .post_text {
-  line-height: 30px;
   font-size: 18px;
   color: white;
   height: 30px;
-  line-height: 30px;
-  margin-bottom: 8px;
+  margin-bottom: 0px;
   margin-left: 20px;
   overflow: hidden;
   font-family: sans-serif;
-  height: 90%; }
+  height: 87%;
+  margin-top: 6px; }
 
 .expand_text {
   overflow: none;
@@ -72,11 +94,14 @@
 .date_cont * {
   text-align: center;
   height: 40px;
-  line-height: 30px;
   font-size: 18px;
   font-weight: 550;
   color: #7cf04f;
   font-family: sans-serif; }
+
+.date_f {
+  font-size: 16px;
+  color: #65c240; }
 
 .post_buttons {
   display: flex;
@@ -85,7 +110,8 @@
   border-top: none;
   flex-flow: row;
   padding-top: 5px;
-  border-radius: 5px; }
+  border-radius: 5px;
+  margin-left: 10px; }
 
 .post_buttons * {
   height: 40px;
@@ -100,7 +126,17 @@
   font-family: sans-serif;
   text-align: center; }
 
-.post_buttons div:nth-child(3) {
+.di_li_cont {
+  display: flex;
+  flex-wrap: wrap; }
+
+.likes {
+  color: #7cf04f; }
+
+.dislikes {
+  color: #ca3939; }
+
+.post_buttons div:nth-child(4) {
   background-color: transparent; }
 
 .like_button {
@@ -110,6 +146,7 @@
   background-color: #ca3939; }
 
 .comment_button {
-  background-color: gray; }
+  background-color: gray;
+  color: #8b8fa9; }
 
 /*# sourceMappingURL=popular_container.css.map */
