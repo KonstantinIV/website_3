@@ -29,6 +29,7 @@ $(document).on('click', '.nav_button', function() {
     
 });
 
+// Check
 function ch_post(){
 
   var title = $("#title").val();
@@ -52,4 +53,12 @@ function ch_post(){
 
 }
 
+
+$(document).on('click', '.expand_post', function() {
+  //$(".row").toggleClass('hoops');
+
+  $(".post_text").toggleClass('expand_text');
+  $(".post_cont").toggleClass('expand_cont');
+
+});
 
