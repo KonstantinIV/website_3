@@ -1,5 +1,5 @@
 .pop_post_cont {
-  width: 70%;
+  flex-grow: 0;
   margin-left: 20px;
   margin-top: 30px;
   margin-bottom: 30px; }

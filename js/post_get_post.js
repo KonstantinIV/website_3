@@ -42,17 +42,6 @@ $.ajax({
             '</div>',
 '</div>'].join("\n");
         $(".pop_post_cont").append(html);//Add to parent element
-      
-
-
-
-
-
-
-
-
       }
-
-
     }
   });
