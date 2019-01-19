@@ -1,4 +1,5 @@
 <?php 
+require_once 'database.php';
 
 function san_dt($title,$date,$text){
     //Check if text contains html tags , ex <div>
@@ -12,25 +13,6 @@ function san_dt($title,$date,$text){
     }
 }
 
-function con_db(){
-    //data
-    $host = "localhost";
-    $username = "root";
-    $password = "qwerty";
-    $dbname = "webpage_3";
-
-    $dsn = "mysql:host=$host;dbname=$dbname";
-    try{
-        //Pdo object check if connection is success
-        $pdo = new PDO($dsn, $username, $password);
-        return $pdo;
-    }catch(PDOException $e){
-        //conection failed
-        return false;
-    }
-
-    
-}
 
 //insert function
 function ins_dt($title,$date, $text){

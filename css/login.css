@@ -137,10 +137,10 @@ body {
   transition: 0.5s; }
 
 .cont {
-  width: 400px;
-  height: 300px;
+  width: 100%;
   background-color: #36274b;
-  border-radius: 10px; }
+  border-radius: 10px;
+  display: flex; }
 
 .login_cont {
   width: max-content;
@@ -161,7 +161,8 @@ body {
   border-radius: 5px;
   color: white;
   outline: none;
-  height: 40px; }
+  height: 40px;
+  margin: 5px 0; }
 
 .password_in {
   background-color: transparent;
@@ -171,7 +172,7 @@ body {
   border-radius: 5px;
   color: white;
   height: 40px;
-  margin: 20px 0; }
+  margin: 5px 0; }
 
 .password div {
   color: #b982f3;

@@ -3,10 +3,6 @@ $(document).on('click', '.nav_button', function() {
     $(".row").toggleClass('row_appear');
   });
 
-
-
-
-
   $(document).on('click', '#add', function() {
     //$(".row").toggleClass('hoops');
 
