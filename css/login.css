@@ -271,6 +271,41 @@ body {
   flex-flow: column;
   background-color: antiquewhite;
   flex-grow: 1.2;
+  flex-basis: 0;
   margin-left: 20px; }
+
+.user_profile {
+  display: flex;
+  flex-flow: row;
+  height: 150px; }
+
+.user_picture {
+  flex-grow: 0.1; }
+
+.picture {
+  background-color: green;
+  border-radius: 100%;
+  width: 150px;
+  height: 150px; }
+
+.username_cont {
+  flex-grow: 1;
+  flex-basis: 0;
+  background-color: #3f505f;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around; }
+
+.username_inf {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1; }
+
+.username {
+  flex-basis: 0;
+  color: white;
+  font-size: 24px;
+  font-family: sans-serif;
+  padding-left: 20px; }
 
 /*# sourceMappingURL=login.css.map */
