@@ -194,7 +194,6 @@ body {
   width: 95%;
   display: flex;
   flex-flow: row;
-  height: 500px;
   margin: 0 auto; }
 
 .dash_post_cn {
@@ -269,7 +268,6 @@ body {
 .dash_stats {
   display: flex;
   flex-flow: column;
-  background-color: antiquewhite;
   flex-grow: 1.2;
   flex-basis: 0;
   margin-left: 20px; }
@@ -277,13 +275,14 @@ body {
 .user_profile {
   display: flex;
   flex-flow: row;
-  height: 150px; }
+  height: 150px;
+  border-bottom: 2px solid #36274b;
+  padding-bottom: 10px; }
 
 .user_picture {
   flex-grow: 0.1; }
 
-.picture {
-  background-color: green;
+.picture img {
   border-radius: 100%;
   width: 150px;
   height: 150px; }
@@ -291,7 +290,6 @@ body {
 .username_cont {
   flex-grow: 1;
   flex-basis: 0;
-  background-color: #3f505f;
   display: flex;
   flex-flow: column;
   justify-content: space-around; }
@@ -307,5 +305,27 @@ body {
   font-size: 24px;
   font-family: sans-serif;
   padding-left: 20px; }
+
+.user_stats {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 150px 150px 150px; }
+
+.user_stats > div {
+  border: 3px solid #497e49;
+  margin: 2px; }
+
+.exp {
+  font-family: sans-serif;
+  font-size: 12px;
+  text-align: center;
+  padding-top: 10px; }
+
+.val {
+  font-family: sans-serif;
+  font-size: 40px;
+  text-align: center;
+  padding: 20px;
+  color: #7cf04f; }
 
 /*# sourceMappingURL=login.css.map */
