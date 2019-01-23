@@ -265,6 +265,18 @@ body {
   flex-grow: 1;
   text-align: center; }
 
+.add_post_plus {
+  background-color: #523b71;
+  width: 50px;
+  height: 50px;
+  color: #36274b;
+  border-radius: 100%;
+  text-align: center;
+  font-size: 38px;
+  line-height: 50px;
+  align-self: center;
+  margin: 0 auto; }
+
 .dash_stats {
   display: flex;
   flex-flow: column;
@@ -276,7 +288,6 @@ body {
   display: flex;
   flex-flow: row;
   height: 150px;
-  border-bottom: 2px solid #36274b;
   padding-bottom: 10px; }
 
 .user_picture {
@@ -292,7 +303,7 @@ body {
   flex-basis: 0;
   display: flex;
   flex-flow: column;
-  justify-content: space-around; }
+  justify-content: center; }
 
 .username_inf {
   display: flex;
@@ -306,20 +317,30 @@ body {
   font-family: sans-serif;
   padding-left: 20px; }
 
+.other_inf {
+  font-family: sans-serif;
+  font-size: 13px;
+  margin-top: 6px;
+  padding-left: 20px;
+  color: #36274b;
+  font-weight: bold; }
+
 .user_stats {
   display: grid;
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: 150px 150px 150px; }
 
 .user_stats > div {
-  border: 3px solid #497e49;
+  border: 3px solid #36274b;
   margin: 2px; }
 
 .exp {
   font-family: sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
-  padding-top: 10px; }
+  padding-top: 10px;
+  font-weight: bold;
+  color: #36274b; }
 
 .val {
   font-family: sans-serif;

@@ -11,7 +11,7 @@
     display: flex;
     flex-flow: row;
     height: 150px;
-    border-bottom: 2px solid $post_cl;
+    //border-bottom: 2px solid $post_cl;
     padding-bottom: 10px;
     
 }
@@ -34,7 +34,7 @@
     //background-color: rgb(63, 80, 95);
     display:flex;
     flex-flow: column;
-    justify-content: space-around;
+    justify-content:center;
 }
 .username_inf{
     display:flex;
@@ -50,7 +50,12 @@
 
 }
 .other_inf{
-
+font-family: $font;
+font-size: 13px;
+margin-top: 6px;
+padding-left: 20px;
+color:$post_cl;
+font-weight: bold;
 }
 
 
@@ -64,17 +69,19 @@
 }
 .user_stats > div{
     //background-color: rgb(73, 126, 73);
-    border:3px solid rgb(73, 126, 73);
+    border:3px solid $post_cl;
     margin: 2px;
     
 }
 
 .exp{
     font-family: $font;
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
     padding-top: 10px;
-    
+    font-weight: bold;
+    color: $post_cl;
+
 }
 .val{
     font-family: $font;
