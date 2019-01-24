@@ -5,21 +5,34 @@ ul{
 .comment_section{
     width: 97%;
     margin: 0 auto;
+
 }
 .comment_section > div{
     //height: 60px;
-    background-color: $post_cl;
     font-family: sans-serif;
     color: white;
-    margin: 2px;
+
     padding-left: 20px;
+}
+.comment{
+    background-color: $post_cl;
 }
 .comment_user{
     padding:7px 0 ;
     display: flex;
     flex-flow: row;
+    color: #9e9e9e;
 
 }
+.user{
+    color: #7979d4;
+
+}
+.comment_date{
+    padding-left: 18px;
+    color: #9e9e9e;
+}
+
 .comment_user > div{
     padding-right: 20px;
 }
@@ -42,7 +55,7 @@ ul{
     height:20px;
     //border-top: 1px solid #7cf04f;
     flex-flow:row;
-    padding-top: 5px;
+    padding-top: 30px;
     width: 40%;
     padding-bottom: 5px;
 }
@@ -78,13 +91,33 @@ text-align: center;
 }
 .comment_like_button{
     background-color: #7cf04f;
+    flex-grow: 0.6;
 
 }
 .comment_dislike_button{
     background-color: #ca3939;
-
+    flex-grow: 0.6;
 }
 .comment_comment_button{
     background-color: gray;
     color: #8b8fa9;
+}
+
+
+
+
+
+
+.test{
+    margin-left:20px;
+    background-color: transparent;
+    border: 3px solid $post_cl;
+
+}
+
+.test2{
+    margin-left:60px;
+    background-color: transparent;
+    border: 3px solid $post_cl;
+
 }

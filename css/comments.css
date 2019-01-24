@@ -319,16 +319,25 @@ ul {
   margin: 0 auto; }
 
 .comment_section > div {
-  background-color: #36274b;
   font-family: sans-serif;
   color: white;
-  margin: 2px;
   padding-left: 20px; }
+
+.comment {
+  background-color: #36274b; }
 
 .comment_user {
   padding: 7px 0;
   display: flex;
-  flex-flow: row; }
+  flex-flow: row;
+  color: #9e9e9e; }
+
+.user {
+  color: #7979d4; }
+
+.comment_date {
+  padding-left: 18px;
+  color: #9e9e9e; }
 
 .comment_user > div {
   padding-right: 20px; }
@@ -342,7 +351,7 @@ ul {
   display: flex;
   height: 20px;
   flex-flow: row;
-  padding-top: 5px;
+  padding-top: 30px;
   width: 40%;
   padding-bottom: 5px; }
 
@@ -371,13 +380,25 @@ ul {
   background-color: transparent; }
 
 .comment_like_button {
-  background-color: #7cf04f; }
+  background-color: #7cf04f;
+  flex-grow: 0.6; }
 
 .comment_dislike_button {
-  background-color: #ca3939; }
+  background-color: #ca3939;
+  flex-grow: 0.6; }
 
 .comment_comment_button {
   background-color: gray;
   color: #8b8fa9; }
+
+.test {
+  margin-left: 20px;
+  background-color: transparent;
+  border: 3px solid #36274b; }
+
+.test2 {
+  margin-left: 60px;
+  background-color: transparent;
+  border: 3px solid #36274b; }
 
 /*# sourceMappingURL=comments.css.map */
