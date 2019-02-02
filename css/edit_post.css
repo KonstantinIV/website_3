@@ -1,0 +1,233 @@
+body {
+  background-color: #523b71;
+  margin: 0; }
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+.main_box {
+  display: flex;
+  flex-wrap: wrap; }
+
+.logo {
+  font-family: sans-serif, Arial, Helvetica;
+  display: inline-block;
+  color: white;
+  height: 50px;
+  line-height: 15px;
+  font-size: 18px;
+  padding-top: 20px;
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 40%; }
+
+.row {
+  flex-grow: 2;
+  display: inline-flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  /*width: 60%;*/
+  flex-wrap: wrap;
+  float: right; }
+
+.row_child {
+  height: 30px;
+  flex-grow: 1; }
+
+.row_child a {
+  transition: 0.3s;
+  display: block;
+  height: 100%;
+  text-align: center;
+  padding-top: 20px;
+  background-color: #523b71;
+  text-decoration: none;
+  font-family: sans-serif, Arial, Helvetica;
+  color: white;
+  font-weight: 600;
+  line-height: 15px;
+  font-size: 18px; }
+
+.row_child a:hover {
+  background-color: #3e52aa; }
+
+.nav_button {
+  width: 50px;
+  height: 50px;
+  display: none;
+  margin: 5px; }
+
+.nav_button img {
+  width: 50px;
+  color: aliceblue; }
+
+.search {
+  background-color: #36274b;
+  border: none;
+  height: 30px;
+  margin-top: 15px; }
+
+.s_button {
+  height: 30px;
+  margin-top: 15px;
+  width: 80px;
+  border-radius: 3px;
+  border: none;
+  background-color: #ae81ea; }
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+/*****************/
+@media (min-width: 320px) and (max-width: 1024px) {
+  .nav_button_ct {
+    flex-basis: 60%;
+    flex-grow: 3; }
+
+  .nav_button {
+    display: block;
+    float: right; }
+
+  .row {
+    -webkit-flex-flow: column wrap;
+    flex-flow: column wrap;
+    padding: 0;
+    order: 3;
+    display: flex;
+    flex-basis: 500px;
+    visibility: hidden;
+    opacity: 0; }
+
+  .row_child {
+    height: 50px;
+    flex-grow: 1; } }
+/******************************************/
+.row_appear {
+  visibility: visible;
+  opacity: 1;
+  transition: 0.5s; }
+
+.textarea_ct {
+  width: 90%;
+  height: 350px;
+  margin-left: 80px;
+  background-color: #36274b;
+  border-radius: 10px;
+  padding-top: 10px;
+  max-width: 700px;
+  margin-top: 120px; }
+
+.textarea {
+  display: block;
+  width: 90%;
+  height: 190px;
+  margin: 0 auto;
+  background-color: #694d92;
+  border: none;
+  color: white;
+  resize: none; }
+
+.p_header {
+  height: 30px;
+  background-color: #36274b;
+  line-height: 30px;
+  font-size: 18px;
+  border-bottom: 2px solid  #bfbac7;
+  border-radius: 0px;
+  margin-bottom: 8px; }
+
+input, textarea:focus {
+  outline-width: 0; }
+
+.button_ct {
+  width: 90%;
+  height: 40px;
+  margin: 0 auto; }
+
+.add_post {
+  width: 80px;
+  height: 40px;
+  background-color: #7cf04f;
+  float: right;
+  margin: 5px 0;
+  text-align: center;
+  line-height: 5ex;
+  font-family: sans-serif;
+  font-weight: 600;
+  color: #36274b; }
+
+.da_cont {
+  width: 90.7%;
+  margin: 5px auto; }
+
+.datepicker {
+  display: flex;
+  width: 100%;
+  flex-direction: row; }
+
+.datepicker .textarea {
+  text-align: center;
+  line-height: 30px;
+  margin-right: 2px;
+  height: 30px;
+  font-family: sans-serif;
+  font-weight: 600; }
+
+.year {
+  flex-grow: 2;
+  width: 13%; }
+
+.date {
+  flex-grow: 1;
+  width: 7%; }
+
+.dat_text {
+  flex-grow: 4;
+  color: white;
+  width: 100%;
+  line-height: 30px; }
+
+/*# sourceMappingURL=edit_post.css.map */

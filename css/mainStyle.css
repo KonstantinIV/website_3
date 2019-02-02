@@ -83,6 +83,20 @@ body {
   width: 50px;
   color: aliceblue; }
 
+.search {
+  background-color: #36274b;
+  border: none;
+  height: 30px;
+  margin-top: 15px; }
+
+.s_button {
+  height: 30px;
+  margin-top: 15px;
+  width: 80px;
+  border-radius: 3px;
+  border: none;
+  background-color: #ae81ea; }
+
 /* 
   ##Device = Desktops
   ##Screen = 1281px to higher resolution desktops
