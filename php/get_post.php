@@ -10,7 +10,7 @@ function get_dt(){
     if ($pdo){
         //echo strlen((string)$date);
 
-        $stmt = $pdo->prepare('SELECT id, username,title,text, rel_date, 
+        $stmt = $pdo->prepare('SELECT ID, username,title,text, rel_date, 
         post_date, da_date, likes, dislikes from post2');
 
         $stmt->execute();
@@ -35,6 +35,7 @@ function get_dt(){
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     //Start
     get_dt();
+
 }
 
 

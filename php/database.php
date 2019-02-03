@@ -1,4 +1,5 @@
 <?php
+require_once "conf/conf.php";
 function con_db(){
     //data
     $host = "localhost";
