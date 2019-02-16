@@ -1,4 +1,5 @@
 <?php 
+require_once 'database.php';
 class user{
     
     private $username;
@@ -7,13 +8,17 @@ class user{
     private $join_date;
     private $birthday;
 
-    
+    private $pdo ;
     function set_user($username,$password,$email,$join_date,$birthday){
         $this->username = $username;
         $this->password = $password;
         $this->email    = $email;
         $this->join_date= $join_date;
         $this->birthday = $birthday;
+
+        $database = new database;
+        $this->pdo      = $database->retPdo();
+       
     }
 
     function validate_user(){
@@ -39,39 +44,20 @@ class user{
         }
     }
 
-    function pdo(){
-            //data
-            require_once "conf/conf.php";
-            $dsn = "mysql:host=".DBHOST.";dbname=".DBNAME;
-            $pdo = new PDO($dsn, DBUSER, DBPWD);
-            if($pdo ){
-                return $pdo;
-            }else{
-                return 6;
-            }
-
-
-           /* try{
-                //Pdo object check if connection is success
-                 $pdo = new PDO($dsn, DBUSER, DBPWD);
-                 //$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                 return $pdo;
-            }catch(\PDOException $e) {
-                //throw new \PDOException($e->getMessage(), (int)$e->getCode());
-                return 6;
-            }*/
-        }
 
     
-    function validate_existing($pdo){
-        $qr_exists = $pdo->prepare('select username from user WHERE username=? LIMIT 1');
+    function validate_existing(){
+       
+        $qr_exists = $this->pdo->prepare('select username from user WHERE username=? LIMIT 1');
         $qr_exists->execute([$this->username]);
         //Exists user
+       
         if(!$qr_exists->fetchColumn()){
+            
             return 7;
         }
         //Exists Email
-        $qr_exists = $pdo->prepare('select email from user WHERE email=? LIMIT 1');
+        $qr_exists = $this->pdo->prepare('select email from user WHERE email=? LIMIT 1');
         $qr_exists->execute([$this->email]);
         if(!$qr_exists->fetchColumn()){
             return 8;
@@ -80,9 +66,9 @@ class user{
         
         }
 
-    function create_user($pdo){
+    function create_user(){
         
-        $qr_insert = $pdo->prepare('insert into user 
+        $qr_insert = $this->pdo->prepare('insert into user 
         (
         username, 
         password,
@@ -104,7 +90,8 @@ class user{
             $this->email])){
                 return 9;
             }
-    $pdo = null;
+            echo "suc";
+    $this->pdo = null;
 
 
     }
@@ -120,16 +107,16 @@ class user{
                     $_POST['join_date'],
                     $_POST['birthday']
                     );*/
-    $user->set_user("_a_",
+    $user->set_user("_as_",
     "aaa34a", 
-    "aaa@aaa'a'a.com", 
+    "aaa@aaa'*Sas'a.com", 
     "12342890", 
     "12342891");                
-    $user->validate_user();
+    //$user->validate_user();
 
-    $pdo = $user->pdo();
-    $user->validate_existing($pdo);
-    $user->create_user($pdo);
+    /*$pdo =*/ 
+    $user->validate_existing();
+    $user->create_user();
 
     //$user->test();
 
