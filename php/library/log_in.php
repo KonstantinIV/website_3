@@ -1,17 +1,23 @@
 <?php 
-
+require_once 'database.php';
 class usr_session{
     private $user;
     private $pass;
     private $session_id;
+    private $pdo;
+
+
+
 
     function set_usr($user, $pass){
         $this->user = $user;
         $this->pass = $pass;
+        $database   = new database;
+        $this->pdo  = $database->retPdo();
     }
 
     function check_usr(){
-        $stmt = $pdo->prepare('SELECT pass  from user WHERE username=? LIMIT 1');
+        $stmt = $this->pdo->prepare('SELECT pass  from user WHERE username=? LIMIT 1');
         $stmt->execute([$this->user]);
         
         if(!$stmt->fetchColumn()){
@@ -44,16 +50,19 @@ class usr_session{
 
 
 }
-//if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    //echo "ssdsda1";
-    /*$user = mysqli_real_escape_string($_POST['user']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+   
+    $user = mysqli_real_escape_string($_POST['user']);
     $pass = mysqli_real_escape_string($_POST['pass']);
-    valid($user,$pass);*/
-///}
-$s = new usr_session;
-$s->set_usr($user,$pass);
-$s->check_usr();
-$s->sess_start();
+    
+
+    $s = new usr_session;
+    $s->set_usr($user,$pass);
+    $s->check_usr();
+    $s->sess_start();
+
+}
+
 //echo $_SESSION['user'];
 
 

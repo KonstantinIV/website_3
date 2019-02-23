@@ -16,10 +16,15 @@ class user{
         $this->join_date= $join_date;
         $this->birthday = $birthday;
 
-        $database = new database;
-        $this->pdo      = $database->retPdo();
-       
+
     }
+       
+        function __construct($pdo){
+            $this->pdo = $pdo;
+        }
+     
+       
+    
 
     function validate_user(){
         
@@ -98,31 +103,22 @@ class user{
 }
 
 
-//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Start
-    $user = new user;
-    /*$user->set_user($_POST['username'],
+    $database = new database;
+    $regUser  = new user($database->retPdo());
+    $user->set_user($_POST['username'],
                     $_POST['password'],
                     $_POST['email'],
                     $_POST['join_date'],
                     $_POST['birthday']
-                    );*/
-    $user->set_user("_as_",
-    "aaa34a", 
-    "aaa@aaa'*Sas'a.com", 
-    "12342890", 
-    "12342891");                
-    //$user->validate_user();
-
-    /*$pdo =*/ 
+                    );     
+    $user->validate_user();
     $user->validate_existing();
     $user->create_user();
-
-    //$user->test();
-
-/*}else{
-
-}*/
+}else{
+return 1;
+}
 
 
 
