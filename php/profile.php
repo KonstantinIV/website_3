@@ -1,9 +1,9 @@
 <?php
 session_start();
 $_SESSION['user'] = "sfdds";
-if(isset($_SESSION['user']) ) {
+if(!isset($_SESSION['user']) ) {
    echo 'Set and not empty, and no undefined index error!';
-   header('Location: profile.php');
+   header('Location: log_in.php');
 }
 ?>
 
@@ -42,7 +42,7 @@ if(isset($_SESSION['user']) ) {
                 <?php
                     if(isset($_SESSION['user']) ) {
                 ?>        
-                        <li class="row_child"><a href="main.html">Log out</a></li>
+                        <li class="row_child"><a href="logout.php">Log out</a></li>
                 <?php
                      }else{
                 ?>
@@ -92,7 +92,7 @@ foreach ($posts->posts as $value_ID){
         </div>
     </div>
     <div class="settings">
-        <div class="edit">Edit</div>
+        <div class="edit"><a href="edit_post.php?'.$value_ID.'">Edit</a></div>
         <div class="visit">Visit</div>
 
     </div>
@@ -114,6 +114,7 @@ foreach ($posts->posts as $value_ID){
             </div>
 
     </div>
+    
 
 
     <?php

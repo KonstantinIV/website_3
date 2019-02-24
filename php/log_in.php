@@ -57,6 +57,8 @@ if(isset($_SESSION['user']) ) {
   
 
 <div class="cont">
+
+    
     <div class="login_cont">
         <div class="sign">Sign in</div>
         <div class="username">
@@ -71,6 +73,7 @@ if(isset($_SESSION['user']) ) {
             <div class="button">SIGN IN</div>
         </div>
     </div>
+   
 
     <div class="login_cont">
             <div class="sign">Sign up</div>

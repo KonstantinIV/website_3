@@ -9,7 +9,7 @@ if(username == "" || password == "" ){
     console.log("Wrong input");
 }else {
     $.ajax({
-        url: "../php/library/log_in.php",
+        url: "log_in_util.php",
         method: "POST",
         data:{user: username ,pass: password},
         success: function(data){

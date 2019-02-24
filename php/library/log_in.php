@@ -1,5 +1,4 @@
 <?php 
-require_once 'database.php';
 class usr_session{
     private $user;
     private $pass;
@@ -50,18 +49,7 @@ class usr_session{
 
 
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-   
-    $user = mysqli_real_escape_string($_POST['user']);
-    $pass = mysqli_real_escape_string($_POST['pass']);
-    
 
-    $s = new usr_session;
-    $s->set_usr($user,$pass);
-    $s->check_usr();
-    $s->sess_start();
-
-}
 
 //echo $_SESSION['user'];
 

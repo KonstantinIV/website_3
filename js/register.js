@@ -12,7 +12,7 @@ $(document).on('click', '.button', function(){
         console.log("Wrong input");
     }else {
         $.ajax({
-            url: "../php/library/register.php",
+            url: "register_util.php",
             method: "POST",
             data:{user: username ,pass: password,email : email, join_date : join_date, birthday:birthday},
             success: function(data){
