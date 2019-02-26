@@ -1,6 +1,5 @@
 <?php
 session_start();
-$_SESSION['user'] = "sfdds";
 if(!isset($_SESSION['user']) ) {
    echo 'Set and not empty, and no undefined index error!';
    header('Location: log_in.php');
@@ -88,11 +87,11 @@ foreach ($posts->posts as $value_ID){
                     <div class="red_bar"></div>
             </div>
             <div class="red_score">'.$posts->getDislikes($value_ID).'</div>
-            <div class="comments_score">COMMENTS '.$posts->getComments($value_ID).'</div>
+            <div class="comments_score"><a href="comments.php?id='.$value_ID.'" >COMMENTS '.$posts->getComments($value_ID).'</a></div>
         </div>
     </div>
     <div class="settings">
-        <div class="edit"><a href="edit_post.php?'.$value_ID.'">Edit</a></div>
+        <div class="edit"><a href="edit_post.php?id='.$value_ID.'">Edit</a></div>
         <div class="visit">Visit</div>
 
     </div>

@@ -138,12 +138,12 @@ class us_posts{
 
     //Single 
     function getTitle($id){
-        $stmt = $this->pdo->prepare('');
+        $stmt = $this->pdo->prepare('SELECT title from post where ID = ?');
         $stmt->execute([$id]);
         return $stmt->fetchColumn();
     }
     function getText($id){
-        $stmt = $this->pdo->prepare('');
+        $stmt = $this->pdo->prepare('SELECT text from post where ID = ?');
         $stmt->execute([$id]);
         return $stmt->fetchColumn();
     }
@@ -157,16 +157,6 @@ class us_posts{
         $stmt->execute([$id]);
         return $stmt->fetchColumn();
     }
-
-
-
-
-
-
-
-
-
-
 
 }
 
