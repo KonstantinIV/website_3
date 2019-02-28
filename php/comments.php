@@ -39,6 +39,8 @@
 
 </div>    
 </header>
+
+
   
 
 <div class="main_cont">
@@ -102,10 +104,32 @@
 
 
 
+
 <div class="comment_section">
-    <div class="comment">
+<?php
+
+require_once 'library/profile.php';
+session_start();
+$_SESSION['user'] = "sfdds";
+$pdo = new database();
+$posts = new us_posts($pdo->retPdo());
+$posts->setPosts($_SESSION['user']);
+print_r($posts->getCommentid(2));
+$key = $posts->getCommentid(2);
+
+
+
+function rec2($id_pos,$space,$key){
+        //$key       = array(1 => NULL, 2 => 1, 3 => 2, 4 => 3, 5 => 3, 65 => 3 , 7 => 3, 8 => 1 , 9 => 1 , 10 => 1);
+        /* echo result */
+        //print_r($key);
+        for($i = 0; $i <= $space; $i++){
+            echo "*";
+        }
+        echo $id_pos;
+        echo '<div class="comment">
         <div class="comment_user"><div class="user">User</div>&#9679<div class="comment_date">5 hours ago</div></div>
-        <div class="comment_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has </div>
+        <div class="comment_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has </div>
         
                 <div class="comment_buttons">
                         <div class="comment_like_button">LI</div>
@@ -120,80 +144,40 @@
 
       
 
-    </div>
+    </div>';
 
-    <div class="comment test" >
-            <div class="comment_user"><div class="user">User</div>&#9679<div class="comment_date">5 hours ago</div></div>
-            <div class="comment_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has </div>
-            
-                    <div class="comment_buttons">
-                            <div class="comment_like_button">LI</div>
-                            <div class="comment_di_li_cont">
-                                    <div class="comment_likes">44</div>
-                                    <div class="">&#9679</div>
-                                    <div class="comment_dislikes">22</div>
-                            </div>        
-                            <div class="comment_dislike_button">&#8681;</div>
-                            <div class="comment_comment_button">REPLY &#10095;</div>
-                    </div>
-    
-          
-    
-        </div>
-        <div class="comment" style="margin-left:40px;background-color: none;">
-                <div class="comment_user"><div class="user">User</div>&#9679<div class="comment_date">5 hours ago</div></div>
-                <div class="comment_text">alley of type and scrambled it to make a type specimen book. It has </div>
-                
-                        <div class="comment_buttons">
-                                <div class="comment_like_button">LI</div>
-                                <div class="comment_di_li_cont">
-                                        <div class="comment_likes">44</div>
-                                        <div class="">&#9679</div>
-                                        <div class="comment_dislikes">22</div>
-                                </div>        
-                                <div class="comment_dislike_button">DI</div>
-                                <div class="comment_comment_button">REPLY &#10095;</div>
-                        </div>
         
-              
-        
-            </div>
-            <div class="comment test2" >
-                    <div class="comment_user"><div class="user">User</div>&#9679<div class="comment_date">5 hours ago</div></div>
-                    <div class="comment_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has  </div>
-                    
-                            <div class="comment_buttons">
-                                    <div class="comment_like_button">LI</div>
-                                    <div class="comment_di_li_cont">
-                                            <div class="comment_likes">44</div>
-                                            <div class="">&#9679</div>
-                                            <div class="comment_dislikes">22</div>
-                                    </div>        
-                                    <div class="comment_dislike_button">DI</div>
-                                    <div class="comment_comment_button">REPLY &#10095;</div>
-                            </div>
-            
-                  
-            
-                </div>
-                <div class="comment" >
-                        <div class="comment_user"><div class="user">User</div>&#9679<div class="comment_date">5 hours ago</div></div>
-                        <div class="comment_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has </div>
-                        
-                                <div class="comment_buttons">
-                                        <div class="comment_like_button">LI</div>
-                                        <div class="comment_di_li_cont">
-                                                <div class="comment_likes">44</div>
-                                                <div class="">&#9679</div>
-                                                <div class="comment_dislikes">22</div>
-                                        </div>        
-                                        <div class="comment_dislike_button">DI</div>
-                                        <div class="comment_comment_button">REPLY &#10095;</div>
-                                </div>
-                
-                      
-                
-                    </div>     
+        //echo "<br>";
+        /***************/
+    
+    
+        /*core*/
+        foreach($key as $id => $parent_id){
+            if($parent_id == $id_pos){
+                rec2($id,$space+1,$key);
+            }
+        }
+    
+    
+       
+    
+    }
+    rec2(0,-1,$key);
+
+
+
+
+
+
+
+
+
+?>
+
+
+
+    
+    
 </div>
 
 

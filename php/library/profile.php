@@ -136,7 +136,7 @@ class us_posts{
     }
 
 
-    //Single 
+    //Single post data
     function getTitle($id){
         $stmt = $this->pdo->prepare('SELECT title from post where ID = ?');
         $stmt->execute([$id]);
@@ -157,6 +157,29 @@ class us_posts{
         $stmt->execute([$id]);
         return $stmt->fetchColumn();
     }
+
+    /**Comment section */
+    function getCommentid($id){
+        $stmt = $this->pdo->prepare('SELECT comment.ID, comment.parent_id from comment INNER JOIN post ON post.ID = comment.POST_ID where post.ID = ? ');
+        $stmt->execute([$id]);
+        $id_parent = array();
+        //$id_parent1 = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+        //$id_parent2 = $stmt->fetchAll(PDO::FETCH_COLUMN, 1);
+       // print_r($id_parent2);
+        return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+        //return $id_parent;
+    }
+    function getCommenttext($id){
+        $stmt = $this->pdo->prepare('');
+        $stmt->execute([$id]);
+        return $stmt->fetchColumn();
+    }
+    function getCommenttitle($id){
+        $stmt = $this->pdo->prepare('');
+        $stmt->execute([$id]);
+        return $stmt->fetchColumn();
+    }
+
 
 }
 
