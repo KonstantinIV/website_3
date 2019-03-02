@@ -119,15 +119,22 @@ $key = $posts->getCommentid(2);
 
 
 
-function rec2($id_pos,$space,$key){
+function rec2($id_pos,$space,$key,$color){
         //$key       = array(1 => NULL, 2 => 1, 3 => 2, 4 => 3, 5 => 3, 65 => 3 , 7 => 3, 8 => 1 , 9 => 1 , 10 => 1);
         /* echo result */
         //print_r($key);
-        for($i = 0; $i <= $space; $i++){
+        /*for($i = 0; $i <= $space; $i++){
             echo "*";
+        }*/
+        //echo $id_pos;
+        $inte = 20*$space;
+        echo '<div class="comment" style="margin-left:'.$inte.'px;';
+        if($color == 1){
+                echo 'background-color: transparent;border: 3px solid #36274b;">';
+        }else{
+                echo '">';
         }
-        echo $id_pos;
-        echo '<div class="comment">
+        echo '        
         <div class="comment_user"><div class="user">User</div>&#9679<div class="comment_date">5 hours ago</div></div>
         <div class="comment_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has </div>
         
@@ -152,17 +159,27 @@ function rec2($id_pos,$space,$key){
     
     
         /*core*/
+        if($color ==0){
+                $color = 1;
+        }else{
+                $color = 0;  
+        }
+        $flag = 0;
         foreach($key as $id => $parent_id){
             if($parent_id == $id_pos){
-                rec2($id,$space+1,$key);
+                $flag = 1;
+                rec2($id,$space+1,$key,$color);
             }
         }
+        if($flag == 0 ){
+                echo "<br>";
+        }
     
-    
+       
        
     
     }
-    rec2(0,-1,$key);
+    rec2(0,0,$key,0);
 
 
 
