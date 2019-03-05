@@ -30,6 +30,7 @@ class usr_session{
         session_start();
         $this->session_id = session_id();
         $_SESSION['user'] = $this->user;
+        $_SESSION['adm']  = 1;
     }
 
 

@@ -1,125 +1,60 @@
-<?php
+<?php 
 session_start();
-if(!isset($_SESSION['user']) ) {
-   echo 'Set and not empty, and no undefined index error!';
-   header('Location: log_in.php');
-}
-?>
-
-<!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
-
-<link rel="stylesheet" type="text/css" href="../css/mainStyle.css">
-<link rel="stylesheet" type="text/css" href="../css/login.css">
-
-
-
-<script type="text/javascript" src="http://livejs.com/live.js"></script>
-<script src="../js/jquery-3.3.1.js"></script>
-<script src="../js/script.js"></script>
-
-
-
-
-</head>
-<body >
-<header>
-<div class="main_box">      
-        <div class="logo">PREDs
-
-        </div>
-        
-
-
-        
-        <ul class="row">
-
-                <li class="row_child"><a href="main.html">Post</a></li>
-                <li class="row_child"><a href="main.html">Search</a></li>
-                <?php
-                    if(isset($_SESSION['user']) ) {
-                ?>        
-                        <li class="row_child"><a href="logout.php">Log out</a></li>
-                <?php
-                     }else{
-                ?>
-                        <li class="row_child"><a href="main.html">Log in</a></li>
-                <?php        
-                     }
-                ?>
-        </ul>
-        <div class="nav_button_ct"> 
-        <div class="nav_button"> <img src="img/icons8-menu.svg" alt="icon">
-        </div>
-        </div>
-
-</div>    
-</header>
-<div class="dash_cn">
-
-
-
-<div class="dash_post_cn">
-    <?php
-
+require_once "templates/head.php";
+require_once "templates/navigation.php";
 
 require_once 'library/profile.php';
 
+?>
+<div class="dash_cn">
+<div class="dash_post_cn">
+
+<?php
+if($_GET['user'] == $_SESSION['user'] OR !$_GET['user']){
+    $username = $_SESSION['user'];
+}else{
+    $username = $_GET['user'];
+}
+
 $pdo = new database();
-$posts = new us_posts($pdo->retPdo());
-
-$posts->setPosts($_SESSION['user']);
-//echo $posts->posts;
-print_r($posts->posts);
-foreach ($posts->posts as $value_ID){
-
-
-    echo  '<div class="dash_post">
+$profile = new profile($pdo->retPdo());
+$profile->setPosts($username);
+//print_r($posts->posts);
+foreach ($profile->posts as $value_ID){
+echo  '<div class="dash_post">
     <div class="content">
-        <div class="dash_post_title">'.$posts->getTitles($value_ID) .'</div>
+        <div class="dash_post_title">'.$profile->getTitles($value_ID) .'</div>
         
         <div class="dash_post_score">
-            <div class="green_score">'.$posts->getLikes($value_ID).'</div>
+            <div class="green_score">'.$profile->getLikes($value_ID).'</div>
             <div class="score_bar">
                     <div class="green_bar"></div>
                     <div class="red_bar"></div>
             </div>
-            <div class="red_score">'.$posts->getDislikes($value_ID).'</div>
-            <div class="comments_score"><a href="comments.php?id='.$value_ID.'" >COMMENTS '.$posts->getComments($value_ID).'</a></div>
+            <div class="red_score">'.$profile->getDislikes($value_ID).'</div>
+            <div class="comments_score"><a href="comments.php?id='.$value_ID.'" >COMMENTS '.$profile->getComments($value_ID).'</a></div>
         </div>
-    </div>
+    </div>';
+    if(isset($_SESSION['user']) AND $_SESSION['adm'] == 1 AND $_GET['user'] == $_SESSION['user'] ){
+    echo '
     <div class="settings">
         <div class="edit"><a href="edit_post.php?id='.$value_ID.'">Edit</a></div>
-        <div class="visit">Visit</div>
-
-    </div>
-
-</div>';
-
-
+        <div class="visit"><a href="delete.php?id='.$value_ID.'">Delete</a></div>
+    </div>';
+    
+    }
+    echo '</div>';
 }
-
-
-
 ?>
-
-
-
-        <div class="dash_post">
-
+<a href="edit_post.php"><div class="dash_post">
                 <div class="add_post_plus">&#10010;</div>
-            </div>
-
-    </div>
+        </div></a>
+        
+        </div>
     
 
 
     <?php
-
-    $stats = new score($pdo->retPdo());
-    $stats->setScores($_SESSION['user']);
 
         echo '<div class="dash_stats">
         <div class="user_profile">
@@ -128,8 +63,8 @@ foreach ($posts->posts as $value_ID){
 
             </div>
             <div class="username_cont">
-                <div class="username">'.$stats->retUsername().'</div>
-                <div class="other_inf">joined '.$stats->retUserjoindate().'</div>
+                <div class="username">'.$profile->retUsername().'</div>
+                <div class="other_inf">joined '.$profile->get_join_date().'</div>
 
             </div>            
         </div>
@@ -137,25 +72,17 @@ foreach ($posts->posts as $value_ID){
         <div class="user_stats">
             <div class="total_user_post">
                 <div class="exp">Total posts</div>
-                <div class="val">'.$stats->retTotalposts().'</div>
+                <div class="val">'.$profile->get_total_posts().'</div>
             </div>
             <div class="total_user_comment">
                 <div class="exp">Total comments received</div>
-                <div class="val">'.$stats->retTotalcomments().'</div>
+                <div class="val">'.$profile->get_total_comments().'</div>
             </div>
             <div class="total_user_like">
                 <div class="exp">Total likes received</div>
-                <div class="val">'.$stats->retTotallikes().'</div>
+                <div class="val">'.$profile->get_total_likes().'</div>
             </div>
-    
-            <div class="total_public_comment">
-                    <div class="exp">Total comments given</div>
-                    <div class="val">131</div>    
-            </div>
-            <div class="total_public_like">
-                    <div class="exp">Total likes given</div>
-                    <div class="val">142</div>
-            </div>
+
 
         </div>
 

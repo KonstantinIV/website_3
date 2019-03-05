@@ -1,56 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
+<?php 
+require_once "utilities/check_session.php";
+require_once "templates/head.php";
+require_once "templates/navigation.php";
 
- 
-<link rel="stylesheet" type="text/css" href="../css/comments.css">
+require_once 'library/profile.php';
 
-
-
-<script type="text/javascript" src="http://livejs.com/live.js"></script>
-<script src="../js/jquery-3.3.1.js"></script>
-<script src="../js/script.js"></script>
+//require_once "categories.php";
 
 
+?>
 
-</head>
+
 <body >
-
-    
-<header>
-<div class="main_box">      
-        <div class="logo">PRED
-
-        </div>
-        
-
-
-        
-        <ul class="row">        
-                <li class="row_child"><a href="main.html">Post</a></li>
-                <li class="row_child"><a href="main.html">Search</a></li>
-                <li class="row_child"><a href="user.html">Log in</a></li>
-        </ul>
-        <div class="nav_button_ct"> 
-        <div class="nav_button"> <img src="img/icons8-menu.svg" alt="icon">
-        </div>
-        </div>
-
-</div>    
-</header>
-
-
-  
-
 <div class="main_cont">
                 <div class="pop_post_cont">
                                 <div class="post_cont">
-                                                <div class="post_header">Title</div> 
-                                                <div class="post_user">Username</div> 
+
+<?php 
+$pdo     = new database();
+$profile = new profile($pdo->retPdo());
+$id      = $_GET['id'];
+
+
+                                               echo ' <div class="post_header">'.$profile->getTitle($id).'</div> 
+                                                <div class="post_user">'.$_SESSION['user'].'</div> 
                                                 <div class="column_2">
                                                         <div class="text_cont">
-                                                                <p class="post_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                                                <p class="post_text">'.$profile->getText($id).'</p>
                                                                 
                         
                                                         </div>
@@ -67,9 +43,9 @@
                                                 <div class="post_buttons">
                                                         <div class="like_button">LI</div>
                                                         <div class="di_li_cont">
-                                                                <div class="likes">44</div>
+                                                                <div class="likes">'.$profile->getLikes($id).'</div>
                                                                 <div class="">&#9679</div>
-                                                                <div class="dislikes">22</div>
+                                                                <div class="dislikes">'.$profile->getDislikes($id).'</div>
                                                         </div>        
                                                         <div class="dislike_button">DI</div>
                                                         <div class="comment_button">COMMENTS &#10095;</div>
@@ -77,29 +53,10 @@
                                 </div>
                         </div>
 
-        <div class="right_cont">
-                
-                <div class="smaller_cont">
-                <h3 class="cat_head">Categories</h3>
-                        <ul class="list_category">
-                                <li><a class="" href="" >Books</a></li>
-                                <li><a class="" href="" >TV show</a></li>
-                                <li><a class="" href="" >Anime/Manga</a></li>
-                                <li><a class="" href="" >Movies</a></li>
-                                <li><a class="" href="" >Events</a></li>
-                                <li><a class="" href="" >Gaming</a></li>
-                                <li><a class="" href="" >Sport</a></li>
-                        </ul>
 
-                </div>
-               
-
-        </div>
-
-
-
-</div>
-
+</div>';
+?>
+<?php require_once "templates/categories.php";?>
 
 
 
@@ -108,14 +65,11 @@
 <div class="comment_section">
 <?php
 
-require_once 'library/profile.php';
+
 session_start();
-$_SESSION['user'] = "sfdds";
-$pdo = new database();
-$posts = new us_posts($pdo->retPdo());
-$posts->setPosts($_SESSION['user']);
-print_r($posts->getCommentid(2));
-$key = $posts->getCommentid(2);
+$profile->setPosts($_SESSION['user']);
+print_r($profile->getCommentid($id));
+$key = $profile->getCommentid($id);
 
 
 

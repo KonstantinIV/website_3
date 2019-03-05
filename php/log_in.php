@@ -1,61 +1,10 @@
 <?php 
-session_start();
-//$_SESSION['user'] = "sfdds";
-if(isset($_SESSION['user']) ) {
-   echo 'Set and not empty, and no undefined index error!';
-   header('Location: profile.php');
-}
+require_once "utilities/check_session2.php";
+require_once "templates/head.php";
+require_once "templates/navigation.php";
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
-<link rel="stylesheet" type="text/css" href="../css/login.css">
-<script type="text/javascript" src="http://livejs.com/live.js"></script>
-<script src="../js/jquery-3.3.1.js"></script>
-<script src="../js/log_in.js"></script>
-
-
-
-
-</head>
 <body >
-
-    
-<header>
-<div class="main_box">      
-        <div class="logo">PRED
-
-        </div>
-        
-
-
-        
-        <ul class="row">        
-        <li class="row_child"><a href="main.html">Post</a></li>
-                <li class="row_child"><a href="main.html">Search</a></li>
-                <?php
-                    if(isset($_SESSION['user']) ) {
-                ?>        
-                        <li class="row_child"><a href="logout.php">Log out</a></li>
-                <?php
-                     }else{
-                ?>
-                        <li class="row_child"><a href="log_in.php">Log in</a></li>
-                <?php        
-                     }
-                ?>
-        </ul>
-        <div class="nav_button_ct"> 
-        <div class="nav_button"> <img src="img/icons8-menu.svg" alt="icon">
-        </div>
-        </div>
-
-</div>    
-</header>
-  
-
 <div class="cont">
 
     

@@ -1,88 +1,7 @@
 <?php 
 require_once 'database.php';
-class score{
-    private $total_posts;
-    private $total_likes;
-    private $total_comments;
-    private $total_dislikes;
 
-    private $user;
-    private $join_date;
-    private $pdo;
-
-    function __construct($pdo){
-        $this->pdo = $pdo;
-    }
-
-    function setScores($user){
-        $this->user                = $user;
-        $this->total_posts         = $this->get_total_posts();
-        $this->total_likes         = $this->get_total_likes();
-        $this->total_comments      = $this->get_total_comments();
-        $this->total_dislikes      = $this->get_total_dislikes();
-        $this->join_date           = $this->get_join_date();
-
-    }
-
-    function get_total_posts(){
-        $stmt = $this->pdo->prepare('SELECT count(post.ID) from post INNER JOIN user ON user.ID = post.USER_ID where username = ?');
-        $stmt->execute([$this->user]);
-        return $stmt->fetchColumn();
-    }
-
-    function get_total_likes(){
-        $stmt = $this->pdo->prepare('SELECT count(likes.POST_ID) from likes INNER JOIN post on post.ID = likes.POST_ID INNER JOIN user ON user.ID = post.USER_ID where username= ?');
-        $stmt->execute([$this->user]);
-        return $stmt->fetchColumn();
-    }
-
-    function get_total_comments(){
-        $stmt = $this->pdo->prepare('SELECT count(comment.ID) from comment INNER JOIN post on post.ID = comment.POST_ID INNER JOIN user ON user.ID = post.USER_ID where username = ?');
-        $stmt->execute([$this->user]);
-        return $stmt->fetchColumn();
-    }
-
-    function get_total_dislikes(){
-        $stmt = $this->pdo->prepare('SELECT count(dislikes.POST_ID) from dislikes INNER JOIN post on post.ID = dislikes.POST_ID INNER JOIN user ON user.ID = post.USER_ID where username = ?');
-        $stmt->execute([$this->user]);
-        return $stmt->fetchColumn();
-    }
-
-    function get_join_date(){
-        $stmt = $this->pdo->prepare('select join_date from user where username = ?');
-        $stmt->execute([$this->user]);
-        return $stmt->fetchColumn();
-    }
-
-    function retTotalposts(){
-        return $this->total_posts;
-
-    }
-    function retTotallikes(){
-        return $this->total_likes;
-
-    }
-    function retTotalcomments(){
-        return $this->total_comments;
-
-    }
-    function retTotaldislikes(){
-        return $this->total_dislikes;
-
-    }
-
-    function retUsername(){
-        return $this->user;
-    }
-
-    function retUserjoindate(){
-        return $this->join_date;
-    }
-
-}
-
-
-class us_posts{
+class profile{
     public $posts;
     private $user;
     private $pdo;
@@ -162,12 +81,7 @@ class us_posts{
     function getCommentid($id){
         $stmt = $this->pdo->prepare('SELECT comment.ID, comment.parent_id from comment INNER JOIN post ON post.ID = comment.POST_ID where post.ID = ? ');
         $stmt->execute([$id]);
-        $id_parent = array();
-        //$id_parent1 = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-        //$id_parent2 = $stmt->fetchAll(PDO::FETCH_COLUMN, 1);
-       // print_r($id_parent2);
         return $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
-        //return $id_parent;
     }
     function getCommenttext($id){
         $stmt = $this->pdo->prepare('');
@@ -178,6 +92,57 @@ class us_posts{
         $stmt = $this->pdo->prepare('');
         $stmt->execute([$id]);
         return $stmt->fetchColumn();
+    }
+    //Score
+    function get_total_posts(){
+        $stmt = $this->pdo->prepare('SELECT count(post.ID) from post INNER JOIN user ON user.ID = post.USER_ID where username = ?');
+        $stmt->execute([$this->user]);
+        return $stmt->fetchColumn();
+    }
+
+    function get_total_likes(){
+        $stmt = $this->pdo->prepare('SELECT count(likes.POST_ID) from likes INNER JOIN post on post.ID = likes.POST_ID INNER JOIN user ON user.ID = post.USER_ID where username= ?');
+        $stmt->execute([$this->user]);
+        return $stmt->fetchColumn();
+    }
+
+    function get_total_comments(){
+        $stmt = $this->pdo->prepare('SELECT count(comment.ID) from comment INNER JOIN post on post.ID = comment.POST_ID INNER JOIN user ON user.ID = post.USER_ID where username = ?');
+        $stmt->execute([$this->user]);
+        return $stmt->fetchColumn();
+    }
+
+    function get_total_dislikes(){
+        $stmt = $this->pdo->prepare('SELECT count(dislikes.POST_ID) from dislikes INNER JOIN post on post.ID = dislikes.POST_ID INNER JOIN user ON user.ID = post.USER_ID where username = ?');
+        $stmt->execute([$this->user]);
+        return $stmt->fetchColumn();
+    }
+
+    function get_join_date(){
+        $stmt = $this->pdo->prepare('select join_date from user where username = ?');
+        $stmt->execute([$this->user]);
+        return $stmt->fetchColumn();
+    }
+    //Delete
+    function delPost($id){
+        $stmt = $this->pdo->prepare('UPDATE post SET text = "remove" WHERE ID = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetchColumn();
+    }
+
+    function getPopularPosts(){
+        $stmt = $this->pdo->prepare('SELECT post.ID from post INNER JOIN user ON user.ID = post.USER_ID where username = ? ');
+        $stmt->execute([$this->user]);
+        return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+
+    }
+
+
+
+
+
+    function retUsername(){
+        return $this->user;
     }
 
 
