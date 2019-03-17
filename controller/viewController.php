@@ -24,10 +24,26 @@ class viewController{
             case "index":
                 ob_start();
                     require "view/index/posts.php"   ;
-                    require "view/index/category.php";
                 $content = ob_get_clean();
+                ob_start();
+                     require "view/index/postContainer.php";
+                     require "view/index/category.php";
+                $content = ob_get_clean();
+
+                    
+                
+                    
                     require "view/index/container.php";
+                    //require "view/index/pageNumbers.php";
                 break;
+            case "indexUtil":
+            ob_start();
+                    require "view/index/posts.php";
+                    $content = ob_get_clean();
+            echo $content;    
+            //echo "asdsadasd";    
+                break;
+
             case "login":
                 ob_start();
                     require "view/login/login.php"   ;

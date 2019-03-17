@@ -1,6 +1,7 @@
 
-<div class="pop_post_cont">
-<?php foreach($this->data as $arr){?>
+
+<?php foreach($this->data['postData'] as $arr){ echo $arr['ID'];?>
+
     <div class="post_cont">
                     <div class="post_header"><?php echo $arr['title'];  ?></div> 
                     <div class="post_user"><?php echo $arr['username'];  ?></div> 
@@ -32,7 +33,7 @@
                     </div>
     </div>
 <?php }  ?>
-</div>
+
 
 
 

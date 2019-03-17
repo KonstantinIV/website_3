@@ -105,7 +105,7 @@ $(document).on('click', '#log', function(){
               method: "POST",
               data:{user: username ,pass: password,email : email, join_date : join_date, birthday:birthday},
               success: function(data){
-                console.log(data);
+               
                 //window.location.replace("user.php");
                 window.location.href = '/php/profile.php';
                   //window.location.assign('user.php');
@@ -117,3 +117,52 @@ $(document).on('click', '#log', function(){
       
       
       });
+
+      var last_grabbed = 10;
+      $(window).scroll(function() {
+        
+        if ($(window).scrollTop() + $(window).height() > $('#mn_cont').height()-1){
+           // alert("bottom!");
+           var url = window.location.href.split('/');
+           console.log(url);
+            $.ajax({
+              url: "nextPagePlease",
+              method: "POST",
+              data:{grab : last_grabbed, cat : url[3]},
+              success: function(data){
+
+                $('.pop_post_cont').append(data);
+                console.log("hg");
+                last_grabbed = last_grabbed + 10;
+              }
+            });
+        }
+     });
+      /*
+      $('#flux').on('scroll', function() {
+        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+            alert('end reached');
+        }
+
+
+
+
+
+
+$.ajax({
+              url: "nextPagePlease",
+              method: "POST",
+              data:{grab : last_grabbed},
+              success: function(data){
+
+                $('.main_cont').append(data);
+                console.log(data);
+                last_grabbed += 10;
+              }
+            });
+
+
+
+
+
+    })*/

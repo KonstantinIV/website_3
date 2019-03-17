@@ -6,16 +6,61 @@ class postModel extends modelController{
        parent::__construct();
     }
 
-     //index page test
-     function getPopularPosts(){
-        $stmt = $this->pdo->prepare('SELECT post.title, user.username, post.text from post INNER JOIN user ON user.ID = post.USER_ID ');
+
+
+    //index first 10 pages
+    function getPopularPosts(){
+        $stmt = $this->pdo->prepare('SELECT post.ID, post.title, user.username, post.text from post INNER JOIN user ON user.ID = post.USER_ID  limit 10');
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
-    //Edit
+     //iNDEX next 10 pages
+     function getPopularPostsSerial(){
+        $stmt = $this->pdo->prepare('SELECT post.ID, post.title, user.username, post.text from post INNER JOIN user ON user.ID = post.USER_ID LIMIT :nextCount , 10');
+        $stmt->bindParam(':nextCount', $this->data['nextCount'], PDO::PARAM_INT);
+        $stmt->execute();
+       
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    }
+
+    
+     //Index page by category
+     function getPopularPostsCategory(){
+        $stmt = $this->pdo->prepare('select  post.ID, post.title, user.username, post.text from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID where category.category = ? limit 10');
+        $stmt->execute([$this->data['categoryName']]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+     //Index page by category
+     function getPopularPostsCategoryNext(){
+        $stmt = $this->pdo->prepare('select  post.ID, post.title, user.username, post.text from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID where category.category = :cat LIMIT :nextCount , 10');
+        
+        print_r($this->data);
+        $stmt->bindParam(':nextCount', $this->data['nextCount'], PDO::PARAM_INT);
+        $stmt->bindParam(':cat', $this->data['categoryName'], PDO::PARAM_STR);
+        
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+
+
+
+
+
+
+
+     
+
+
+
+
+    //Edit
     function getPost(){
         $stmt = $this->pdo->prepare('SELECT post.title, post.text from post INNER JOIN user ON user.ID = post.USER_ID where username = ? AND post.ID = ?');
         $stmt->execute([$this->data['username'],$this->data['postID']]);

@@ -29,11 +29,17 @@ class routerController{
             $this->param = $urlArr[1];
         }else if($this->controller == "login"){
             $this->controller = "loginController";
+        }else if($this->controller == "logout"){
+            $this->controller = "logOutController";
         }else if($this->controller == "loginU" ){
             $this->controller = "loginUtility";
+        }else if($this->controller == "nextPagePlease" ){
+            $this->controller = "indexPageUtility";
         }else if($this->controller == "login" && $this->method == "register" ){
             loginController::register();
         }else if(!preg_match('/^[a-z]+/', $this->controller) || $this->controller == "" ||  !file_exists('controller/'.$this->controller.'Controller.php') || $this->controller == "index"){
+            
+            $this->param = $this->controller;
             $this->controller = "indexController";
         }
         

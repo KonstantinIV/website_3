@@ -1,4 +1,4 @@
-<div class="main_cont">
+<div id="mn_cont" class="main_cont" >
       
        <?php echo $content;?>
 </div>

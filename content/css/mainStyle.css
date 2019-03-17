@@ -1,6 +1,8 @@
 body {
   background-color: #523b71;
-  margin: 0; }
+  margin: 0; 
+  height: 100%;
+}
 
 /* 
   ##Device = Desktops

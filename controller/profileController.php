@@ -16,7 +16,6 @@ class profileController extends mainController{
 
 
         $this->view->data['posts']     = $this->model->getUserPosts();
-
         $this->view->data['postCount'] = $this->model->postCount();
         $this->view->data['likeCount'] = $this->model->likeCount();
         $this->view->data['commentCount'] = $this->model->commentCount();

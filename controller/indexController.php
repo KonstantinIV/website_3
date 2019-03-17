@@ -9,10 +9,29 @@ class indexController extends mainController{
     }
 
     function indexMetaContent(){
-        $this->view->name      = "Main" ;
-        $this->view->logged_in =  isset($_SESSION['user']) ? true : false; ;
+        
+        $this->view->logged_in =  isset($_SESSION['user']) ? true : false; 
+        $this->model->data['categoryName']     = $this->param;
         $this->view->body      = "index";
-        $this->view->data      = $this->model->getPopularPosts();
+       if($this->model->data['categoryName'] != ""){
+            $this->view->name      =  $this->model->data['categoryName'];
+            $this->view->data['postData'] = $this->model->getPopularPostsCategory();
+
+        }else{
+            $this->view->name      = "Main" ;
+            $this->view->data['postData'] = $this->model->getPopularPosts();
+        }
+        
+
+
+
+      
+        //$cache                            =  ($this->model->getPostCount()) / 20;
+        //$this->view->data['pageData']['pageCount'] = ($cache < 10) ?  $cache : 10;
+
+
+
+
         $this->view->render()           ;
     }
 
