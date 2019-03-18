@@ -107,7 +107,7 @@ $(document).on('click', '#log', function(){
               success: function(data){
                
                 //window.location.replace("user.php");
-                window.location.href = '/php/profile.php';
+                window.location.href = 'profile';
                   //window.location.assign('user.php');
               }
           });
@@ -117,6 +117,42 @@ $(document).on('click', '#log', function(){
       
       
       });
+
+
+
+
+
+
+
+      $(document).on('click', '#editPost', function(){
+  
+        //Check if empty
+        var postTitle  = $('#title').val();
+        var postYear  = $('#year').val();
+        var postMonth     = $('#month').val();
+        var postDay = $('#day').val();
+        var postText  = $('#text').val();
+        //console.log("Wrong input");
+        var url = window.location.href.split('/');
+        console.log(url);
+            $.ajax({
+                url: "../editUtil",
+                method: "POST",
+                data:{title: postTitle , year: postYear ,month : postMonth, day : postDay, text:postText, postID : url[4]},
+                success: function(data){
+                  console.log("hg");
+                  console.log(data);
+                  //window.location.replace("user.php");
+                  window.location.href = '../profile';
+                    //window.location.assign('user.php');
+                }
+            });
+        
+        
+        
+        
+        
+        });
 
       var last_grabbed = 10;
       $(window).scroll(function() {

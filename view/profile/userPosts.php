@@ -11,7 +11,7 @@
                         <div class="red_bar"></div>
                 </div>
                 <div class="red_score"><?php echo $arr['dislikes'];  ?></div>
-                <div class="comments_score"><a href="comment/<?php echo $arr['postID'];  ?>" >22</a></div>
+                <div class="comments_score"><a href="comment/<?php echo $arr['postID'];  ?>" ><?php echo $arr['comments'];  ?></a></div>
             </div>
     </div>
     <div class="settings">
@@ -25,7 +25,7 @@
     
  
 
-<a href="edit_post.php">
+<a href="edit">
     <div class="dash_post">
         <div class="add_post_plus">&#10010;</div>
     </div>

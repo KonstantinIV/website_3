@@ -1,6 +1,10 @@
 <?php
 class editController extends mainController{
     private $postID;
+    private $defaultEdit = array(
+        "title" => "",
+        "text" => "",
+    ); 
     
     function __construct($param){
         parent::__construct("postModel",$param);
@@ -17,7 +21,9 @@ class editController extends mainController{
         $this->model->data['username']     = $_SESSION['user'];
 
 
-        $this->view->data      = $this->model->getPost()[0];
+        $this->view->data      = ( $this->model->data['postID'] == "") ? $this->defaultEdit : $this->model->getPost()[0];
+        $this->view->data['releaseDate'] = $this->model->splitDate($this->view->data['releaseDate']);
+        print_r($this->view->data['releaseDate']);
         $this->view->render()           ;
     }
 

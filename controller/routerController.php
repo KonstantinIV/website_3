@@ -19,11 +19,13 @@ class routerController{
 
          if($this->controller == "profile"){
             $this->controller = "profileController";
+        }else if($this->controller == "editUtil"){
+            $this->controller = "editUtility";
         }else if($this->controller == "edit"){
 
             //$this->controller = "editController(".$this->method.")";
             $this->controller = "editController";
-            $this->param = $urlArr[1];
+            $this->param = ( isset($urlArr[1])) ? $urlArr[1] : "";
         }else if($this->controller == "comment"){
             $this->controller = "commentController";
             $this->param = $urlArr[1];

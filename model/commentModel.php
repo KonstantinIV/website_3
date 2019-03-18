@@ -11,9 +11,9 @@ class commentModel extends modelController{
     //posts : username title text likes dislikes 
     function getSinglePost(){
         $stmt = $this->pdo->prepare('SELECT user.username, post.title, post.text, LIKETABLE.likes, DISLIKETABLE.dislikes from post INNER JOIN
-        (select post.ID AS POSTID, count(likes.POST_ID) AS likes from post INNER JOIN user ON user.ID = post.USER_ID INNER JOIN likes ON
+        (select post.ID AS POSTID, count(likes.POST_ID) AS likes from post INNER JOIN user ON user.ID = post.USER_ID left JOIN likes ON
         post.ID =likes.POST_ID  group by post.ID) AS LIKETABLE ON post.id = LIKETABLE.POSTID
-        INNER JOIN (select post.ID AS POSTID, count(dislikes.POST_ID) AS dislikes from post INNER JOIN user ON user.ID = post.USER_ID INNER JOIN dislikes ON
+        INNER JOIN (select post.ID AS POSTID, count(dislikes.POST_ID) AS dislikes from post INNER JOIN user ON user.ID = post.USER_ID left JOIN dislikes ON
         post.ID =dislikes.POST_ID  group by post.ID) AS DISLIKETABLE ON post.id = DISLIKETABLE.POSTID 
         INNER JOIN user ON user.ID = post.USER_ID where post.ID = ?');
         $stmt->execute([$this->data['postID']]);

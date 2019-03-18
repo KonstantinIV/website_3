@@ -15,6 +15,7 @@ require_once "utility/mainLoginUtility.php";
 require_once "utility/loginUtility.php";
 require_once "utility/registerUtility.php";
 require_once "utility/indexPageUtility.php";
+require_once "utility/editUtility.php";
 
 require_once "model/postModel.php";
 require_once "model/sessionModel.php";
