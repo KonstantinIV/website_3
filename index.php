@@ -9,13 +9,15 @@ require_once "controller/profileController.php";
 require_once "controller/editController.php";
 require_once "controller/commentController.php";
 require_once "controller/logOutController.php";
-
+require_once "controller/deleteController.php";
 
 require_once "utility/mainLoginUtility.php";
 require_once "utility/loginUtility.php";
 require_once "utility/registerUtility.php";
 require_once "utility/indexPageUtility.php";
 require_once "utility/editUtility.php";
+require_once "utility/likeUtility.php";
+require_once "utility/dislikeUtility.php";
 
 require_once "model/postModel.php";
 require_once "model/sessionModel.php";

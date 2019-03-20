@@ -202,3 +202,62 @@ $.ajax({
 
 
     })*/
+
+
+
+    $(document).on('click', '#likeButton', function(){
+  
+      //Check if empty
+      var postID  = $(this).closest("div[data-id]").attr('data-id');
+      console.log(postID);
+      //console.log("Wrong input");
+     var url = window.location.href.split('/');
+      console.log(url);
+          $.ajax({
+              url: "like",
+              method: "POST",
+              data:{ postID : postID},
+              success: function(data){
+                console.log("hg");
+                console.log(data);
+                //window.location.replace("user.php");
+                //window.location.href = '../profile';
+                  //window.location.assign('user.php');
+              }
+          });
+      
+      
+      
+      
+      
+      });
+
+
+      
+
+    $(document).on('click', '#dislikeButton', function(){
+  
+      //Check if empty
+      var postID  = $(this).closest("div[data-id]").attr('data-id');
+      console.log(postID);
+      //console.log("Wrong input");
+     var url = window.location.href.split('/');
+      console.log(url);
+          $.ajax({
+              url: "dislike",
+              method: "POST",
+              data:{ postID : postID},
+              success: function(data){
+                console.log("hg");
+                console.log(data);
+                //window.location.replace("user.php");
+                //window.location.href = '../profile';
+                  //window.location.assign('user.php');
+              }
+          });
+      
+      
+      
+      
+      
+      });

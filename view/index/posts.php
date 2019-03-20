@@ -2,7 +2,7 @@
 
 <?php foreach($this->data['postData'] as $arr){ echo $arr['ID'];?>
 
-    <div class="post_cont">
+    <div class="post_cont" data-id = "<?php echo $arr['ID'];  ?>">
                     <div class="post_header"><?php echo $arr['title'];  ?></div> 
                     <div class="post_user"><?php echo $arr['username'];  ?></div> 
                     <div class="column_2">
@@ -22,14 +22,14 @@
 
                     </div>
                     <div class="post_buttons">
-                            <div class="like_button">LI</div>
+                            <div class="like_button" id="likeButton">LI</div>
                             <div class="di_li_cont">
                                     <div class="likes">44</div>
                                     <div class="">&#9679</div>
                                     <div class="dislikes">22</div>
                             </div>        
-                            <div class="dislike_button">DI</div>
-                            <div class="comment_button">COMMENTS &#10095;</div>
+                            <div class="dislike_button" id="dislikeButton">DI</div>
+                            <a href="comment/<?php echo $arr['ID'];  ?>" ><div class="comment_button">COMMENTS &#10095;</div></a>
                     </div>
     </div>
 <?php }  ?>

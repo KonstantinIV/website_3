@@ -2,8 +2,8 @@
 <div class="main_box">      
         <div class="logo">PRED</div>
         <ul class="row">        
-        <li class="row_child"><a href="main.html">Post</a></li>
-                <li class="row_child"><a href="main.html">Search</a></li>
+        <li class="row_child"><a href="../">Main</a></li>
+                <li class="row_child"><a href="profile">Profile</a></li>
                 <?php
                     if($this->logged_in) {
                 ?>        

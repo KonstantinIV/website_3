@@ -16,7 +16,7 @@
     </div>
     <div class="settings">
         <div class="edit"><a href="edit/<?php echo $arr['postID'];  ?>">Edit</a></div>
-        <div class="visit"><a href="delete">Delete</a></div>
+        <div class="visit"><a href="delete/<?php echo $arr['postID'];  ?>">Delete</a></div>
     </div>
 
 </div>

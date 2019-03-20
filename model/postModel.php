@@ -87,6 +87,38 @@ class postModel extends modelController{
 
 
 
+    function likePost(){
+        $stmt = $this->pdo->prepare("insert into likes    (POST_ID, USER_ID) VALUES (:id,(SELECT ID from user where username = :username)) ");
+        $stmt->bindParam(':username', $this->data['username'], PDO::PARAM_STR);
+        $stmt->bindParam(':id', $this->data['id'], PDO::PARAM_INT);
+        print_r($this->data);
+
+        $stmt->execute();
+        //return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    function dislikePost(){
+        $stmt = $this->pdo->prepare("insert into dislikes   (POST_ID, USER_ID) VALUES (:id,(SELECT ID from user where username = :username)) ");
+        $stmt->bindParam(':username', $this->data['username'], PDO::PARAM_STR);
+        $stmt->bindParam(':id', $this->data['id'], PDO::PARAM_INT);
+        print_r($this->data);
+
+        $stmt->execute();
+        //return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    function deletePost(){
+        $stmt = $this->pdo->prepare('UPDATE post inner join user on user.ID = post.USER_ID SET post.text = "REMOVED BY USER" WHERE post.ID = :id and user.username = :username ');
+        $stmt->bindParam(':username', $this->data['username'], PDO::PARAM_STR);
+        $stmt->bindParam(':id', $this->data['id'], PDO::PARAM_INT);
+        print_r($this->data);
+
+        $stmt->execute();
+        //return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
 
 
 
