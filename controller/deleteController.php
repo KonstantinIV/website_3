@@ -1,4 +1,5 @@
 <?php
+namespace src\controller;
 class deleteController extends mainController{
   
     

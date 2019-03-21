@@ -1,4 +1,6 @@
 <?php
+namespace src\controller;
+use src\model;
 class mainController{
 
     protected $view;
@@ -10,10 +12,12 @@ class mainController{
         $this->param  = $param;
         $this->view  = new viewController();
         if($modelName != ""){
+            $modelName = '\\src\\model\\'.$modelName;
+            
             $this->model = new $modelName;
-
+            //$this->model = new model\postModel();
         }
-        $this->sessionModel = new sessionModel();
+        $this->sessionModel = new model\sessionModel();
         
     }
 

@@ -1,4 +1,5 @@
 <?php 
+namespace src\model;
 class loginModel extends modelController{
 
     public $errorCode;

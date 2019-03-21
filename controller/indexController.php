@@ -1,4 +1,8 @@
 <?php
+
+namespace src\controller;
+
+
 class indexController extends mainController{
     
     function __construct($param){

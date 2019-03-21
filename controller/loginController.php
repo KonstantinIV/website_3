@@ -1,4 +1,5 @@
 <?php 
+namespace src\controller;
 class loginController extends mainController{
 
 
@@ -18,7 +19,7 @@ class loginController extends mainController{
 
 
     static function login(){
-        $model = new userModel();
+        $model = new model\userModel();
         
 
     }

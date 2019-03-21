@@ -1,4 +1,5 @@
 <?php
+namespace src\controller;
 class profileController extends mainController{
     
     function __construct($param){

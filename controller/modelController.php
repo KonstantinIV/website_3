@@ -1,4 +1,6 @@
 <?php 
+namespace \src\controller;
+//use src\controller;
 require_once "conf/conf.php";
 class modelController{
     
@@ -7,7 +9,7 @@ class modelController{
     protected $pdo;
     
    function __construct(){    
-        $this->pdo = new PDO($this->dsn, DBUSER, DBPWD);
+        $this->pdo = new \PDO($this->dsn, DBUSER, DBPWD);
         
     }
 

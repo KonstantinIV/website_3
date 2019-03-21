@@ -1,4 +1,5 @@
 <?php 
+namespace src\model;
 class profileModel extends modelController{
 
     

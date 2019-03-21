@@ -1,4 +1,5 @@
 <?php
+namespace src\controller;
 class editController extends mainController{
     private $postID;
     private $defaultEdit = array(

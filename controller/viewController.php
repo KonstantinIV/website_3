@@ -1,4 +1,5 @@
 <?php
+namespace src\controller;
 class viewController{
     public $name     ;
     public $logged_in;

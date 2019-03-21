@@ -1,4 +1,6 @@
 <?php
+namespace src\controller;
+
 class commentController extends mainController{
     private $postID;
     

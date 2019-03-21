@@ -1,4 +1,6 @@
 <?php 
+namespace src\controller;
+
 class routerController{
     private $url;
     private $controller;

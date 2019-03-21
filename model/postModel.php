@@ -1,4 +1,5 @@
 <?php 
+namespace src\model;
 class postModel extends modelController{
     public $data;
 
@@ -12,7 +13,7 @@ class postModel extends modelController{
     function getPopularPosts(){
         $stmt = $this->pdo->prepare('SELECT post.ID, post.title, user.username, post.text from post INNER JOIN user ON user.ID = post.USER_ID  limit 10');
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
 
