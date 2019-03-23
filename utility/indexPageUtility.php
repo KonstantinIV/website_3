@@ -7,18 +7,18 @@ class indexPageUtility {
     function __construct($data){
        
        $this->model = new postModel();
-       $this->model->data['categoryName'] = $_POST['cat'];
-       $this->model->data['nextCount'] = (int)$_POST['grab'];
+       $this->model->inputData['categoryName'] = $_POST['cat'];
+       $this->model->inputData['nextCount'] = (int)$_POST['grab'];
        //echo gettype($this->model->data['nextCount']), "\n";
        $this->view = new viewController;
-       $this->view->body   = "indexUtil";
-        if($this->model->data['categoryName'] != ""){
-            $this->view->name      =  $this->model->data['categoryName'];
-            $this->view->data['postData'] = $this->model->getPopularPostsCategoryNext();
+       $this->view->pageData['metaData']['body']   = "indexUtil";
+        if($this->model->inputData['categoryName'] != ""){
+            $this->view->pageData['metaData']['title']      =  $this->model->inputData['categoryName'];
+            $this->view->pageData['outputData'] = $this->model->getPopularPostsCategoryNext();
 
         }else{
-            $this->view->name      = "Main" ;
-            $this->view->data['postData'] = $this->model->getPopularPostsSerial();
+            $this->view->pageData['metaData']['title']     = "Main" ;
+            $this->view->pageData['outputData'] = $this->model->getPopularPostsSerial();
         }
 
     

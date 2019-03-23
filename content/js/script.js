@@ -162,7 +162,7 @@ $(document).on('click', '#log', function(){
            var url = window.location.href.split('/');
            console.log(url);
             $.ajax({
-              url: "nextPagePlease",
+              url: "indexPage",
               method: "POST",
               data:{grab : last_grabbed, cat : url[3]},
               success: function(data){

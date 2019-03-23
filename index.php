@@ -44,7 +44,6 @@ spl_autoload_register(function ($class) {
     $class = (string) $class;
     $sourcePath = __DIR__ . DIRECTORY_SEPARATOR;
     $replaceRootPath = str_replace('src\\', $sourcePath, $class);
-    
     $replaceDirectorySeparator = str_replace('\\', DIRECTORY_SEPARATOR, $replaceRootPath);
     $filePath = $replaceDirectorySeparator . '.php';
 
@@ -57,14 +56,16 @@ spl_autoload_register(function ($class) {
 });
 
 
-//use src\controller\routerController as routerController;
-//echo __DIR__;
 ini_set('display_errors', 1);
 error_reporting(E_ALL|E_STRICT);
- $router = new controller\routerController($_GET['url']);
 
- $router->parseUrl();
- $controllerName = (string)'\\src\\controller\\'.$router->retController();
+
+
+ $router = new controller\routerController();
+
+ 
+ 
+ $controllerName = (string)'\\src\\'.$router->retController();
  //echo $controllerName;
  $controller = new  $controllerName($router->param);
 

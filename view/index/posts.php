@@ -1,6 +1,6 @@
 
 
-<?php foreach($this->data['postData'] as $arr){ echo $arr['ID'];?>
+<?php foreach($this->pageData['outputData'] as $arr){ echo $arr['ID'];?>
 
     <div class="post_cont" data-id = "<?php echo $arr['ID'];  ?>">
                     <div class="post_header"><?php echo $arr['title'];  ?></div> 

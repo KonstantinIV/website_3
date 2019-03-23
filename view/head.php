@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
 
-  <title><?php echo $this->name;?></title>
-  <meta name="description" content=<?php echo $this->name;?>>
+  <title><?php echo $this->pageData['metaData']['title'];?></title>
+  <meta name="description" content=<?php echo $this->pageData['metaData']['title'];?>>
   <meta name="author" content="Konstantin">
 
 <link rel="stylesheet" type="text/css" href="/content/css/mainStyle.css">

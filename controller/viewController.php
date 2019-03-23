@@ -1,10 +1,7 @@
 <?php
 namespace src\controller;
-class viewController{
-    public $name     ;
-    public $logged_in;
-    public $body     ;
-    public $data     ;
+class viewController extends mainController{
+    public $pageData;
 
 
     function __construct(){
@@ -20,8 +17,13 @@ class viewController{
         require "view/header.php";
 
     }
+
+
+
+
     function conBody(){
-        switch ($this->body){
+        //echo $this->pageData['body'];
+        switch ($this->pageData['metaData']['body']){
             case "index":
                 ob_start();
                     require "view/index/posts.php"   ;
@@ -74,7 +76,7 @@ class viewController{
     }
     function conFooter(){
         require "view/footer.php";
-        print_r($this->data);
+        //print_r($this->data);
     }
     
 

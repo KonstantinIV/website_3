@@ -1,7 +1,7 @@
 <?php 
 namespace src\model;
 class postModel extends modelController{
-    public $data;
+    public $inputData;
 
     function __construct(){
        parent::__construct();
@@ -23,7 +23,7 @@ class postModel extends modelController{
         $stmt->bindParam(':nextCount', $this->data['nextCount'], PDO::PARAM_INT);
         $stmt->execute();
        
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
 
@@ -31,8 +31,8 @@ class postModel extends modelController{
      //Index page by category
      function getPopularPostsCategory(){
         $stmt = $this->pdo->prepare('select  post.ID, post.title, user.username, post.text from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID where category.category = ? limit 10');
-        $stmt->execute([$this->data['categoryName']]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute([$this->inputData['categoryName']]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
 

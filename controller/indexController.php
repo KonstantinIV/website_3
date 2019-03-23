@@ -4,26 +4,31 @@ namespace src\controller;
 
 
 class indexController extends mainController{
+
     
-    function __construct($param){
-        parent::__construct("postModel",$param);
+
+    
+    function __construct($input){
+        parent::__construct("postModel");
+        $this->setPageDataVariables("Main", "index" , $input  );
+        $this->setModelInputData();
+        $this->indexGetContent(); 
+        $this->renderView();
         
-        $this->indexMetaContent();
+        print_r($this->pageData);
+       
         
     }
 
-    function indexMetaContent(){
-        
-        $this->view->logged_in =  isset($_SESSION['user']) ? true : false; 
-        $this->model->data['categoryName']     = $this->param;
-        $this->view->body      = "index";
-       if($this->model->data['categoryName'] != ""){
-            $this->view->name      =  $this->model->data['categoryName'];
-            $this->view->data['postData'] = $this->model->getPopularPostsCategory();
+
+    function indexGetContent(){
+       if($this->pageData['inputData'] != ""){
+            $this->pageData['metaData']['title']      =  $this->pageData['inputData'];
+            $this->pageData['outputData'] = $this->model->getPopularPostsCategory();
 
         }else{
-            $this->view->name      = "Main" ;
-            $this->view->data['postData'] = $this->model->getPopularPosts();
+            
+            $this->pageData['outputData'] = $this->model->getPopularPosts();
         }
         
 
@@ -36,7 +41,6 @@ class indexController extends mainController{
 
 
 
-        $this->view->render()           ;
     }
 
     function indexBody(){

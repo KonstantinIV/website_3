@@ -5,7 +5,7 @@
         <li class="row_child"><a href="../">Main</a></li>
                 <li class="row_child"><a href="profile">Profile</a></li>
                 <?php
-                    if($this->logged_in) {
+                    if($this->pageData['metaData']['loggedIn']) {
                 ?>        
                         <li class="row_child"><a href="logout">Log out</a></li>
                 <?php

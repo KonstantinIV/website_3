@@ -3,62 +3,59 @@ namespace src\controller;
 
 class routerController{
     private $url;
+    private $urlArr;
     private $controller;
-    private $method;
-    public $param;
+    public $param = "";
 
-   function __construct($url){
-        $this->url = $url;
+   function __construct(){
+        $this->urlArr = $this->parseUrl();
+        $this->setControllerName();
+        $this->setParam();
+
     }
-
 
     function parseUrl(){
-        
-        $urlArr = explode("/" ,$this->url);
-        
-        $this->controller = $urlArr[0];
-        $this->param = "";
-
-         if($this->controller == "profile"){
-            $this->controller = "profileController";
-        }else if($this->controller == "editUtil"){
-            $this->controller = "editUtility";
-        }else if($this->controller == "like"){
-            $this->controller = "likeUtility";
-        }else if($this->controller == "dislike"){
-            $this->controller = "dislikeUtility";
-        }else if($this->controller == "edit"){
-
-            //$this->controller = "editController(".$this->method.")";
-            $this->controller = "editController";
-            $this->param = ( isset($urlArr[1])) ? $urlArr[1] : "";
-        }else if($this->controller == "comment"){
-            $this->controller = "commentController";
-            $this->param = $urlArr[1];
-        }else if($this->controller == "delete"){
-            $this->controller = "deleteController";
-            $this->param = $urlArr[1];
-        }else if($this->controller == "login"){
-            $this->controller = "loginController";
-        }else if($this->controller == "logout"){
-            $this->controller = "logOutController";
-        }else if($this->controller == "loginU" ){
-            $this->controller = "loginUtility";
-        }else if($this->controller == "nextPagePlease" ){
-            $this->controller = "indexPageUtility";
-        }else if($this->controller == "login" && $this->method == "register" ){
-            loginController::register();
-        }else if(!preg_match('/^[a-z]+/', $this->controller) || $this->controller == "" ||  !file_exists('controller/'.$this->controller.'Controller.php') || $this->controller == "index"){
-            
-            $this->param = $this->controller;
-            $this->controller = "indexController";
+        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+            $this->url = $_GET['url'];
         }
+        if($this->url == "" ){
+            return "index";
+        }else{
+            $urlArr = explode("/" ,$this->url);
+            foreach($urlArr as $value){
+                if(!preg_match('/^[a-z0-9]+/', $value)){
+                    return "index";
+                }
+            }
+            return $urlArr;
+        }
+    }
+
+
+    function setControllerName(){
+        $filename    = $this->urlArr[0];
+     
         
-        //$this->method = $urlArr[1];
-        //$this->params =  array_slice($urlArr, 2);
+        if(file_exists("controller/".$filename."Controller.php") || empty($this->urlArr)){
+            $this->controller = "controller\\".$filename."Controller";
+        }else if(file_exists("utility/".$filename."Utility.php")){
+            echo"ssssssssssssssss";
+            $this->controller = "utility\\".$filename."Utility";
+        }else{
+
+            $this->controller = "controller\\indexController";
+            $this->param = $this->urlArr[0];
+        }
+    }
+
+    function setParam(){
+        /*if(empty($this->param)){
+            $this->param = array_slice($this->urlArr, 1);
+        }else{
+            $this->param = "";
+        }*/
         
     }
-    
 
 
 
