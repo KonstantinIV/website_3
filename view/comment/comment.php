@@ -16,7 +16,6 @@ function rec2($id_pos,$space,$key,$color){
         $flag = 0;
         foreach($key as $id => $parent_id){
             if($parent_id['parent_id'] == $id_pos){
-
                 if($id_pos == 0 ){
                     echo "<br>";
             }
@@ -60,7 +59,7 @@ function rec2($id_pos,$space,$key,$color){
        
     
     }
-    rec2(0,0,$this->data['commentData'],0);
+    rec2(0,0,$this->pageData['outputData']['commentData'],0);
 
 
 

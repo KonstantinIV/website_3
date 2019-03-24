@@ -41,11 +41,11 @@ class postModel extends modelController{
         $stmt = $this->pdo->prepare('select  post.ID, post.title, user.username, post.text from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID where category.category = :cat LIMIT :nextCount , 10');
         
         //print_r($this->data);
-        $stmt->bindParam(':nextCount', $this->data['nextCount'], PDO::PARAM_INT);
-        $stmt->bindParam(':cat', $this->data['categoryName'], PDO::PARAM_STR);
+        $stmt->bindParam(':nextCount', $this->inputData['nextCount'], \PDO::PARAM_INT);
+        $stmt->bindParam(':cat', $this->inputData['categoryName'], \PDO::PARAM_STR);
         
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
 

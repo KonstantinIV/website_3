@@ -2,33 +2,20 @@
 namespace src\controller;
 class profileController extends mainController{
     
-    function __construct($param){
-        parent::__construct("profileModel",$param);
+    function __construct($input){
+        parent::__construct("profileModel");
+         $this->setPageDataVariables("Profile", "profile" , $input  );
+
+         $this->pageData['inputData']['username']     = $_SESSION['user'];
+         $this->setModelInputData("username",$this->pageData['inputData']['username'] );
+        $this->pageData['outputData']['posts']     = $this->model->getUserPosts();
+        $this->pageData['outputData']['postCount'] = $this->model->postCount();
+        $this->pageData['outputData']['likeCount'] = $this->model->likeCount();
+        $this->pageData['outputData']['commentCount'] = $this->model->commentCount();
+        $this->pageData['outputData']['joinDate'] = $this->model->getUserJoinDate();
+        print_r($this->pageData);
         
-        $this->indexMetaContent();
-        
-    }
-
-    function indexMetaContent(){
-        $this->view->name      = "Profile" ;
-        $this->view->logged_in =  isset($_SESSION['user']) ? true : false; ;
-        $this->view->body      = "profile";
-        $this->model->data['username']     = $_SESSION['user'];
-
-
-        $this->view->data['posts']     = $this->model->getUserPosts();
-        $this->view->data['postCount'] = $this->model->postCount();
-        $this->view->data['likeCount'] = $this->model->likeCount();
-        $this->view->data['commentCount'] = $this->model->commentCount();
-
-        $this->view->data['joinDate'] = $this->model->getUserJoinDate();
-
-
-        $this->view->render()           ;
-    }
-
-    function indexBody(){
-        
+        $this->renderView();
         
     }
 

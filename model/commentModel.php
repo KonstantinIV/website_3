@@ -3,7 +3,7 @@ namespace src\model;
 class commentModel extends modelController{
 
     
-    public $data;
+    public $inputData;
 
     function __construct(){
        parent::__construct();
@@ -17,8 +17,8 @@ class commentModel extends modelController{
         INNER JOIN (select post.ID AS POSTID, count(dislikes.POST_ID) AS dislikes from post INNER JOIN user ON user.ID = post.USER_ID left JOIN dislikes ON
         post.ID =dislikes.POST_ID  group by post.ID) AS DISLIKETABLE ON post.id = DISLIKETABLE.POSTID 
         INNER JOIN user ON user.ID = post.USER_ID where post.ID = ?');
-        $stmt->execute([$this->data['postID']]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute([$this->inputData['postID']]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
 
@@ -27,7 +27,7 @@ class commentModel extends modelController{
     /**Comment section */
     function getCommentid(){
         $stmt = $this->pdo->prepare('SELECT comment.ID, comment.parent_id, comment.text from comment INNER JOIN post ON post.ID = comment.POST_ID where post.ID = ? ');
-        $stmt->execute([$this->data['postID']]);
+        $stmt->execute([$this->inputData['postID']]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC|\PDO::FETCH_UNIQUE);
     }
 

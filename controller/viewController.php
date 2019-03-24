@@ -32,10 +32,6 @@ class viewController extends mainController{
                      require "view/index/postContainer.php";
                      require "view/index/category.php";
                 $content = ob_get_clean();
-
-                    
-                
-                    
                     require "view/index/container.php";
                     //require "view/index/pageNumbers.php";
                 break;

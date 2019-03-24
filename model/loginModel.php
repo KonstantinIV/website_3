@@ -3,7 +3,7 @@ namespace src\model;
 class loginModel extends modelController{
 
     public $errorCode;
-    public $data;
+    public $inputData;
 
     function __construct(){
        parent::__construct();
@@ -12,10 +12,10 @@ class loginModel extends modelController{
     //Login 
     function userAuth(){
         $stmt = $this->pdo->prepare('SELECT pass  from user WHERE username=? LIMIT 1');
-        $stmt->execute([$this->data['username']]);
+        $stmt->execute([$this->inputData['username']]);
         if(!$stmt->fetchColumn()){
             $this->UserExistsErrorCode = 1;
-        }else if($stmt->fetchColumn() != $data['password']){
+        }else if($stmt->fetchColumn() != $this->inputData['password']){
             $this->UserExistsErrorCode = 2;
         }
         return true;

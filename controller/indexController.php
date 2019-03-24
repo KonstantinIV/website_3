@@ -11,7 +11,7 @@ class indexController extends mainController{
     function __construct($input){
         parent::__construct("postModel");
         $this->setPageDataVariables("Main", "index" , $input  );
-        $this->setModelInputData();
+        $this->setModelInputData("category", $this->pageData['inputData']);
         $this->indexGetContent(); 
         $this->renderView();
         

@@ -3,32 +3,14 @@ namespace src\controller;
 class loginController extends mainController{
 
 
-    function __construct($param){
-       parent::__construct("",$param);
-       $this->loginMetaData();
+    function __construct($input){
+       parent::__construct("");
+       $this->setPageDataVariables("Login", "login" , $input  );
+       $this->renderView();
     }
 
-    function loginMetaData(){
-        $this->view->name      = "Log in" ;
-        $this->view->logged_in =  false ;
-        $this->view->body      = "login";
-        $this->view->render()           ;
-    }
+  
 
-
-
-
-    static function login(){
-        $model = new model\userModel();
-        
-
-    }
-
-    function register(){
-
-    }
-
-    
 
 
 

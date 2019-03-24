@@ -15,15 +15,18 @@ class routerController{
     }
 
     function parseUrl(){
-        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+        //print_r($_GET['url']);
+        //if($_SERVER['REQUEST_METHOD'] === 'GET'){
             $this->url = $_GET['url'];
-        }
+            print_r($_GET['url']);
+        
+        //}
         if($this->url == "" ){
             return "index";
         }else{
             $urlArr = explode("/" ,$this->url);
             foreach($urlArr as $value){
-                if(!preg_match('/^[a-z0-9]+/', $value)){
+                if(!preg_match('/^[a-zA-Z0-9]+/', $value)){
                     return "index";
                 }
             }
@@ -34,17 +37,21 @@ class routerController{
 
     function setControllerName(){
         $filename    = $this->urlArr[0];
-     
-        
+       
         if(file_exists("controller/".$filename."Controller.php") || empty($this->urlArr)){
             $this->controller = "controller\\".$filename."Controller";
+            $this->param = $this->urlArr[1];
         }else if(file_exists("utility/".$filename."Utility.php")){
             echo"ssssssssssssssss";
             $this->controller = "utility\\".$filename."Utility";
+           
+        }else if($filename == "cat"){
+            $this->controller = "controller\\indexController";
+            $this->param = $this->urlArr[1];
         }else{
 
             $this->controller = "controller\\indexController";
-            $this->param = $this->urlArr[0];
+            //$this->param = $this->urlArr[0];
         }
     }
 

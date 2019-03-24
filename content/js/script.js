@@ -73,7 +73,7 @@ $(document).on('click', '#log', function(){
     data['username'] = username;
     data['password'] = password;  
           $.ajax({
-          url: "loginU",
+          url: "loginUser",
           method: "POST",
           data:{dict : data},
           success: function(data){
@@ -162,9 +162,9 @@ $(document).on('click', '#log', function(){
            var url = window.location.href.split('/');
            console.log(url);
             $.ajax({
-              url: "indexPage",
+              url: "../indexPage",
               method: "POST",
-              data:{grab : last_grabbed, cat : url[3]},
+              data:{grab : last_grabbed, cat : url[4]},
               success: function(data){
 
                 $('.pop_post_cont').append(data);

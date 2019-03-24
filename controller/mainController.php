@@ -45,8 +45,8 @@ class mainController{
 
     }
 
-    function setModelInputData(){
-        $this->model->inputData['categoryName']    = $this->pageData['inputData'];
+    function setModelInputData($key, $data){
+        $this->model->inputData[$key]    = $data ;
 
     }
 

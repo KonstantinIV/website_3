@@ -1,8 +1,12 @@
 <?php
+namespace src\utility;
+use src\model;
+use src\controller;
+
 class registerUtility extends mainLoginUtility{
     
 
-    function __construct($data){
+    function __construct($input){
         parent::__construct();
         $this->model->data = $data; 
         $this->userCreated();

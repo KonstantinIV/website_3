@@ -3,7 +3,7 @@ namespace src\model;
 class profileModel extends modelController{
 
     
-    public $data;
+    public $inputData;
 
     function __construct(){
        parent::__construct();
@@ -19,32 +19,32 @@ class profileModel extends modelController{
         INNER JOIN (select post.ID AS POSTID, count(comment.POST_ID) AS comments from post INNER JOIN user ON user.ID = post.USER_ID left JOIN comment ON
         post.ID =comment.POST_ID  group by post.ID) AS COMMENTTABLE ON post.id = COMMENTTABLE.POSTID 
         left JOIN user ON user.ID = post.USER_ID where username = ?');
-        $stmt->execute([$this->data['username']]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute([$this->inputData['username']]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
 
     function postCount(){
         $stmt = $this->pdo->prepare('SELECT count(post.ID) from post INNER JOIN user ON user.ID = post.USER_ID where username = ?');
-        $stmt->execute([$this->data['username']]);
+        $stmt->execute([$this->inputData['username']]);
         return $stmt->fetchColumn();
     }
 
     function likeCount(){
         $stmt = $this->pdo->prepare('SELECT count(likes.POST_ID) from likes INNER JOIN post on post.ID = likes.POST_ID INNER JOIN user ON user.ID = post.USER_ID where username= ?');
-        $stmt->execute([$this->data['username']]);
+        $stmt->execute([$this->inputData['username']]);
         return $stmt->fetchColumn();
     }
 
     function commentCount(){
         $stmt = $this->pdo->prepare('SELECT count(comment.ID) from comment INNER JOIN post on post.ID = comment.POST_ID INNER JOIN user ON user.ID = post.USER_ID where username = ?');
-        $stmt->execute([$this->data['username']]);
+        $stmt->execute([$this->inputData['username']]);
         return $stmt->fetchColumn();
     }
 
     function getUserJoinDate(){
         $stmt = $this->pdo->prepare('select join_date from user where username = ?');
-        $stmt->execute([$this->data['username']]);
+        $stmt->execute([$this->inputData['username']]);
         return $stmt->fetchColumn();
     }
 
