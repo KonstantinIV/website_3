@@ -1,5 +1,5 @@
 <?php 
-namespace \src\controller;
+namespace src\controller;
 //use src\controller;
 require_once "conf/conf.php";
 class modelController{

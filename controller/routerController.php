@@ -39,6 +39,7 @@ class routerController{
         $filename    = $this->urlArr[0];
        
         if(file_exists("controller/".$filename."Controller.php") || empty($this->urlArr)){
+            echo "ttt";
             $this->controller = "controller\\".$filename."Controller";
             $this->param = $this->urlArr[1];
         }else if(file_exists("utility/".$filename."Utility.php")){
@@ -49,7 +50,7 @@ class routerController{
             $this->controller = "controller\\indexController";
             $this->param = $this->urlArr[1];
         }else{
-
+            echo "ttt";
             $this->controller = "controller\\indexController";
             //$this->param = $this->urlArr[0];
         }

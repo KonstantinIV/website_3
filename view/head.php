@@ -8,7 +8,7 @@
   <meta name="description" content=<?php echo $this->pageData['metaData']['title'];?>>
   <meta name="author" content="Konstantin">
 
-  <base href="http://192.168.56.102" >
+  <base href="http://192.168.0.35" >
 
 <link rel="stylesheet" type="text/css" href="/content/css/mainStyle.css">
 <link rel="stylesheet" type="text/css" href="/content/css/login.css">

@@ -1,6 +1,6 @@
 <?php 
 namespace src\controller;
-class loginController extends mainController{
+class loginController extends mainController {
 
 
     function __construct($input){

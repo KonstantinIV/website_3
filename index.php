@@ -35,10 +35,12 @@ use index as indexController;
 use main  as mainController;
 use postmodel as postModel;
 use mainModel as modelController;*/
-
+//require "controller/pageInterface.php";
+use \src\pageController\pageController;
 use \src\controller;
 use \src\model;
 use \src\utility;
+//use \src\pageIn;
 
 spl_autoload_register(function ($class) {
     $class = (string) $class;
@@ -47,12 +49,15 @@ spl_autoload_register(function ($class) {
     $replaceDirectorySeparator = str_replace('\\', DIRECTORY_SEPARATOR, $replaceRootPath);
     $filePath = $replaceDirectorySeparator . '.php';
 
-    //echo $filePath;
+   echo $filePath;
     if (file_exists($filePath)) {
-        echo $filePath."\n <br>";
-        require_once $filePath;
+        //require_once "controller/pageIn.php";
+        echo "included"."\n <br>";
+        include_once $filePath;
+        //require_once $filePath;
    
     }
+
 });
 
 

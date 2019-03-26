@@ -2,8 +2,8 @@
 
 namespace src\controller;
 
-
-class indexController extends mainController{
+class indexController extends mainController implements pageIn
+{
 
     
 
@@ -17,7 +17,6 @@ class indexController extends mainController{
         
         print_r($this->pageData);
        
-        
     }
 
 
@@ -43,8 +42,15 @@ class indexController extends mainController{
 
     }
 
-    function indexBody(){
-        
+    function pageBody(){
+        ob_start();
+                    require "view/index/posts.php"   ;
+                $content = ob_get_clean();
+                ob_start();
+                     require "view/index/postContainer.php";
+                     require "view/index/category.php";
+                $content = ob_get_clean();
+                    require "view/index/container.php";
         
     }
 
