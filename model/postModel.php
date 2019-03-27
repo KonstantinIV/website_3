@@ -1,7 +1,7 @@
 <?php 
 namespace src\model;
-use src\controller;
-class postModel extends controller\modelController{
+use src\controller\core;
+class postModel extends core\modelController{
     public $inputData;
 
     function __construct(){

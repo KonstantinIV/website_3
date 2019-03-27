@@ -1,6 +1,6 @@
 <?php
-namespace src\controller;
-class profileController extends mainController{
+namespace src\pageController\controller;
+class profileController extends mainController implements pageInterface{
     
     function __construct($input){
         parent::__construct("profileModel");

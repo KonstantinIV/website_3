@@ -1,8 +1,10 @@
 <?php
 
-namespace src\controller;
+namespace src\controller\pageController;
+use \src\controller\core;
+use \src\controller\interfaces ;
 
-class indexController extends mainController implements pageIn
+class indexController extends core\mainController implements interfaces\pageInterface
 {
 
     
@@ -30,15 +32,8 @@ class indexController extends mainController implements pageIn
             $this->pageData['outputData'] = $this->model->getPopularPosts();
         }
         
-
-
-
-      
         //$cache                            =  ($this->model->getPostCount()) / 20;
         //$this->view->data['pageData']['pageCount'] = ($cache < 10) ?  $cache : 10;
-
-
-
 
     }
 
@@ -51,6 +46,7 @@ class indexController extends mainController implements pageIn
                      require "view/index/category.php";
                 $content = ob_get_clean();
                     require "view/index/container.php";
+        
         
     }
 

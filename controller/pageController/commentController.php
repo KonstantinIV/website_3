@@ -1,7 +1,7 @@
 <?php
-namespace src\controller;
+namespace src\pageController\controller;
 
-class commentController extends mainController{
+class commentController extends mainController implements pageInterface{
     
     function __construct($input){
         parent::__construct("commentModel");

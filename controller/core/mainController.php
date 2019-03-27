@@ -1,5 +1,5 @@
 <?php
-namespace src\controller;
+namespace src\controller\core;
 use src\model;
 class mainController{
 

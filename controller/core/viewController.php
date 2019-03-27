@@ -1,5 +1,6 @@
 <?php
-namespace src\controller;
+namespace src\controller\core;
+
 class viewController extends mainController{
     public $pageData;
 

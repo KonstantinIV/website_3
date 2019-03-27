@@ -36,10 +36,14 @@ use main  as mainController;
 use postmodel as postModel;
 use mainModel as modelController;*/
 //require "controller/pageInterface.php";
-use \src\pageController\pageController;
+use \src\controller\interfaces\projectInterface ;
+use \src\controller\pageController;
+use \src\controller\core;
+
+/*
 use \src\controller;
 use \src\model;
-use \src\utility;
+use \src\utility;*/
 //use \src\pageIn;
 
 spl_autoload_register(function ($class) {
@@ -66,7 +70,7 @@ error_reporting(E_ALL|E_STRICT);
 
 
 
- $router = new controller\routerController();
+ $router = new core\routerController();
 
  
  

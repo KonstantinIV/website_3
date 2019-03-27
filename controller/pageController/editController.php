@@ -1,6 +1,6 @@
 <?php
-namespace src\controller;
-class editController extends mainController{
+namespace src\pageController\controller;
+class editController extends mainController implements pageInterface{
     private $postID;
     private $defaultEdit = array(
         "title" => "",

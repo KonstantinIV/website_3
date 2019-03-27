@@ -1,35 +1,46 @@
 <?php 
-namespace src\controller;
+namespace src\controller\core;
 
 class routerController{
-    private $url;
+    
     private $urlArr;
+    private $directory;
     private $controller;
+    //private $ajaxRequest = false;
+    
     public $param = "";
 
-   function __construct(){
-        $this->urlArr = $this->parseUrl();
-        $this->setControllerName();
-        $this->setParam();
+
+   function __construct($url){
+        $this->url = $url;
+
+        $this->directory = false;
+       
 
     }
 
-    function parseUrl(){
+    function validateUrl(){
         //print_r($_GET['url']);
         //if($_SERVER['REQUEST_METHOD'] === 'GET'){
-            $this->url = $_GET['url'];
+            
             print_r($_GET['url']);
         
         //}
-        if($this->url == "" ){
+        if(empty($this->url)){
+            return false;
             return "index";
+            
         }else{
-            $urlArr = explode("/" ,$this->url);
-            foreach($urlArr as $value){
+            $this->urlArr = explode("/" ,$this->url);
+            foreach($this->urlArr as $value){
                 if(!preg_match('/^[a-zA-Z0-9]+/', $value)){
+                    return false;
                     return "index";
                 }
             }
+
+            
+            return true
             return $urlArr;
         }
     }
@@ -37,10 +48,16 @@ class routerController{
 
     function setControllerName(){
         $filename    = $this->urlArr[0];
+
+        if($this->checkFileExist()){
+
+        }
+
+
        
-        if(file_exists("controller/".$filename."Controller.php") || empty($this->urlArr)){
+        if(file_exists(__DIR__."/controller/pageController/".$filename."Controller.php")){
             echo "ttt";
-            $this->controller = "controller\\".$filename."Controller";
+            $this->controller = "controller\\pageController\\".$filename."Controller";
             $this->param = $this->urlArr[1];
         }else if(file_exists("utility/".$filename."Utility.php")){
             echo"ssssssssssssssss";
@@ -51,10 +68,23 @@ class routerController{
             $this->param = $this->urlArr[1];
         }else{
             echo "ttt";
-            $this->controller = "controller\\indexController";
+            $this->controller = "controller\\pageController\\indexController";
             //$this->param = $this->urlArr[0];
         }
     }
+
+    function checkFileExist($filename){
+        if(file_exists(__DIR__."/controller/pageController/".$filename."Controller.php")){
+            return true;
+        }elseif(file_exists(__DIR__."/utility/pageController/".$filename."Controller.php"))){
+            return true;
+        }
+       
+    }
+
+
+
+
 
     function setParam(){
         /*if(empty($this->param)){
@@ -70,7 +100,7 @@ class routerController{
 
 
     
-    function retController(){
+    function getControllerName(){
         return $this->controller;
     }
     function retMethod(){
