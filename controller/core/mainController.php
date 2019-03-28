@@ -5,11 +5,12 @@ class mainController{
 
     protected $view;
     protected $model;
-
-
-
     protected $sessionModel;
-    protected $param;
+
+    protected $loggedin;
+    protected $input;
+    protected $output;
+ 
 
 
     public $pageData = array( 
@@ -21,18 +22,43 @@ class mainController{
          "outputData" => ""
 );
 
-    function __construct($modelName){
+    function __construct($modelName,$title, $body, $input){
         
         $this->view  = new viewController();
         $this->sessionModel = new model\sessionModel();
-        
+
         if($modelName != ""){
             $modelName = '\\src\\model\\'.$modelName;
             $this->model = new $modelName;
            
         }
+
+        
+        $this->loggedin =  isset($_SESSION['user']) ? true : false;
+        $this->pageData['metaData']['title'] = $title;
+        $this->pageData['metaData']['body']  = $body; 
+        $this->input =  $input;
         
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -40,7 +66,7 @@ class mainController{
     function setPageDataVariables($title, $body,$input ){
         $this->pageData['metaData']['title'] = $title;
         $this->pageData['metaData']['body']  = $body; 
-        $this->pageData['metaData']['loggedIn'] =   isset($_SESSION['user']) ? true : false;
+       
         $this->pageData['inputData'] =  $input;
 
     }

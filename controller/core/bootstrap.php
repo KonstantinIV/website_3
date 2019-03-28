@@ -1,41 +1,44 @@
 <?php 
+namespace src\controller\core;
+use \src\controller\pageController;
 class bootstrap {
 
     private $controller;
-    private $router
+    private $router;
 
-    function autoload(){
-
-    }
-
-
-
-
-    function setControllerName($url){
-        $this->router = new core\routerController($url);
+   function __construct(){
+    $this->router = new routerController($_GET['url']);
         
+   }
+
+
+
+
+    function initController(){
+       
         if($this->router->validateUrl()){
-            
-            $this->initController($this->router->setControllerName()) ;
-            
+            $this->initController() ;
+            $controllerPath = $this->router->setControllerPath();
+            $this->controller = new $controllerPath($this->router->setParams());
+
         }else{
-            $this->initDefault();
+            $this->controller = new pageController\indexController("");
         }
+
+        
         
 
     }
 
-    function initController($controllerName){
-        $this->controller = new $controllerName;
-    }
+   
 
     function loadContent(){
-
+      $this->controller->loadBody() ;
     }
 
-    function initDefault(){
+   /* function initDefault(){
         $this->controller = new pageController\indexController("");
-    }
+    }*/
 
    
 

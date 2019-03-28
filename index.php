@@ -1,68 +1,7 @@
 <?php 
-
-
-
-//require_once "controller/routerController.php";
-/*require_once "controller/mainController.php";
-require_once "controller/viewController.php";
-require_once "controller/modelController.php";
-require_once "controller/indexController.php";
-require_once "controller/loginController.php";
-require_once "controller/profileController.php";
-require_once "controller/editController.php";
-require_once "controller/commentController.php";
-require_once "controller/logOutController.php";
-require_once "controller/deleteController.php";
-
-require_once "utility/mainLoginUtility.php";
-require_once "utility/loginUtility.php";
-require_once "utility/registerUtility.php";
-require_once "utility/indexPageUtility.php";
-require_once "utility/editUtility.php";
-require_once "utility/likeUtility.php";
-require_once "utility/dislikeUtility.php";
-
-require_once "model/postModel.php";
-require_once "model/sessionModel.php";
-require_once "model/userModel.php";
-require_once "model/loginModel.php";
-require_once "model/profileModel.php";
-require_once "model/commentModel.php";*/
-/*
-use \router\routerController as routerController;
-
-use index as indexController;
-use main  as mainController;
-use postmodel as postModel;
-use mainModel as modelController;*/
-//require "controller/pageInterface.php";
 use \src\controller\interfaces\projectInterface ;
 use \src\controller\pageController;
 use \src\controller\core;
-
-/*
-use \src\controller;
-use \src\model;
-use \src\utility;*/
-//use \src\pageIn;
-
-spl_autoload_register(function ($class) {
-    $class = (string) $class;
-    $sourcePath = __DIR__ . DIRECTORY_SEPARATOR;
-    $replaceRootPath = str_replace('src\\', $sourcePath, $class);
-    $replaceDirectorySeparator = str_replace('\\', DIRECTORY_SEPARATOR, $replaceRootPath);
-    $filePath = $replaceDirectorySeparator . '.php';
-
-   echo $filePath;
-    if (file_exists($filePath)) {
-        //require_once "controller/pageIn.php";
-        echo "included"."\n <br>";
-        include_once $filePath;
-        //require_once $filePath;
-   
-    }
-
-});
 
 
 ini_set('display_errors', 1);
@@ -70,33 +9,19 @@ error_reporting(E_ALL|E_STRICT);
 
 
 
- $router = new core\routerController();
-
- 
- 
- $controllerName = (string)'\\src\\'.$router->retController();
- //echo $controllerName;
- $controller = new  $controllerName($router->param);
-
-//$controller = new controller\indexController($router->param);
+require  __DIR__."/controller/core/autoloader.php";
 
 
+spl_autoload_register(
+    "autoloader::autoload"
+
+);
+
+$bootstrap = new core\bootstrap();
+$bootstrap->initController();
+$bootstrap->loadContent();
 
 
-
-
-
-
-
-
-
-
- //$controller->setParams($router->params);
- //loginController::login();
- //$controller = new indexController;
-
-
-//print_r($router->retParams());
 
 
 
