@@ -30,9 +30,9 @@ class postModel extends core\modelController{
 
     
      //Index page by category
-     function getPopularPostsCategory(){
+     function getPopularPostsCategory($cat){
         $stmt = $this->pdo->prepare('select  post.ID, post.title, user.username, post.text from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID where category.category = ? limit 10');
-        $stmt->execute([$this->inputData['categoryName']]);
+        $stmt->execute([$cat]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }

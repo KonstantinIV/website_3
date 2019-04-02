@@ -1,6 +1,7 @@
 <?php 
 namespace src\model;
-class profileModel extends modelController{
+use \src\controller\core;
+class profileModel extends core\modelController{
 
     
     public $inputData;

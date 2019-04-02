@@ -1,23 +1,36 @@
 <?php 
-namespace src\pageController\controller;
-class loginController extends mainController implements pageInterface {
+namespace src\controller\pageController;
+use \src\controller\core;
+use \src\controller\interfaces ;  
+ 
+class loginController extends core\mainController implements interfaces\pageInterface{
 
 
     function __construct($input){
-       parent::__construct("");
-       $this->setPageDataVariables("Login", "login" , $input  );
-       $this->renderView();
+       parent::__construct("","Login", "login" , $input);
+       
     }
 
-    function pageBody(){ 
-
-    }
-
-  
 
 
 
 
+   
+
+function loadPage(){
+        
+    $this->view->render($this->pageBody());
+}
+
+
+
+function pageBody(){
+        
+    
+    ob_start();
+        require "view/login/container.php";
+    return  ob_get_clean();
+}
 }
     
 ?>

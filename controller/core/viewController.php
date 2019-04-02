@@ -2,8 +2,14 @@
 namespace src\controller\core;
 
 class viewController extends mainController{
-    public $pageData;
-
+    public $pageData = array( 
+        "metaData" => array(
+            "title" => "",
+            "body" => "",
+            "loggedIn" => false),
+         
+         "outputData" => ""
+);
 
     function __construct(){
         //require __DIR__ . "/template.php";
@@ -77,10 +83,10 @@ class viewController extends mainController{
     }
     
 
-    function render(){
+    function render($body){
         $this->conHead();
         $this->conHeader();
-        $this->conBody();
+        echo $body;
         $this->conFooter();
     }
 

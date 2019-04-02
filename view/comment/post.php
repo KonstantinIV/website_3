@@ -2,11 +2,11 @@
                 <div class="pop_post_cont">
                                 <div class="post_cont">
 
- <div class="post_header"> <?php echo $this->pageData['outputData']['postData']['title'] ?></div> 
-                                                <div class="post_user"><?php echo $this->pageData['outputData']['postData']['username'] ?></div> 
+ <div class="post_header"> <?php echo $this->output['postData']['title'] ?></div> 
+                                                <div class="post_user"><?php echo $this->output['postData']['username'] ?></div> 
                                                 <div class="column_2">
                                                         <div class="text_cont">
-                                                                <p class="post_text"><?php echo $this->pageData['outputData']['postData']['text'] ?></p>
+                                                                <p class="post_text"><?php echo $this->output['postData']['text'] ?></p>
                                                                 
                         
                                                         </div>
@@ -23,9 +23,9 @@
                                                 <div class="post_buttons">
                                                         <div class="like_button">LI</div>
                                                         <div class="di_li_cont">
-                                                                <div class="likes"><?php echo $this->pageData['outputData']['postData']['likes'] ?></div>
+                                                                <div class="likes"><?php echo $this->output['postData']['likes'] ?></div>
                                                                 <div class="">&#9679</div>
-                                                                <div class="dislikes"><?php echo $this->pageData['outputData']['postData']['dislikes'] ?></div>
+                                                                <div class="dislikes"><?php echo $this->output['postData']['dislikes'] ?></div>
                                                         </div>        
                                                         <div class="dislike_button">DI</div>
                                                         <div class="comment_button">COMMENTS &#10095;</div>

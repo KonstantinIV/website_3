@@ -1,7 +1,7 @@
 <?php
 namespace src\utility;
 use src\model;
-use src\controller;
+
 class loginUserUtility extends mainLoginUtility{
 
 

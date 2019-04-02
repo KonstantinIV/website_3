@@ -1,6 +1,7 @@
 <?php 
 namespace src\model;
-class commentModel extends modelController{
+use \src\controller\core;
+class commentModel extends core\modelController{
 
     
     public $inputData;
@@ -10,14 +11,14 @@ class commentModel extends modelController{
     }
 
     //posts : username title text likes dislikes 
-    function getSinglePost(){
+    function getSinglePost($postID){
         $stmt = $this->pdo->prepare('SELECT user.username, post.title, post.text, LIKETABLE.likes, DISLIKETABLE.dislikes from post INNER JOIN
         (select post.ID AS POSTID, count(likes.POST_ID) AS likes from post INNER JOIN user ON user.ID = post.USER_ID left JOIN likes ON
         post.ID =likes.POST_ID  group by post.ID) AS LIKETABLE ON post.id = LIKETABLE.POSTID
         INNER JOIN (select post.ID AS POSTID, count(dislikes.POST_ID) AS dislikes from post INNER JOIN user ON user.ID = post.USER_ID left JOIN dislikes ON
         post.ID =dislikes.POST_ID  group by post.ID) AS DISLIKETABLE ON post.id = DISLIKETABLE.POSTID 
         INNER JOIN user ON user.ID = post.USER_ID where post.ID = ?');
-        $stmt->execute([$this->inputData['postID']]);
+        $stmt->execute([$postID]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
@@ -25,9 +26,9 @@ class commentModel extends modelController{
 
 
     /**Comment section */
-    function getCommentid(){
+    function getCommentid($postID){
         $stmt = $this->pdo->prepare('SELECT comment.ID, comment.parent_id, comment.text from comment INNER JOIN post ON post.ID = comment.POST_ID where post.ID = ? ');
-        $stmt->execute([$this->inputData['postID']]);
+        $stmt->execute([$postID]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC|\PDO::FETCH_UNIQUE);
     }
 

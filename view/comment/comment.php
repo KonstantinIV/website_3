@@ -59,7 +59,7 @@ function rec2($id_pos,$space,$key,$color){
        
     
     }
-    rec2(0,0,$this->pageData['outputData']['commentData'],0);
+    rec2(0,0,$this->output['commentData'],0);
 
 
 

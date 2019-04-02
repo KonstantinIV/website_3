@@ -1,6 +1,7 @@
 <div class="dash_cn">
 
-<?php echo $content; ?>
+<?php require_once "userPosts.php";
+      require_once "score.php"; ?>
    
 
 

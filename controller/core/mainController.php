@@ -13,15 +13,6 @@ class mainController{
  
 
 
-    public $pageData = array( 
-        "metaData" => array(
-            "title" => "",
-            "body" => "",
-            "loggedIn" => false),
-         "inputData" => "",
-         "outputData" => ""
-);
-
     function __construct($modelName,$title, $body, $input){
         
         $this->view  = new viewController();
@@ -33,11 +24,14 @@ class mainController{
            
         }
 
-        
-        $this->loggedin =  isset($_SESSION['user']) ? true : false;
-        $this->pageData['metaData']['title'] = $title;
-        $this->pageData['metaData']['body']  = $body; 
         $this->input =  $input;
+        $this->view->pageData['metaData']['loggedIn'] =  isset($_SESSION['user']) ? true : false;
+        $this->view->pageData['metaData']['title'] = $title;
+        $this->view->pageData['metaData']['body']  = $body; 
+
+
+        
+        
         
     }
 

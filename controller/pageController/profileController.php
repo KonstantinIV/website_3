@@ -1,23 +1,52 @@
 <?php
-namespace src\pageController\controller;
-class profileController extends mainController implements pageInterface{
+namespace src\controller\pageController;
+use \src\controller\core;
+use \src\controller\interfaces ;
+
+class profileController extends core\mainController implements interfaces\pageInterface{
     
     function __construct($input){
-        parent::__construct("profileModel");
-         $this->setPageDataVariables("Profile", "profile" , $input  );
 
-         $this->pageData['inputData']['username']     = $_SESSION['user'];
-         $this->setModelInputData("username",$this->pageData['inputData']['username'] );
-        $this->pageData['outputData']['posts']     = $this->model->getUserPosts();
-        $this->pageData['outputData']['postCount'] = $this->model->postCount();
-        $this->pageData['outputData']['likeCount'] = $this->model->likeCount();
-        $this->pageData['outputData']['commentCount'] = $this->model->commentCount();
-        $this->pageData['outputData']['joinDate'] = $this->model->getUserJoinDate();
+
+
+
+
+        parent::__construct("profileModel", "Profile", "profile" , $input);
+       
+        //Chnage to if
+         $this->input     = $_SESSION['user'];
+
+         
+        $this->output['posts']     = $this->model->getUserPosts();
+        $this->output['postCount'] = $this->model->postCount();
+        $this->output['likeCount'] = $this->model->likeCount();
+        $this->output['commentCount'] = $this->model->commentCount();
+        $this->output['joinDate'] = $this->model->getUserJoinDate();
         print_r($this->pageData);
         
-        $this->renderView();
+        
         
     }
+
+
+
+
+    function loadPage(){
+        
+        $this->view->render($this->pageBody());
+    }
+
+
+
+   
+    function pageBody(){
+        ob_start();
+        
+        require "view/profile/container.php";
+    
+        return  ob_get_clean();
+}
+    
 
     
 

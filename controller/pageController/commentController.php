@@ -1,32 +1,51 @@
 <?php
-namespace src\pageController\controller;
+namespace src\controller\pageController;
+use \src\controller\core;
+use \src\controller\interfaces ;
 
-class commentController extends mainController implements pageInterface{
+class commentController extends core\mainController implements interfaces\pageInterface{
+
+    private $postID;
     
     function __construct($input){
-        parent::__construct("commentModel");
-        $this->setPageDataVariables("Comments", "comment" , $input  );
-
-        print_r($this->pageData);
-        $this->indexGetContent();
-        print_r($this->pageData);
-        $this->renderView();
+        echo "Ssssssssssssssss";
+        parent::__construct("commentModel", "Comments", "comment" , $input);
+       // print_r($this->input . "<br>sssssssssssssssssssssssssssssssssssssssssss"); 
+       $this->postID = $this->input[0];
+    
+        $this->output['postData'] = $this->getPost();
+        $this->output['commentData'] = $this->getComment();
     }
 
-    function indexGetContent(){
+    function getPost(){
+        return $this->model->getSinglePost($this->postID)[0];
+           
         
-        $this->model->inputData['postID']     = $this->pageData['inputData'];
-        $this->pageData['outputData']['postData']      = $this->model->getSinglePost()[0];
-
-        $this->pageData['outputData']['commentData']      = $this->model->getCommentid();
+    }
+    
+    
+    function getComment(){
+        return $this->model->getCommentid($this->postID);
         
     }
 
-    function indexBody(){
+
+    function loadPage(){
         
-        
+        $this->view->render($this->pageBody());
     }
 
+
+
+   
+    function pageBody(){
+        print_r($this->output);
+        ob_start();
+            require "view/comment/post.php" ;  
+            require "view/comment/comment.php";
+
+        return  ob_get_clean();
+}
     
 
 

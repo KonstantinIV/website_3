@@ -1,6 +1,6 @@
 <?php 
 namespace src\controller\core;
-use \src\controller\pageController;
+//use \src\controller\pageController;
 class bootstrap {
 
     private $controller;
@@ -17,11 +17,14 @@ class bootstrap {
     function initController(){
        
         if($this->router->validateUrl()){
-            $this->initController() ;
-            $controllerPath = $this->router->setControllerPath();
-            $this->controller = new $controllerPath($this->router->setParams());
-
+           // print_r($this->urlArr);
+                        $controllerPath = $this->router->setControllerPath();
+                        $params         = $this->router->setParam();
+                        
+            $this->controller = new $controllerPath($params);
+            
         }else{
+            
             $this->controller = new pageController\indexController("");
         }
 
@@ -33,7 +36,8 @@ class bootstrap {
    
 
     function loadContent(){
-      $this->controller->loadBody() ;
+        //print_r($this->controller->view->pageData);
+      $this->controller->loadPage() ;
     }
 
    /* function initDefault(){

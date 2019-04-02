@@ -1,5 +1,5 @@
 <div class="dash_post_cn">
-<?php foreach($this->pageData['outputData']['posts'] as $arr){?>
+<?php foreach($this->output['posts'] as $arr){?>
 
 <div class="dash_post">
     <div class="content">
