@@ -1,6 +1,6 @@
 <?php 
 namespace src\controller\core;
-//use \src\controller\pageController;
+use \src\controller\pageController;
 class bootstrap {
 
     private $controller;
@@ -37,7 +37,10 @@ class bootstrap {
 
     function loadContent(){
         //print_r($this->controller->view->pageData);
-      $this->controller->loadPage() ;
+    if($this->router->getScriptType() == "Controller"){
+        $this->controller->loadPage() ;
+    }
+     
     }
 
    /* function initDefault(){

@@ -53,10 +53,11 @@ class postModel extends core\modelController{
 
 
     //Edit
-    function getPost(){
+    function getPost($username,$postID){
+        echo"asdasd";
         $stmt = $this->pdo->prepare("SELECT post.title, post.text, DATE_FORMAT(rel_date,'%d/%m/%Y') as releaseDate from post INNER JOIN user ON user.ID = post.USER_ID where username = ? AND post.ID = ?");
-        $stmt->execute([$this->data['username'],$this->data['postID']]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute([$username,$postID]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
 

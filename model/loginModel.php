@@ -1,6 +1,7 @@
 <?php 
 namespace src\model;
-class loginModel extends modelController{
+use \src\controller\core;
+class loginModel extends core\modelController{
 
     public $errorCode;
     public $inputData;

@@ -50,8 +50,8 @@ class routerController{
         if(file_exists(ROOT."controller/pageController/".$filename."Controller.php")){
             
             return true;
-        }elseif(file_exists(ROOT."utility/pageController/".$filename."Controller.php")){
-            $this->directory = "\\src\\controller\\pageController\\";
+        }elseif(file_exists(ROOT."utility/".$filename."Utility.php")){
+            $this->directory = "\\src\\utility\\";
             $this->scriptType = "Utility";
             return true;
         }
@@ -73,6 +73,10 @@ class routerController{
             return array_slice($this->urlArr, 1);
         }
         
+    }
+
+    function getScriptType(){
+        return $this->scriptType;
     }
 
 

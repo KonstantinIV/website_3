@@ -16,13 +16,13 @@ class profileController extends core\mainController implements interfaces\pageIn
         //Chnage to if
          $this->input     = $_SESSION['user'];
 
-         
-        $this->output['posts']     = $this->model->getUserPosts();
-        $this->output['postCount'] = $this->model->postCount();
-        $this->output['likeCount'] = $this->model->likeCount();
-        $this->output['commentCount'] = $this->model->commentCount();
-        $this->output['joinDate'] = $this->model->getUserJoinDate();
-        print_r($this->pageData);
+         echo  $_SESSION['user'];
+        $this->output['posts']     = $this->model->getUserPosts($this->input);
+        $this->output['postCount'] = $this->model->postCount($this->input);
+        $this->output['likeCount'] = $this->model->likeCount($this->input);
+        $this->output['commentCount'] = $this->model->commentCount($this->input);
+        $this->output['joinDate'] = $this->model->getUserJoinDate($this->input);
+        //print_r($this->pageData);
         
         
         
