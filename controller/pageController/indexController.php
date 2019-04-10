@@ -5,13 +5,14 @@ use \src\controller\core;
 use \src\controller\interfaces ;
 
 class indexController extends core\mainController implements interfaces\pageInterface{
-
+    private $categoryName ;
+    //private categoryName = "";
     
 
     
     function __construct($input){
         parent::__construct("postModel", "Main", "index", $input);
-
+        $this->categoryName = empty($input[0]) ? "" : $input[0] ;
         
         $this->output =  $this->getContent();
         
@@ -21,8 +22,10 @@ class indexController extends core\mainController implements interfaces\pageInte
 
 
     function loadPage(){
+     
+            $this->view->render($this->pageBody());
         
-        $this->view->render($this->pageBody());
+       
     }
 
 
@@ -38,19 +41,16 @@ class indexController extends core\mainController implements interfaces\pageInte
 
     function getContent(){
         
-       if($this->input != ""){
-            $this->view->pageData['metaData']['title']      =  $this->input;
-            return $this->model->getPopularPostsCategory($this->pageData['inputData']);
+       if($this->categoryName != ""){
+            $this->view->pageData['metaData']['title']      =  $this->categoryName;
+            return $this->model->getPopularPostsCategory($this->categoryName, 0);
         }else{
            
-            return $this->model->getPopularPosts();
-          //  print_r($this->view->pageData);
+            return $this->model->getPopularPosts(0);
+         
         }
         
-        
-        //$cache                            =  ($this->model->getPostCount()) / 20;
-        //$this->data['pageData']['pageCount'] = ($cache < 10) ?  $cache : 10;
-
+    
     }
 
    

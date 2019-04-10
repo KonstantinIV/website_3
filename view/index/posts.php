@@ -12,9 +12,9 @@
 
                             </div>
                             <div class="date_cont">
-                                    <div class="post_date_1">Post date: <br><span class="date_f">2019-01-15 01:26:26</span></div>
+                                    <div class="post_date_1">Post date: <br><span class="date_f"><?php echo $arr['createdDate'];  ?></span></div>
                                     <br>
-                                    <div class="post_date_2">Rs date:<br><span class="date_f">2019-01-15 </span> </div>
+                                    <div class="post_date_2">Rs date:<br><span class="date_f"><?php echo $arr['releaseDate'];  ?> </span> </div>
                                     <br> 
                                     <div class="post_date_3">Database Rs date:<br><span class="date_f">2019-01-15 </span></div>
                                     <br>
@@ -24,15 +24,15 @@
                     <div class="post_buttons">
                             <div class="like_button" id="likeButton">LI</div>
                             <div class="di_li_cont">
-                                    <div class="likes">44</div>
+                                    <div class="likes"><?php echo $arr['likes'];  ?></div>
                                     <div class="">&#9679</div>
-                                    <div class="dislikes">22</div>
+                                    <div class="dislikes" ><?php echo $arr['dislikes'];  ?></div>
                             </div>        
                             <div class="dislike_button" id="dislikeButton">DI</div>
                             <a href="comment/<?php echo $arr['ID'];  ?>" ><div class="comment_button">COMMENTS &#10095;</div></a>
                     </div>
     </div>
-<?php }  ?>
+<?php }   ?>
 
 
 

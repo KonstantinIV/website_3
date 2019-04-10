@@ -24,6 +24,18 @@ class profileModel extends core\modelController{
 
     }
 
+   
+    function userExists($username){
+        $stmt = $this->pdo->prepare('select username from user WHERE username=? LIMIT 1');
+        $stmt->execute([$username]);
+        //Exists user
+        if(!$stmt->fetchColumn()){
+            
+            return false;
+        }
+        return true;
+    }
+
     function postCount($username){
         $stmt = $this->pdo->prepare('SELECT count(post.ID) from post INNER JOIN user ON user.ID = post.USER_ID where username = ?');
         $stmt->execute([$username]);

@@ -7,10 +7,10 @@ class likeUtility{
     function __construct($data){
         $this->model = new postModel();
         $this->session = new sessionModel();
-        $this->model->data['id'] = (int)$_POST['postID'];
-        $this->model->data['username'] = $_SESSION['user'];
+        //$this->model->data['id'] = (int)$_POST['postID'];
+        //$this->model->data['username'] = $_SESSION['user'];
 
-        $this->model->likePost();
+        $this->model->likePost((int)$_POST['postID'],$_SESSION['user']);
         
 
     }

@@ -5,9 +5,11 @@ class bootstrap {
 
     private $controller;
     private $router;
+    private $url;
 
    function __construct(){
-    $this->router = new routerController($_GET['url']);
+    $this->url    =    !(isset($_GET['url'])) ? "" : $_GET['url']; 
+    $this->router = new routerController($this->url);
         
    }
 
@@ -17,15 +19,15 @@ class bootstrap {
     function initController(){
        
         if($this->router->validateUrl()){
-           // print_r($this->urlArr);
+           
                         $controllerPath = $this->router->setControllerPath();
                         $params         = $this->router->setParam();
-                        
+                        //print_r($controllerPath);     
             $this->controller = new $controllerPath($params);
             
         }else{
             
-            $this->controller = new pageController\indexController("");
+            $this->controller = new pageController\indexController($this->router->setParam());
         }
 
         

@@ -90,6 +90,10 @@ class viewController extends mainController{
         $this->conFooter();
     }
 
+    function renderUtil($body){
+        echo $body;
+    }
+
 }
 
 

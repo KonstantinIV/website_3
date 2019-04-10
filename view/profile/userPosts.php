@@ -14,21 +14,26 @@
                 <div class="comments_score"><a href="comment/<?php echo $arr['postID'];  ?>" ><?php echo $arr['comments'];  ?></a></div>
             </div>
     </div>
+
+
+    <?php if(isset($_SESSION['user']) && $_SESSION['user'] == $this->username){?>
     <div class="settings">
         <div class="edit"><a href="edit/<?php echo $arr['postID'];  ?>">Edit</a></div>
         <div class="visit"><a href="delete/<?php echo $arr['postID'];  ?>">Delete</a></div>
     </div>
-
+    <?php }?>
 </div>
     <?php }?>
     
     
  
-
+    <?php if(isset($_SESSION['user']) && $_SESSION['user'] == $this->username){?>
 <a href="edit">
     <div class="dash_post">
         <div class="add_post_plus">&#10010;</div>
     </div>
 </a>
-                
+    <?php }?>
+
+
 </div>

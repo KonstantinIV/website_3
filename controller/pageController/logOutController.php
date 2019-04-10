@@ -10,12 +10,18 @@ class logOutController extends core\mainController{
         $session = new model\sessionModel();
         $session->destroySession();
     }
-
+    
+    
    
 
 
 
 }
+
+
+function loadPage(){
+    header('Location: ../profile');
+   }
 
 
 ?>

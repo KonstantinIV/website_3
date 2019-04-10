@@ -147,31 +147,33 @@ $(document).on('click', '#log', function(){
                     //window.location.assign('user.php');
                 }
             });
-        
-        
-        
-        
-        
+   
         });
 
       var last_grabbed = 10;
+      var flag         = false;
       $(window).scroll(function() {
         
         if ($(window).scrollTop() + $(window).height() > $('#mn_cont').height()-1){
-           // alert("bottom!");
-           var url = window.location.href.split('/');
-           console.log(url);
-            $.ajax({
-              url: "../indexPage",
-              method: "POST",
-              data:{grab : last_grabbed, cat : url[4]},
-              success: function(data){
+          if(!flag){
+            var url = window.location.href.split('/');
+            //console.log(url);
+             $.ajax({
+               url: "../indexPage",
+               method: "POST",
+               data:{grab : last_grabbed, cat : url[4]},
+               success: function(data){
+                 $('.pop_post_cont').append(data);
 
-                $('.pop_post_cont').append(data);
-                console.log("hg");
-                last_grabbed = last_grabbed + 10;
-              }
-            });
+                 console.log(JSON.parse(data));
+                 //wconsole.log(JSON.parse(data));
+                flag = JSON.parse(data).flag;
+                 last_grabbed = last_grabbed + 10;
+               }
+             });
+          }
+           // alert("bottom!");
+           
         }
      });
       /*
@@ -209,6 +211,8 @@ $.ajax({
   
       //Check if empty
       var postID  = $(this).closest("div[data-id]").attr('data-id');
+      var ss      = +$(this).closest("div[data-id]").find(".likes").text();
+      $(this).closest("div[data-id]").find(".likes").text(ss + 1);
       console.log(postID);
       //console.log("Wrong input");
      var url = window.location.href.split('/');
@@ -239,6 +243,8 @@ $.ajax({
   
       //Check if empty
       var postID  = $(this).closest("div[data-id]").attr('data-id');
+      var ss      = +$(this).closest("div[data-id]").find(".dislikes").text();
+      $(this).closest("div[data-id]").find(".dislikes").text(ss + 1);
       console.log(postID);
       //console.log("Wrong input");
      var url = window.location.href.split('/');
@@ -250,6 +256,11 @@ $.ajax({
               success: function(data){
                 console.log("hg");
                 console.log(data);
+               // $(this).closest("div[data-id]").find(".dislikes").text(ss + 22);
+                console.log(ss);
+
+
+                //ss.closest(".dislikes").val($(this).closest(".dislikes").value + 1) ;
                 //window.location.replace("user.php");
                 //window.location.href = '../profile';
                   //window.location.assign('user.php');

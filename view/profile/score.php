@@ -7,7 +7,7 @@
 
     </div>
     <div class="username_cont">
-        <div class="username"><?php echo $_SESSION['user']?></div>
+        <div class="username"><?php echo $this->username ;?></div>
         <div class="other_inf">joined <?php echo $this->output['joinDate']?></div>
 
     </div>            

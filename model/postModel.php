@@ -10,40 +10,26 @@ class postModel extends core\modelController{
 
 
 
-    //index first 10 pages
-    function getPopularPosts(){
-        $stmt = $this->pdo->prepare('SELECT post.ID, post.title, user.username, post.text from post INNER JOIN user ON user.ID = post.USER_ID  limit 10');
-        $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-    }
 
      //iNDEX next 10 pages
-     function getPopularPostsSerial(){
-        $stmt = $this->pdo->prepare('SELECT post.ID, post.title, user.username, post.text from post INNER JOIN user ON user.ID = post.USER_ID LIMIT :nextCount , 10');
-        $stmt->bindParam(':nextCount', $this->data['nextCount'], PDO::PARAM_INT);
+     function getPopularPosts( $nextCount){
+        $stmt = $this->pdo->prepare('SELECT post.ID, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  group by post.ID limit :nextCount , 10');
+        $stmt->bindParam(':nextCount', $nextCount, \PDO::PARAM_INT);
         $stmt->execute();
        
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
 
-    
-     //Index page by category
-     function getPopularPostsCategory($cat){
-        $stmt = $this->pdo->prepare('select  post.ID, post.title, user.username, post.text from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID where category.category = ? limit 10');
-        $stmt->execute([$cat]);
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-    }
 
      //Index page by category next page
-     function getPopularPostsCategoryNext(){
-        $stmt = $this->pdo->prepare('select  post.ID, post.title, user.username, post.text from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID where category.category = :cat LIMIT :nextCount , 10');
+     function getPopularPostsCategory($categoryName, $nextCount){
+        $stmt = $this->pdo->prepare('SELECT post.ID, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat group by post.ID limit :nextCount , 10');
         
         //print_r($this->data);
-        $stmt->bindParam(':nextCount', $this->inputData['nextCount'], \PDO::PARAM_INT);
-        $stmt->bindParam(':cat', $this->inputData['categoryName'], \PDO::PARAM_STR);
+        $stmt->bindParam(':cat', $categoryName, \PDO::PARAM_STR);
+        $stmt->bindParam(':nextCount', $nextCount, \PDO::PARAM_INT);
+        
         
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -90,33 +76,33 @@ class postModel extends core\modelController{
 
 
 
-    function likePost(){
+    function likePost($postID,$username){
         $stmt = $this->pdo->prepare("insert into likes    (POST_ID, USER_ID) VALUES (:id,(SELECT ID from user where username = :username)) ");
-        $stmt->bindParam(':username', $this->data['username'], PDO::PARAM_STR);
-        $stmt->bindParam(':id', $this->data['id'], PDO::PARAM_INT);
-        print_r($this->data);
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        $stmt->bindParam(':id', $postID, \PDO::PARAM_INT);
+ //       print_r($this->data);
 
         $stmt->execute();
         //return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
-    function dislikePost(){
+    function dislikePost($postID,$username){
         $stmt = $this->pdo->prepare("insert into dislikes   (POST_ID, USER_ID) VALUES (:id,(SELECT ID from user where username = :username)) ");
-        $stmt->bindParam(':username', $this->data['username'], PDO::PARAM_STR);
-        $stmt->bindParam(':id', $this->data['id'], PDO::PARAM_INT);
-        print_r($this->data);
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        $stmt->bindParam(':id', $postID, \PDO::PARAM_INT);
+//        print_r($this->data);
 
         $stmt->execute();
         //return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
-    function deletePost(){
+    function deletePost($postID,$username){
         $stmt = $this->pdo->prepare('UPDATE post inner join user on user.ID = post.USER_ID SET post.text = "REMOVED BY USER" WHERE post.ID = :id and user.username = :username ');
-        $stmt->bindParam(':username', $this->data['username'], PDO::PARAM_STR);
-        $stmt->bindParam(':id', $this->data['id'], PDO::PARAM_INT);
-        print_r($this->data);
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        $stmt->bindParam(':id', $postID, \PDO::PARAM_INT);
+        //print_r($this->data);
 
         $stmt->execute();
         //return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -25,7 +25,7 @@ class routerController{
               
             foreach($this->urlArr as $value){
                 
-                if(!preg_match('/^[a-zA-Z0-9]+/', $value)){
+                if(!preg_match('/^[a-zA-Z0-9_]+/', $value)){
                     
                     return false;
                     
@@ -33,6 +33,10 @@ class routerController{
                 }
             }
         }
+
+        if($this->urlArr[0] == "cat"){
+            return false;
+        }        
         
         if(!$this->checkFileExist($this->urlArr[0])){
             

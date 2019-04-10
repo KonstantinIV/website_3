@@ -1,40 +1,50 @@
 <?php
 namespace src\utility;
 use src\model;
-use src\controller;
+use src\controller\core;
 class indexPageUtility {
     
     private $model;
+    private $categoryName;
+    private $nextCount;
     private $view;
+
+    private $output;
 
     function __construct($input){
        
        $this->model = new model\postModel();
-       $this->model->inputData['categoryName'] = $_POST['cat'];
-       $this->model->inputData['nextCount'] = (int)$_POST['grab'];
-       //echo gettype($this->model->data['nextCount']), "\n";
-       $this->view = new controller\viewController;
-       $this->view->pageData['metaData']['body']   = "indexUtil";
-        if($this->model->inputData['categoryName'] != ""){
-            $this->view->pageData['metaData']['title']      =  $this->model->inputData['categoryName'];
-            $this->view->pageData['outputData'] = $this->model->getPopularPostsCategoryNext();
+       $this->view = new core\viewController;
 
+
+       $this->categoryName = isset($_POST['cat']) ? $_POST['cat'] : "" ;
+       $this->nextCount = (int)$_POST['grab'];
+
+     
+      // $this->view->pageData['metaData']['body']   = "indexUtil";
+
+        if($this->categoryName != ""){
+
+            $this->output = $this->model->getPopularPostsCategory($this->categoryName, $this->nextCount);
         }else{
-            $this->view->pageData['metaData']['title']     = "Main" ;
-            $this->view->pageData['outputData'] = $this->model->getPopularPostsSerial();
+            $this->output = $this->model->getPopularPosts($this->nextCount);
         }
 
     
         
     
        
-       //print_r($this->model->getPopularPostsSerial());
+      // print_r($this->output);
 
-       $this->view->conBody();         
+       $this->view->renderUtil($this->generatePosts());         
     }
 
-    function retData(){
-        
+    function generatePosts(){
+        echo json_encode(array("flag" => true));
+        ob_start();
+        require "view/index/posts.php";
+        return ob_get_clean();
+
     }
 
 

@@ -5,23 +5,44 @@ use \src\controller\interfaces ;
 
 class profileController extends core\mainController implements interfaces\pageInterface{
     
+
+    private $username;
+
     function __construct($input){
 
-
+        $this->username = empty($input[0]) ? "" : $input[0];
 
 
 
         parent::__construct("profileModel", "Profile", "profile" , $input);
        
         //Chnage to if
-         $this->input     = $_SESSION['user'];
 
-         echo  $_SESSION['user'];
-        $this->output['posts']     = $this->model->getUserPosts($this->input);
-        $this->output['postCount'] = $this->model->postCount($this->input);
-        $this->output['likeCount'] = $this->model->likeCount($this->input);
-        $this->output['commentCount'] = $this->model->commentCount($this->input);
-        $this->output['joinDate'] = $this->model->getUserJoinDate($this->input);
+
+        if(empty($this->username) && !isset($_SESSION['user'])){
+            
+            header('Location: /');
+
+        }else{
+            $this->username = $_SESSION['user'];
+        }
+        
+        if(!$this->model->userExists($this->username)){
+            header('Location: /');
+
+        }
+
+
+
+
+         //$this->username     = $_SESSION['user'];
+
+         //echo  $_SESSION['user'];
+        $this->output['posts']     = $this->model->getUserPosts($this->username);
+        $this->output['postCount'] = $this->model->postCount($this->username);
+        $this->output['likeCount'] = $this->model->likeCount($this->username);
+        $this->output['commentCount'] = $this->model->commentCount($this->username);
+        $this->output['joinDate'] = $this->model->getUserJoinDate($this->username);
         //print_r($this->pageData);
         
         

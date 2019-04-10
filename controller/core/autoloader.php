@@ -13,10 +13,10 @@ class autoloader{
         $replaceDirectorySeparator = str_replace('\\', DIRECTORY_SEPARATOR, $replaceRootPath);
         $filePath = $replaceDirectorySeparator . '.php';
     //echo $replaceRootPath."                  " ;
-       echo $filePath; 
+       //echo $filePath; 
         if (file_exists($filePath)) {
             //require_once "controller/pageIn.php";
-            echo "included"."\n <br>";
+           // echo "included"."\n <br>";
             include_once $filePath;
             //require_once $filePath;
        

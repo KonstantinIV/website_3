@@ -1,5 +1,5 @@
 <div class="pop_post_cont">
 
 
-<?php require_once "posts.php"; ?>
+<?php $this->output ? require_once "posts.php" : print_r("no results"); ?>
 </div>

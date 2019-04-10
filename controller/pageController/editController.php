@@ -6,17 +6,20 @@ use \src\controller\interfaces ;
 class editController extends core\mainController implements interfaces\pageInterface{
 
 
-    private $postID;
+    private $postID ;
     private $defaultEdit = array(
         "title" => "",
         "text" => "",
     ); 
+
+
     
     function __construct($input){
         parent::__construct("postModel", "Edit", "edit" , $input);
-
-        $this->output      = !( $this->input) ? $this->defaultEdit : $this->model->getPost($_SESSION['user'], $input[0])[0];
-        print_r($this->output);
+        $this->postID = empty($input[0]) ? $this->emptyID() : $input[0] ;
+    
+        $this->output      = !( $this->input) ? $this->defaultEdit : $this->model->getPost($_SESSION['user'], $this->postID)[0];
+        
         $this->output['releaseDate']      = $this->model->splitDate($this->output['releaseDate']);
 
   
@@ -24,14 +27,7 @@ class editController extends core\mainController implements interfaces\pageInter
 
 
 
-    function indexMetaContent(){
-       
-        
-
-        $this->view->data      = ( $this->model->data['postID'] == "") ? $this->defaultEdit : $this->model->getPost()[0];
-        print_r($this->view->data['releaseDate']);
-        $this->view->render()           ;
-    }
+ 
 
    
     function loadPage(){

@@ -8,10 +8,10 @@ class commentController extends core\mainController implements interfaces\pageIn
     private $postID;
     
     function __construct($input){
-        echo "Ssssssssssssssss";
+       
         parent::__construct("commentModel", "Comments", "comment" , $input);
        // print_r($this->input . "<br>sssssssssssssssssssssssssssssssssssssssssss"); 
-       $this->postID = $this->input[0];
+       $this->postID = empty($input[0]) ? $this->emptyID() : $input[0] ;
     
         $this->output['postData'] = $this->getPost();
         $this->output['commentData'] = $this->getComment();
@@ -20,6 +20,10 @@ class commentController extends core\mainController implements interfaces\pageIn
     function getPost(){
         return $this->model->getSinglePost($this->postID)[0];
            
+        
+    }
+
+    function emptyID(){
         
     }
     
