@@ -6,8 +6,9 @@
 //$key = $profile->getCommentid($id);
 
 
-
-function rec2($id_pos,$space,$key,$color){
+$color = 0;
+function rec2($id_pos,$space,$key){
+    global $color;
         if($color ==0){
                 $color = 1;
         }else{
@@ -50,7 +51,7 @@ function rec2($id_pos,$space,$key,$color){
 
                 <?php
 
-                rec2($id,$space+1,$key,$color);
+                rec2($id,$space+1,$key);
             }
         }
         
@@ -59,7 +60,7 @@ function rec2($id_pos,$space,$key,$color){
        
     
     }
-    rec2(0,0,$this->output['commentData'],0);
+    rec2(0,0,$this->output['commentData']);
 
 
 

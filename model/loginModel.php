@@ -3,9 +3,7 @@ namespace src\model;
 use \src\controller\core;
 class loginModel extends core\modelController{
 
-    public $errorCode;
-    public $inputData;
-
+   
     function __construct(){
        parent::__construct();
     }
@@ -24,46 +22,64 @@ class loginModel extends core\modelController{
 
 
     //Register
-    function userValidate(){
-        //Username valid
+    function usernameValidation(){
         if( $this->data['username'] > 24 || $this->data['username'] < 3 || !is_string($this->data['username']))  {
-            $this->UserExistsErrorCode = 1;
+            return false;
         }else if(!preg_match("/^[a-zA-Z0-9_-]{3,24}$/",$this->data['username'])){
-            $this->UserExistsErrorCode = 2;
+            return false;
         }
-        //Password valid
+        return true;
+    }
+
+    function passwordValidation(){
         if($this->data['password'] < 8 || !is_string($this->data['password'] ))  {
-            $this->UserExistsErrorCode = 3;
+          return false;
         }
-        //Email valid
+        return true;
+    }
+    function emailValidation(){
         if(!preg_match("/^[\p{L}0-9_]+[\p{L}0-9_]+([-_+.'][\p{L}0-9_]+)*@[\p{L}0-9_]+([-_.][\p{L}0-9_]+)*\.[\p{L}0-9_]+([-._][\p{L}0-9_]+)*$/",$this->data['email'] ) || !is_string($this->data['email']))  {
-            $this->UserExistsErrorCode = 4;
+            return false;
         }
-        //Birthday
+        return true;
+    }
+    function birthdayValidation(){
         if(!is_numeric($this->data['birthday']) || !(strlen((string)$this->data['birthday']) == 8 ) )  {
-            $this->UserExistsErrorCode = 5;
+            return false;
         }
         return true;
     }
 
     
-    function userExists(){
+    function usernameVerification(){
         $stmt = $this->pdo->prepare('select username from user WHERE username=? LIMIT 1');
         $stmt->execute([$this->data['username']]);
         //Exists user
         if(!$stmt->fetchColumn()){
             
-            $this->UserExistsErrorCode = 7;
+            return false;
+        }else{
+            return true;
         }
-        //Exists Email
-        $stmt = $this->pdo->prepare('select email from user WHERE email=? LIMIT 1');
-        $stmt->execute([$this->data['email']]);
-        if(!$stmt->fetchColumn()){
-            $this->UserExistsErrorCode = 8;
-        } 
-        return true;
-        
-        }
+
+    }
+
+
+    function emailVerification(){
+         //Exists Email
+         $stmt = $this->pdo->prepare('select email from user WHERE email=? LIMIT 1');
+         $stmt->execute([$this->data['email']]);
+         if(!$stmt->fetchColumn()){
+             return false;
+         }else{
+             return true;
+         } 
+       
+         
+
+    }
+
+       
 
     
 

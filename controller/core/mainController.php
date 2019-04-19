@@ -60,7 +60,6 @@ class mainController{
     function setPageDataVariables($title, $body,$input ){
         $this->pageData['metaData']['title'] = $title;
         $this->pageData['metaData']['body']  = $body; 
-       
         $this->pageData['inputData'] =  $input;
 
     }

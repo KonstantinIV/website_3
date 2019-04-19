@@ -159,11 +159,12 @@ $(document).on('click', '#log', function(){
             var url = window.location.href.split('/');
             //console.log(url);
              $.ajax({
+               async : false ,
                url: "../indexPage",
                method: "POST",
                data:{grab : last_grabbed, cat : url[4]},
                success: function(data){
-                 $('.pop_post_cont').append(data);
+                 $('.pop_post_cont').append(JSON.parse(data).content);
 
                  console.log(JSON.parse(data));
                  //wconsole.log(JSON.parse(data));
@@ -218,9 +219,9 @@ $.ajax({
      var url = window.location.href.split('/');
       console.log(url);
           $.ajax({
-              url: "like",
+              url: "vote",
               method: "POST",
-              data:{ postID : postID},
+              data:{ postID : postID , action : "likes"},
               success: function(data){
                 console.log("hg");
                 console.log(data);
@@ -250,9 +251,9 @@ $.ajax({
      var url = window.location.href.split('/');
       console.log(url);
           $.ajax({
-              url: "dislike",
+              url: "vote",
               method: "POST",
-              data:{ postID : postID},
+              data:{ postID : postID , action : "dislikes"},
               success: function(data){
                 console.log("hg");
                 console.log(data);

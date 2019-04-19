@@ -4,7 +4,7 @@ use src\model;
 use src\controller;
 
 
-class mainLoginUtility{
+class mainLoginUtility {
     protected $model;
 
     function __construct(){

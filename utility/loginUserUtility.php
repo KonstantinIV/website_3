@@ -1,8 +1,10 @@
 <?php
 namespace src\utility;
+use \src\controller\interfaces ;
+
 use src\model;
 
-class loginUserUtility extends mainLoginUtility{
+class loginUserUtility extends mainLoginUtility implements interfaces\utilityInterface{
 
 
     function __construct($input){
@@ -11,6 +13,10 @@ class loginUserUtility extends mainLoginUtility{
         $this->model->userAuth();
         $this->startSession();
         print_r($this->model->inputData);
+    }
+
+    function runScript(){
+       
     }
 
     function getUserExists(){

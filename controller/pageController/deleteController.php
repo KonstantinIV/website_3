@@ -1,7 +1,9 @@
 <?php
 namespace src\controller\pageController;
 use \src\controller\core;
-class deleteController extends core\mainController{
+use \src\controller\interfaces ;
+
+class deleteController extends core\mainController implements interfaces\pageInterface{
     private $postID;
     private $username;
     

@@ -87,6 +87,86 @@ class postModel extends core\modelController{
 
     }
 
+    function votePost($postID,$username, $action){
+        switch($action){
+            case "dislikes":
+                $stmt = $this->pdo->prepare("insert into dislikes    (POST_ID, USER_ID) VALUES (:id,(SELECT ID from user where username = :username)) ");
+                break;
+            case"likes":
+                 $stmt = $this->pdo->prepare("insert into likes    (POST_ID, USER_ID) VALUES (:id,(SELECT ID from user where username = :username)) ");
+                break;
+                }
+
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        $stmt->bindParam(':id', $postID, \PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+
+    function voteExists($username,$postID,$action){
+        switch($action){
+            case "dislikes":
+                $stmt = $this->pdo->prepare('select POST_ID from dislikes WHERE username= :username and :postID LIMIT 1');
+                break;
+            case"likes":
+                $stmt = $this->pdo->prepare('select POST_ID from likes WHERE username= :username and :postID LIMIT 1');
+                break;
+            }
+     
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        $stmt->bindParam(':postID', $postID, \PDO::PARAM_INT);
+        $stmt->execute();
+        if(!$stmt->fetchColumn()){
+            
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+
+
+
+    function likeExists($username,$postID){
+        $stmt = $this->pdo->prepare('select POST_ID from like WHERE username= :username and :postID LIMIT 1');
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        $stmt->bindParam(':postID', $postID, \PDO::PARAM_INT);
+        $stmt->execute();
+        
+        if(!$stmt->fetchColumn()){
+            
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    function dislikeExists($username,$postID){
+        $stmt = $this->pdo->prepare('select POST_ID from like WHERE username= :username and :postID LIMIT 1');
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        $stmt->bindParam(':postID', $postID, \PDO::PARAM_INT);
+        $stmt->execute();
+
+
+        if(!$stmt->fetchColumn()){
+            
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     function dislikePost($postID,$username){
         $stmt = $this->pdo->prepare("insert into dislikes   (POST_ID, USER_ID) VALUES (:id,(SELECT ID from user where username = :username)) ");
         $stmt->bindParam(':username', $username, \PDO::PARAM_STR);

@@ -1,8 +1,10 @@
 <?php
 namespace src\controller\pageController;
 use \src\controller\core;
+use \src\controller\interfaces ;
+
 use \src\model;
-class logOutController extends core\mainController{
+class logOutController extends core\mainController implements interfaces\pageInterface{
     
     function __construct($input){
         parent::__construct("", "LogOut", "edit" , $input);
@@ -16,12 +18,16 @@ class logOutController extends core\mainController{
 
 
 
-}
+
 
 
 function loadPage(){
-    header('Location: ../profile');
+   $this->pageBody();
    }
 
+function pageBody(){
+    header('Location: ../profile');
+}
+}
 
 ?>

@@ -1,5 +1,7 @@
 <?php
-class editUtility{
+use \src\controller\interfaces ;
+
+class editUtility implements interfaces\utilityInterface{
     private $model;
 
 
@@ -8,9 +10,13 @@ class editUtility{
         $this->model->data['text'] = $_POST['text'];
         $this->model->data['id'] = (int)$_POST['postID'];
        
-        $this->editPost();
+       
         
 
+    }
+
+    function runScript(){
+        $this->editPost();
     }
 
     function editPost(){
