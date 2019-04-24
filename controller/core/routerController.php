@@ -3,7 +3,7 @@ namespace src\controller\core;
 
 class routerController{
     
-    private $urlArr;
+    private $urlArr = array();
     private $directory = "\\src\\controller\\pageController\\";
     private $scriptType = "Controller";
   
@@ -19,7 +19,7 @@ class routerController{
         if(empty($this->urlArr)){
            
             return false;
-            return "index";
+            
             
         }else{
               
@@ -29,14 +29,10 @@ class routerController{
                     
                     return false;
                     
-                    return "index";
                 }
             }
         }
 
-        if($this->urlArr[0] == "cat"){
-            return false;
-        }        
         
         if(!$this->checkFileExist($this->urlArr[0])){
             

@@ -136,7 +136,7 @@ $(document).on('click', '#log', function(){
         var url = window.location.href.split('/');
         console.log(url);
             $.ajax({
-                url: "../editUtil",
+                url: "editutility",
                 method: "POST",
                 data:{title: postTitle , year: postYear ,month : postMonth, day : postDay, text:postText, postID : url[4]},
                 success: function(data){

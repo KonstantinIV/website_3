@@ -57,12 +57,11 @@ class postModel extends core\modelController{
 
     }
 
-    function editPost(){
-        $stmt = $this->pdo->prepare("UPDATE post SET  text = :postText WHERE ID = :id");
-        $stmt->bindParam(':postText', $this->data['text'], PDO::PARAM_STR);
-        $stmt->bindParam(':id', $this->data['id'], PDO::PARAM_INT);
-        print_r($this->data);
-
+    function editPost($title, $text, $postID){
+        $stmt = $this->pdo->prepare("UPDATE post SET  text = :postText , title = :title WHERE ID = :id");
+        $stmt->bindParam(':postText', $text, \PDO::PARAM_STR);
+        $stmt->bindParam(':title', $title, \PDO::PARAM_STR);
+        $stmt->bindParam(':id', $postID, \PDO::PARAM_INT);
         $stmt->execute();
         //return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
