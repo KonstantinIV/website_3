@@ -9,7 +9,7 @@ class profileController extends core\mainController implements interfaces\pageIn
     private $username;
 
     function __construct($input){
-
+        
         $this->username = empty($input[0]) ? "" : $input[0];
 
 
@@ -19,7 +19,7 @@ class profileController extends core\mainController implements interfaces\pageIn
         //Chnage to if
 
 
-        if(empty($this->username) && !isset($_SESSION['user'])){
+        if( !isset($_SESSION['user'])){
             
             header('Location: /');
 

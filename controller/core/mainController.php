@@ -14,16 +14,16 @@ class mainController{
 
 
     function __construct($modelName,$title, $body, $input){
-        
-        $this->view  = new viewController();
         $this->sessionModel = new model\sessionModel();
+        $this->view  = new viewController();
+       
 
         if($modelName != ""){
             $modelName = '\\src\\model\\'.$modelName;
             $this->model = new $modelName;
            
         }
-
+        //echo $_SESSION['user'] ."dsfdgfedsgdffgd";
         $this->input =  $input;
         $this->view->pageData['metaData']['loggedIn'] =  isset($_SESSION['user']) ? true : false;
         $this->view->pageData['metaData']['title'] = $title;

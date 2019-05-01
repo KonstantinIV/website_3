@@ -101,14 +101,50 @@ class postModel extends core\modelController{
         $stmt->execute();
     }
 
-
-    function voteExists($username,$postID,$action){
+    function voteComment($postID,$username, $action){
         switch($action){
             case "dislikes":
-                $stmt = $this->pdo->prepare('select POST_ID from dislikes WHERE username= :username and :postID LIMIT 1');
+                $stmt = $this->pdo->prepare("insert into cdislikes    (COMMENT_ID, USER_ID) VALUES (:id,(SELECT ID from user where username = :username)) ");
                 break;
             case"likes":
-                $stmt = $this->pdo->prepare('select POST_ID from likes WHERE username= :username and :postID LIMIT 1');
+                 $stmt = $this->pdo->prepare("insert into clikes    (COMMENT_ID, USER_ID) VALUES (:id,(SELECT ID from user where username = :username)) ");
+                break;
+                }
+
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        $stmt->bindParam(':id', $postID, \PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+
+    function voteExistsPost($username,$postID,$action){
+        switch($action){
+            case "dislikes":
+                $stmt = $this->pdo->prepare('select POST_ID from dislikes WHERE username= :username and POST_ID =:postID LIMIT 1');
+                break;
+            case"likes":
+                $stmt = $this->pdo->prepare('select POST_ID from likes WHERE username= :username and POST_ID = :postID LIMIT 1');
+                break;
+            }
+     
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        $stmt->bindParam(':postID', $postID, \PDO::PARAM_INT);
+        $stmt->execute();
+        if(!$stmt->fetchColumn()){
+            
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    function voteExistsComment($username,$postID,$action){
+        switch($action){
+            case "dislikes":
+                $stmt = $this->pdo->prepare('select POST_ID from cdislikes WHERE username= :username and COMMENT_ID = :postID LIMIT 1');
+                break;
+            case"likes":
+                $stmt = $this->pdo->prepare('select POST_ID from clikes WHERE username= :username and COMMENT_ID = :postID LIMIT 1');
                 break;
             }
      

@@ -16,6 +16,7 @@ class registerUtility extends mainLoginUtility implements interfaces\utilityInte
 
 
     function __construct($input){
+        ///echo "ssssssssssssssdd";
         parent::__construct();
         $this->username = isset($_POST['user'])   ?  $_POST['user']  : false  ;
         $this->password =  isset($_POST['pass'])  ?  $_POST['pass']    : false  ;
@@ -26,9 +27,16 @@ class registerUtility extends mainLoginUtility implements interfaces\utilityInte
 
     function runScript(){
         if($this->username && $this->password && $this->email){
-            $this->userCreate();
-        }else{
+            if($this->userCreate()){
+                $this->startSession($this->username);
 
+                echo json_encode(array( "flag" => true)); 
+
+            }else{
+                echo json_encode(array( "flag" => false)); 
+            }
+        }else{
+            echo json_encode(array( "flag" => false)); 
         }
         
     }
@@ -36,15 +44,17 @@ class registerUtility extends mainLoginUtility implements interfaces\utilityInte
     function userCreate(){
 
 
-        
-        if($this->model->userExists() == true){
-            if($this->model->userValidate() == true){
-                if($this->model->userCreate() == true){
+        if($this->model->usernameVerification($this->username) == true){
+           
+            if($this->model->usernameValidation($this->username) && $this->model->passwordValidation($this->password) && $this->model->emailValidation($this->email) ){
+                
+                if($this->model->userCreate($this->username, $this->password, $this->email) == true){
+                   
                     return true;
                 } 
             }   
         }
-        return $this->model->errorCode;
+        return false;
             
         
 

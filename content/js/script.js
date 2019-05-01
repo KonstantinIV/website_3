@@ -69,17 +69,23 @@ $(document).on('click', '#log', function(){
   if(username == "" || password == "" ){
       console.log("Wrong input");
   }else {
-    var data = {};
+    /*var data = {};
     data['username'] = username;
-    data['password'] = password;  
+    data['password'] = password;  */
           $.ajax({
           url: "loginUser",
           method: "POST",
-          data:{dict : data},
+          data:{user : username , pass : password},
           success: function(data){
+
+            var flag = JSON.parse(data).flag;
+            if(flag){
+              window.location.href = 'profile';
+            }
+
             console.log(data);
             //window.location.replace("user.php");
-            window.location.href = 'profile';
+            //window.location.href = 'profile';
               //window.location.assign('user.php');
           }
       });
@@ -90,24 +96,29 @@ $(document).on('click', '#log', function(){
   $(document).on('click', '#reg', function(){
   
       //Check if empty
-      var username  = $('#username').val();
-      var password  = $('#password').val();
+      var username  = $('#usernameReg').val();
+      var password  = $('#password1').val();
       var email     = $('#email').val();
       var join_date = $('#join_date').val();
       var birthday  = $('#birthday').val();
-      //console.log("Wrong input");
+      console.log("ks");
       
       if(username == "" || password == "" ){
           console.log("Wrong input");
       }else {
           $.ajax({
-              url: "register_util.php",
+              url: "register",
               method: "POST",
               data:{user: username ,pass: password,email : email, join_date : join_date, birthday:birthday},
               success: function(data){
+              var flag = JSON.parse(data).flag;
+                if(flag){
+                  window.location.href = 'profile';
+                }
+               console.log(data);
                
                 //window.location.replace("user.php");
-                window.location.href = 'profile';
+                //window.location.href = 'profile';
                   //window.location.assign('user.php');
               }
           });
@@ -138,7 +149,7 @@ $(document).on('click', '#log', function(){
             $.ajax({
                 url: "editutility",
                 method: "POST",
-                data:{title: postTitle , year: postYear ,month : postMonth, day : postDay, text:postText, postID : url[4]},
+                data:{title: postTitle , year: postYear ,month : postMonth, day : postDay, text:postText, ID : url[4]},
                 success: function(data){
                   console.log("hg");
                   console.log(data);
@@ -211,17 +222,17 @@ $.ajax({
     $(document).on('click', '#likeButton', function(){
   
       //Check if empty
-      var postID  = $(this).closest("div[data-id]").attr('data-id');
+      var ID  = $(this).closest("div[data-id]").attr('data-id');
       var ss      = +$(this).closest("div[data-id]").find(".likes").text();
       $(this).closest("div[data-id]").find(".likes").text(ss + 1);
-      console.log(postID);
+      console.log(ID);
       //console.log("Wrong input");
      var url = window.location.href.split('/');
       console.log(url);
           $.ajax({
               url: "vote",
               method: "POST",
-              data:{ postID : postID , action : "likes"},
+              data:{ ID : ID , action : "likes", type : "post"},
               success: function(data){
                 console.log("hg");
                 console.log(data);
@@ -243,17 +254,87 @@ $.ajax({
     $(document).on('click', '#dislikeButton', function(){
   
       //Check if empty
-      var postID  = $(this).closest("div[data-id]").attr('data-id');
+      var ID  = $(this).closest("div[data-id]").attr('data-id');
       var ss      = +$(this).closest("div[data-id]").find(".dislikes").text();
       $(this).closest("div[data-id]").find(".dislikes").text(ss + 1);
-      console.log(postID);
+      console.log(ID);
       //console.log("Wrong input");
      var url = window.location.href.split('/');
       console.log(url);
           $.ajax({
               url: "vote",
               method: "POST",
-              data:{ postID : postID , action : "dislikes"},
+              data:{ ID : ID , action : "dislikes" , type : "post"},
+              success: function(data){
+                console.log("hg");
+                console.log(data);
+               // $(this).closest("div[data-id]").find(".dislikes").text(ss + 22);
+                console.log(ss);
+
+
+                //ss.closest(".dislikes").val($(this).closest(".dislikes").value + 1) ;
+                //window.location.replace("user.php");
+                //window.location.href = '../profile';
+                  //window.location.assign('user.php');
+              }
+          });
+      
+      
+      
+      
+      
+      });
+
+
+
+      
+
+    $(document).on('click', '#clikeButton', function(){
+  
+      //Check if empty
+      var ID  = $(this).closest("div[comment-id]").attr('comment-id');
+      var ss      = +$(this).closest("div[comment-id]").find(".comment_likes").text();
+      $(this).closest("div[comment-id]").find(".comment_likes").text(ss + 1);
+      console.log(ID);
+      //console.log("Wrong input");
+     var url = window.location.href.split('/');
+      console.log(url);
+          $.ajax({
+              url: "vote",
+              method: "POST",
+              data:{ ID : ID , action : "likes" , type : "comment"},
+              success: function(data){
+                console.log("hg");
+                console.log(data);
+                //window.location.replace("user.php");
+                //window.location.href = '../profile';
+                  //window.location.assign('user.php');
+              }
+          });
+      
+      
+      
+      
+      
+      });
+
+
+      
+
+    $(document).on('click', '#cdislikeButton', function(){
+  
+      //Check if empty
+      var ID  = $(this).closest("div[comment-id]").attr('comment-id');
+      var ss      = +$(this).closest("div[comment-id]").find(".comment_dislikes").text();
+      $(this).closest("div[comment-id]").find(".comment_dislikes").text(ss + 1);
+      console.log(ID);
+      //console.log("Wrong input");
+     var url = window.location.href.split('/');
+      console.log(url);
+          $.ajax({
+              url: "vote",
+              method: "POST",
+              data:{ ID : ID , action : "dislikes", type : "comment"},
               success: function(data){
                 console.log("hg");
                 console.log(data);

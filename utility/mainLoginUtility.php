@@ -1,7 +1,6 @@
 <?php
 namespace src\utility;
 use src\model;
-use src\controller;
 
 
 class mainLoginUtility {
@@ -9,6 +8,11 @@ class mainLoginUtility {
 
     function __construct(){
         $this->model = new model\loginModel();
+    }
+
+    function startSession($username){
+        $session = new model\sessionModel();
+        $session->userSetVar($username);
     }
     
 }

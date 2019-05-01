@@ -3,7 +3,7 @@
         <div class="logo">PRED</div>
         <ul class="row">        
         <li class="row_child"><a href="../">Main</a></li>
-                <li class="row_child"><a href="profile">Profile</a></li>
+                <li class="row_child"><a href="profile<?php if(isset($_SESSION['user'])){ echo "/".$_SESSION['user'];  } ?>">Profile</a></li>
                 <?php
                     if($this->pageData['metaData']['loggedIn']) {
                 ?>        

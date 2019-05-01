@@ -16,7 +16,7 @@ class editController extends core\mainController implements interfaces\pageInter
     
     function __construct($input){
         parent::__construct("postModel", "Edit", "edit" , $input);
-        $this->postID = empty($input[0]) ? $this->emptyID() : $input[0] ;
+        $this->postID = empty($input[0]) ? "" : $input[0] ;
     
         $this->output      = !( $this->input) ? $this->defaultEdit : $this->model->getPost($_SESSION['user'], $this->postID)[0];
         

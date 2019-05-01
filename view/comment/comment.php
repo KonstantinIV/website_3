@@ -26,25 +26,25 @@ function rec2($id_pos,$space,$key){
                 $inte = 20*$space;
                 if($color == 1){     
                     ?>
-                        <div class="comment" style="margin-left:<?php echo $inte ;?>px;background-color: transparent;border: 3px solid #36274b;">
+                        <div class="comment" comment-id = "<?php echo $id;  ?>" style="margin-left:<?php echo $inte ;?>px;background-color: transparent;border: 3px solid #36274b;">
                     <?php
                 }else{
                     ?>
-                        <div class="comment" style="margin-left:<?php echo $inte ;?>px;">
+                        <div class="comment" comment-id = "<?php echo $id;  ?>" style="margin-left:<?php echo $inte ;?>px;">
                     <?php    
                 } 
                     ?>
 
-                    <div class="comment_user"><div class="user">User</div>&#9679<div class="comment_date">5 hours ago</div></div>
+                    <div class="comment_user"><div class="user"><?php echo $parent_id['username'] ;?></div>&#9679<div class="comment_date">5 hours ago</div></div>
                     <div class="comment_text"><?php echo $parent_id['text'] ;?></div>
                             <div class="comment_buttons">
-                                    <div class="comment_like_button">LI</div>
+                                    <div class="comment_like_button" id="clikeButton">LI</div>
                                     <div class="comment_di_li_cont">
-                                            <div class="comment_likes">44</div>
+                                            <div class="comment_likes"><?php echo $parent_id['likes'] ;?></div>
                                             <div class="">&#9679</div>
-                                            <div class="comment_dislikes">22</div>
+                                            <div class="comment_dislikes"><?php echo $parent_id['dislikes'] ;?></div>
                                     </div>        
-                                    <div class="comment_dislike_button">DI</div>
+                                    <div class="comment_dislike_button" id="cdislikeButton">DI</div>
                                     <div class="comment_comment_button">REPLY &#10095;</div>
                             </div>
                     </div>
@@ -60,7 +60,7 @@ function rec2($id_pos,$space,$key){
        
     
     }
-    rec2(0,0,$this->output['commentData']);
+    rec2(0,0,$this->commentData);
 
 
 

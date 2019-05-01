@@ -12,12 +12,7 @@ class commentModel extends core\modelController{
 
     //posts : username title text likes dislikes 
     function getSinglePost($postID){
-        $stmt = $this->pdo->prepare('SELECT user.username, post.title, post.text, LIKETABLE.likes, DISLIKETABLE.dislikes from post INNER JOIN
-        (select post.ID AS POSTID, count(likes.POST_ID) AS likes from post INNER JOIN user ON user.ID = post.USER_ID left JOIN likes ON
-        post.ID =likes.POST_ID  group by post.ID) AS LIKETABLE ON post.id = LIKETABLE.POSTID
-        INNER JOIN (select post.ID AS POSTID, count(dislikes.POST_ID) AS dislikes from post INNER JOIN user ON user.ID = post.USER_ID left JOIN dislikes ON
-        post.ID =dislikes.POST_ID  group by post.ID) AS DISLIKETABLE ON post.id = DISLIKETABLE.POSTID 
-        INNER JOIN user ON user.ID = post.USER_ID where post.ID = ?');
+        $stmt = $this->pdo->prepare('SELECT post.ID, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  where post.ID = ? group by post.ID' );
         $stmt->execute([$postID]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -27,7 +22,8 @@ class commentModel extends core\modelController{
 
     /**Comment section */
     function getCommentid($postID){
-        $stmt = $this->pdo->prepare('SELECT comment.ID, comment.parent_id, comment.text from comment INNER JOIN post ON post.ID = comment.POST_ID where post.ID = ? ');
+        $stmt = $this->pdo->prepare(' SELECT comment.ID, comment.parent_id, comment.text, user.username, count(distinct cdislikes.USER_ID) as dislikes, count(distinct clikes.USER_ID) as likes from comment INNER JOIN user on comment.USER_ID= user.ID  INNER JOIN post ON post.ID = comment.POST_ID 
+        LEFT JOIN cdislikes on comment.ID = cdislikes.COMMENT_ID left JOIN clikes on comment.ID = clikes.COMMENT_ID  where post.ID = ?  group by comment.ID ');
         $stmt->execute([$postID]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC|\PDO::FETCH_UNIQUE);
     }
