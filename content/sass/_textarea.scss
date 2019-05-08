@@ -1,0 +1,53 @@
+.textarea_ct{
+    width: 90%;
+    height: 350px;
+    margin-left: 80px;
+    background-color: #36274b;
+    border-radius: 10px;
+    padding-top: 10px;
+    max-width: 700px;
+    margin-top: 120px;
+}
+
+.textarea{
+    display: block;
+    width: 90%;
+    height: 190px;
+    margin: 0 auto;
+    background-color: #694d92;
+    border:none;
+    color: white;
+    resize: none;
+}
+.p_header{
+    height:30px;
+    background-color: #36274b;
+    line-height: 30px;
+    font-size: 18px;
+    border-bottom: 2px solid  #bfbac7;
+    border-radius: 0px;
+    margin-bottom: 8px;
+
+
+}
+input,textarea:focus {
+    outline-width: 0;
+}
+
+.button_ct{
+    width: 90%;
+    height: 40px;
+    margin: 0 auto;
+}
+.add_post{
+    width: 80px;
+    height: 40px;
+    background-color: #7cf04f;
+    float: right;
+    margin: 5px 0;
+    text-align: center;
+    line-height: 5ex;
+    font-family: sans-serif;
+    font-weight: 600;
+    color: #36274b;
+}

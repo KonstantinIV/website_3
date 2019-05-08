@@ -16,8 +16,7 @@
                                     <br>
                                     <div class="post_date_2">Rs date:<br><span class="date_f"><?php echo $arr['releaseDate'];  ?> </span> </div>
                                     <br> 
-                                    <div class="post_date_3">Database Rs date:<br><span class="date_f">2019-01-15 </span></div>
-                                    <br>
+                                    
                             </div>
 
                     </div>

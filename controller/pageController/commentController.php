@@ -31,13 +31,12 @@ class commentController extends core\mainController implements interfaces\pageIn
     
     
     function getComment(){
-        return $this->model->getCommentid($this->postID);
+        return $this->model->getComments($this->postID);
         
     }
 
 
     function loadPage(){
-        
         $this->view->render($this->pageBody());
     }
 

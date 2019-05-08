@@ -1,0 +1,123 @@
+@import 'variables';
+ul{
+    list-style: none;
+}
+.comment_section{
+    width: 97%;
+    margin: 0 auto;
+
+}
+.comment_section > div{
+    //height: 60px;
+    font-family: sans-serif;
+    color: white;
+
+    padding-left: 20px;
+}
+.comment{
+    background-color: $post_cl;
+}
+.comment_user{
+    padding:7px 0 ;
+    display: flex;
+    flex-flow: row;
+    color: #9e9e9e;
+
+}
+.user{
+    color: #7979d4;
+
+}
+.comment_date{
+    padding-left: 18px;
+    color: #9e9e9e;
+}
+
+.comment_user > div{
+    padding-right: 20px;
+}
+
+
+
+.comment_text{
+    padding: 4px 0;
+    //padding-right: 50px;
+    //width: 65%;
+    max-width: 650px;
+    line-height: 1.3;
+}
+
+
+
+// Thir cont bottom buttons
+.comment_buttons{
+    display: flex;
+    height:20px;
+    //border-top: 1px solid #7cf04f;
+    flex-flow:row;
+    padding-top: 30px;
+    width: 40%;
+    padding-bottom: 5px;
+}
+.comment_buttons *{
+    height: 20px;
+    flex-grow: 1;
+    border-radius: 5px;
+    line-height: 22px;
+font-size: 14px;
+font-weight: 550;
+color:#3f4566;
+font-family: sans-serif;
+text-align: center;
+
+}
+.comment_di_li_cont{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.comment_likes{
+    color:#7cf04f;
+
+}
+.comment_dislikes{
+    color:#ca3939;
+}
+
+
+.comment_buttons div:nth-child(4){
+    background-color: transparent; 
+
+}
+.comment_like_button{
+    background-color: #7cf04f;
+    flex-grow: 0.6;
+
+}
+.comment_dislike_button{
+    background-color: #ca3939;
+    flex-grow: 0.6;
+}
+.comment_comment_button{
+    background-color: gray;
+    color: #8b8fa9;
+}
+
+
+
+
+
+
+.test{
+    margin-left:20px;
+    background-color: transparent;
+    border: 3px solid $post_cl;
+
+}
+
+.test2{
+    margin-left:60px;
+    background-color: transparent;
+    border: 3px solid $post_cl;
+
+}

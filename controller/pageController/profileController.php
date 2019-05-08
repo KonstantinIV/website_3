@@ -19,13 +19,11 @@ class profileController extends core\mainController implements interfaces\pageIn
         //Chnage to if
 
 
-        if( !isset($_SESSION['user'])){
+        /*if( isset($_SESSION['user'])){
             
-            header('Location: /');
-
-        }else{
+           
             $this->username = $_SESSION['user'];
-        }
+        }*/
         
         if(!$this->model->userExists($this->username)){
             header('Location: /');

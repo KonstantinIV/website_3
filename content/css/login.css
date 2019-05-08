@@ -28,7 +28,8 @@ body {
 */
 .main_box {
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  margin-top: 10px; }
 
 .logo {
   font-family: sans-serif, Arial, Helvetica;
@@ -39,11 +40,10 @@ body {
   font-size: 18px;
   padding-top: 20px;
   text-align: center;
-  flex-grow: 1;
-  flex-basis: 40%; }
+  flex-basis: 20%; }
 
 .row {
-  flex-grow: 2;
+  flex-grow: 4;
   display: inline-flex;
   list-style-type: none;
   margin: 0;
@@ -57,31 +57,37 @@ body {
   flex-grow: 1; }
 
 .row_child a {
+  border: 1px solid #ae81ea;
+  border-radius: 4px;
   transition: 0.3s;
   display: block;
-  height: 100%;
+  height: 20px;
   text-align: center;
-  padding-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 3px;
   background-color: #523b71;
   text-decoration: none;
   font-family: sans-serif, Arial, Helvetica;
+  margin-right: 10px;
   color: white;
   font-weight: 600;
   line-height: 15px;
-  font-size: 18px; }
+  font-size: 18px;
+  margin-top: 10px; }
 
 .row_child a:hover {
   background-color: #3e52aa; }
 
 .nav_button {
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
   display: none;
   margin: 5px; }
 
 .nav_button img {
-  width: 50px;
-  color: aliceblue; }
+  width: 25px;
+  color: aliceblue;
+  cursor: pointer; }
 
 .search {
   background-color: #36274b;
@@ -96,6 +102,102 @@ body {
   border-radius: 3px;
   border: none;
   background-color: #ae81ea; }
+
+.dropbtn {
+  transition: 0.3s;
+  display: block;
+  height: 20px;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 8px;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #523b71;
+  text-decoration: none;
+  font-family: sans-serif, Arial, Helvetica;
+  outline: none;
+  color: white;
+  font-weight: 600;
+  line-height: 0px;
+  font-size: 18px;
+  cursor: pointer;
+  clear: both;
+  position: relative;
+  vertical-align: center;
+  border: 1px solid #ae81ea;
+  border-radius: 4px; }
+
+.dropbtn a {
+  transition: 0.3s;
+  display: block;
+  height: 20px;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 8px;
+  margin-top: 5px;
+  margin-right: 5px;
+  background-color: #523b71;
+  text-decoration: none;
+  font-family: sans-serif, Arial, Helvetica;
+  color: white;
+  font-weight: 600;
+  line-height: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  clear: both;
+  position: relative;
+  vertical-align: center;
+  border: 0;
+  border-radius: 0; }
+
+/* Dropdown content (hidden by default) */
+.dropdown-contentUser {
+  display: none;
+  position: absolute;
+  margin-top: 5px;
+  z-index: 1;
+  width: 130%;
+  background-color: #3f235a;
+  height: fit-content;
+  padding-left: 5px;
+  right: 0;
+  border: 1px solid #3e52aa;
+  padding-bottom: 5px; }
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-contentUser a:hover {
+  background-color: #3e52aa; }
+
+.dropbtn:hover {
+  background-color: #3e52aa; }
+
+.show {
+  display: block; }
+
+.settingsIcon {
+  width: 25px;
+  height: 25px; }
+
+/* Dropdown content (hidden by default) */
+.dropdown-contentNav {
+  display: none;
+  position: absolute;
+  margin-top: 5px;
+  z-index: 1;
+  width: 130%;
+  background-color: #3f235a;
+  height: fit-content;
+  padding-left: 5px;
+  right: 0;
+  border: 1px solid #3e52aa;
+  padding-bottom: 5px; }
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-contentNav a:hover {
+  background-color: #3e52aa; }
+
+.dropbtn:hover {
+  background-color: #3e52aa; }
 
 /* 
   ##Device = Desktops
@@ -121,11 +223,10 @@ body {
   ##Device = Most of the Smartphones Mobiles (Portrait)
   ##Screen = B/w 320px to 479px
 */
-/*****************/
-@media (min-width: 320px) and (max-width: 1024px) {
+@media (min-width: 30px) and (max-width: 480px) {
   .nav_button_ct {
-    flex-basis: 60%;
-    flex-grow: 3; }
+    height: 30px;
+    margin-top: 12px; }
 
   .nav_button {
     display: block;
@@ -143,13 +244,14 @@ body {
 
   .row_child {
     height: 50px;
-    flex-grow: 1; } }
-/******************************************/
-.row_appear {
-  visibility: visible;
-  opacity: 1;
-  transition: 0.5s; }
+    flex-grow: 1; }
 
+  .row_appear {
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s; } }
+/*****************/
+/******************************************/
 .cont {
   width: 100%;
   background-color: #36274b;

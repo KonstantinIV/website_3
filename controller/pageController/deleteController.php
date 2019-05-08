@@ -15,9 +15,6 @@ class deleteController extends core\mainController implements interfaces\pageInt
 
         $this->model->deletePost($this->postID,$this->username);
         
-
-
-        
     }
 
    function loadPage(){
