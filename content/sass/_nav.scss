@@ -64,7 +64,7 @@
     width: 25px;
     height: 25px;
     display: none;
-    
+    z-index: 2;
     margin: 5px;
 }
 .nav_button img{
@@ -171,7 +171,6 @@ margin-top: 5px;
 }
 
 
-.show {display:block;}
 
 
 .settingsIcon{
@@ -190,7 +189,7 @@ margin-top: 5px;
   position: absolute;
 margin-top: 5px;
   z-index: 1;
-  width: 130%;
+  width: 40%;
   background-color: #3f235a;
   height: fit-content;
   padding-left: 5px;
@@ -214,6 +213,7 @@ margin-top: 5px;
 
 
 
+.show {display:block;}
 
 
 
@@ -308,7 +308,7 @@ margin-top: 5px;
     
   }
   .row_child{
-      height:50px;
+     
       flex-grow: 1;
       
   }

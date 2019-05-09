@@ -2,6 +2,9 @@ body {
   background-color: #523b71;
   margin: 0; }
 
+a {
+  text-decoration: none; }
+
 /* 
   ##Device = Desktops
   ##Screen = 1281px to higher resolution desktops
@@ -119,6 +122,7 @@ body {
   width: 25px;
   height: 25px;
   display: none;
+  z-index: 2;
   margin: 5px; }
 
 .nav_button img {
@@ -208,9 +212,6 @@ body {
 .dropbtn:hover {
   background-color: #3e52aa; }
 
-.show {
-  display: block; }
-
 .settingsIcon {
   width: 25px;
   height: 25px; }
@@ -221,7 +222,7 @@ body {
   position: absolute;
   margin-top: 5px;
   z-index: 1;
-  width: 130%;
+  width: 40%;
   background-color: #3f235a;
   height: fit-content;
   padding-left: 5px;
@@ -235,6 +236,9 @@ body {
 
 .dropbtn:hover {
   background-color: #3e52aa; }
+
+.show {
+  display: block; }
 
 /* 
   ##Device = Desktops
@@ -280,7 +284,6 @@ body {
     opacity: 0; }
 
   .row_child {
-    height: 50px;
     flex-grow: 1; }
 
   .row_appear {
@@ -321,32 +324,41 @@ body {
   line-height: 30px; }
 
 .pop_post_cont {
-  flex-grow: 0;
+  flex-grow: 1;
   margin-left: 20px;
+  margin-right: 20px;
   margin-top: 30px;
-  margin-bottom: 30px; }
+  margin-bottom: 30px;
+  width: min-content; }
 
 .post_cont {
   background-color: #36274b;
   border-radius: 5px;
   width: 100%;
-  height: 350px;
-  max-width: 700px;
+  height: 400px;
+  max-width: 600px;
   margin-bottom: 20px; }
 
 .column_2 {
   display: flex;
   flex-direction: row;
-  height: 64%;
+  height: 68%;
   align-items: stretch; }
 
 .text_cont {
+  border: 1px solid transparent;
+  border-radius: 5px;
   display: block;
   min-width: 0;
+  overflow: hidden;
   text-align: left;
   flex-grow: 1;
   flex-basis: 65%;
-  position: relative; }
+  position: relative;
+  cursor: pointer; }
+
+.text_cont:hover {
+  border: 1px solid #9696c5; }
 
 .date_cont {
   display: block;
@@ -403,7 +415,7 @@ body {
   margin-left: 20px;
   overflow: hidden;
   font-family: sans-serif;
-  height: 87%;
+  height: 100%;
   margin-top: 6px; }
 
 .expand_text {
@@ -462,14 +474,27 @@ body {
   background-color: transparent; }
 
 .like_button {
-  background-color: #7cf04f; }
+  cursor: pointer;
+  border: 1px solid #7cf04f;
+  background-color: #36274b; }
 
 .dislike_button {
-  background-color: #ca3939; }
+  cursor: pointer;
+  border: 1px solid #ca3939;
+  background-color: #36274b; }
+
+.like_button:hover {
+  border: 1px solid #255a11; }
+
+.dislike_button:hover {
+  border: 1px solid #ec1111; }
 
 .comment_button {
-  background-color: gray;
+  border: 1px solid gray;
   color: #8b8fa9; }
+
+.commentLinkButton:hover .comment_button {
+  border: 1px solid #585858; }
 
 .main_cont {
   display: flex;
@@ -479,7 +504,7 @@ body {
 .right_cont {
   display: flex;
   flex-flow: column;
-  flex-grow: 1;
+  flex-grow: 1.5;
   flex-wrap: wrap;
   margin: 20px;
   flex-basis: 0; }

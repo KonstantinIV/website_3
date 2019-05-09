@@ -1,17 +1,19 @@
 .pop_post_cont{
     //width: 70%;
-    flex-grow: 0;
+    flex-grow: 1;
     margin-left:20px;
+    margin-right: 20px;
     margin-top: 30px;
     margin-bottom: 30px;
-    
+    width: min-content;
 }
+
 .post_cont{
     background-color: #36274b;
     border-radius: 5px;
     width: 100%;
-    height: 350px;
-    max-width: 700px;
+    height: 400px;
+    max-width: 600px;
     margin-bottom: 20px;
     
 }
@@ -19,22 +21,27 @@
 .column_2{
     display: flex;
     flex-direction: row ;
-    height: 64%;
+    height: 68%;
     align-items: stretch;
 }
 
 
 .text_cont{
-    
+    border: 1px solid transparent;
+    border-radius: 5px;
     display: block;
     min-width: 0;
-    //overflow: hidden;
+    overflow: hidden;
     text-align: left;
     flex-grow: 1;
     //flex: 1  1 1;
     //flex-shrink: 2;
     flex-basis: 65%;
     position: relative;
+    cursor: pointer;
+}
+.text_cont:hover{
+    border: 1px solid rgb(150, 150, 197);
 }
 .date_cont{
     display: block;
@@ -124,7 +131,7 @@ color:rgb(120, 120, 243);
     margin-left: 20px;
     overflow: hidden;
     font-family: sans-serif;
-    height: 87%;
+    height: 100%;
     margin-top: 6px;
 }
 .expand_text{
@@ -202,15 +209,41 @@ text-align: center;
 
 }
 .like_button{
-    background-color: #7cf04f;
+    cursor: pointer;
+    border:1px solid #7cf04f;
+    background-color: #36274b;
 
 }
 .dislike_button{
-    background-color: #ca3939;
+    cursor: pointer;
+    border:1px solid #ca3939;
+    background-color: #36274b;
 
 }
+.like_button:hover{
+    
+    border:1px solid #255a11;
+    
+
+}
+.dislike_button:hover{
+    
+    border:1px solid #ec1111;
+    
+
+}
+
+
+
 .comment_button{
-    background-color: gray;
+    border:1px solid gray;
+  
     color: #8b8fa9;
 }
 
+.commentLinkButton:hover .comment_button{
+    
+    border:1px solid rgb(88, 88, 88);
+    
+
+}

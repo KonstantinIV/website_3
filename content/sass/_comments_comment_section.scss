@@ -90,12 +90,16 @@ text-align: center;
 
 }
 .comment_like_button{
-    background-color: #7cf04f;
+    cursor: pointer;
+    border:1px solid #7cf04f;
+    //background-color: #36274b;
     flex-grow: 0.6;
 
 }
 .comment_dislike_button{
-    background-color: #ca3939;
+    cursor: pointer;
+    border:1px solid #ca3939;
+   // background-color: #36274b;
     flex-grow: 0.6;
 }
 .comment_comment_button{

@@ -26,7 +26,7 @@ function rec2($id_pos,$space,$key){
                 $inte = 20*$space;
                 if($color == 1){     
                     ?>
-                        <div class="comment" comment-id = "<?php echo $id;  ?>" style="margin-left:<?php echo $inte ;?>px;background-color: transparent;border: 3px solid #36274b;">
+                        <div class="comment" comment-id = "<?php echo $id;  ?>" style="margin-left:<?php echo $inte ;?>px;background-color: #22143c;border: 3px solid #36274b;">
                     <?php
                 }else{
                     ?>
@@ -38,13 +38,29 @@ function rec2($id_pos,$space,$key){
                     <div class="comment_user"><div class="user"><?php echo $parent_id['username'] ;?></div>&#9679<div class="comment_date">5 hours ago</div></div>
                     <div class="comment_text"><?php echo $parent_id['text'] ;?></div>
                             <div class="comment_buttons">
-                                    <div class="comment_like_button" id="clikeButton">LI</div>
+                            <?php  if($parent_id['livoted'] == 1){
+                                echo  '<div class="comment_like_button full" id="clikeButton"><img class="likeImage" src="content/img/greenFull.svg"></div> ';
+                                }elseif($parent_id['livoted'] == 0){
+                                        echo ' <div class="comment_like_button " id="clikeButton"><img class="likeImage" src="content/img/greenEmpty.svg"></div>  ';
+                                }else{
+                                        echo ' <div class="comment_like_button " id="clikeButton"><img class="likeImage" src="content/img/greenEmpty.svg"></div>  ';
+                                } ?>
+
+
+
                                     <div class="comment_di_li_cont">
                                             <div class="comment_likes"><?php echo $parent_id['likes'] ;?></div>
                                             <div class="">&#9679</div>
                                             <div class="comment_dislikes"><?php echo $parent_id['dislikes'] ;?></div>
                                     </div>        
-                                    <div class="comment_dislike_button" id="cdislikeButton">DI</div>
+                                    <?php  if($parent_id['divoted'] == 1){
+                                                echo  '<div class="comment_dislike_button full" id="cdislikeButton"><img class="dislikeImage" src="content/img/redFull.svg"></div> ';
+                                                }elseif($parent_id['divoted'] == 0){
+                                                        echo ' <div class="comment_dislike_button" id="cdislikeButton"><img class="dislikeImage" src="content/img/redEmpty.svg"></div>';
+                                                }else{
+                                                        echo ' <div class="comment_dislike_button" id="cdislikeButton"><img class="dislikeImage" src="content/img/redEmpty.svg"></div>';
+                                                } ?>
+                                    
                                     <div class="comment_comment_button">REPLY &#10095;</div>
                             </div>
                     </div>

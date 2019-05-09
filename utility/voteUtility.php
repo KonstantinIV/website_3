@@ -12,6 +12,7 @@ class voteUtility implements interfaces\utilityInterface{
     private $ID;
     private $action;
     private $type;
+    private $update;
 
     function __construct($data){
         $this->model = new model\postModel();
@@ -21,10 +22,11 @@ class voteUtility implements interfaces\utilityInterface{
         $this->ID   = isset($_POST['ID']) ? (int)$_POST['ID'] : false; 
         $this->action   =  isset($_POST['action']) ? $_POST['action'] : false; 
         $this->type   =  isset($_POST['type']) ? $_POST['type'] : false; 
+        $this->update   =  isset($_POST['update']) ? $_POST['update'] : false; 
      //  echo $this->username;
         //$this->model->likePost((int)$_POST['ID'],$_SESSION['user']);
-      
-
+       // echo $this->update;
+      // echo gettype($this->update). "\n";
     }
 
 
@@ -36,6 +38,9 @@ class voteUtility implements interfaces\utilityInterface{
         if(is_int($this->ID)  && $this->username && $this->action === "likes" || $this->action === "dislikes" && $this->type === "comment" || $this->type === "post"){
            
                 if($this->type ==  "comment"){
+                    if($this->update == "true"){
+
+
                     if(!$this->model->voteExistsComment($this->username,$this->ID,$this->action)){
                         $this->model->voteComment($this->ID, $this->username, $this->action);
                         //echo $this->ID. " ". $this->username . " ". $this->action;
@@ -43,15 +48,48 @@ class voteUtility implements interfaces\utilityInterface{
                     }else {
                         return false;
                     }
-                }else if($this->type == "post"){
-                    if(!$this->model->voteExistsPost($this->username,$this->ID,$this->action)){
+                }elseif($this->update == "false"){
+                    if($this->model->voteExistsComment($this->username,$this->ID,$this->action)){
+                     
+                        $this->model->unvoteComment($this->ID, $this->username, $this->action);
+                        //echo $this->ID. " ". $this->username . " ". $this->action;
+                        return true;
+                    }else {
+                        return false;
+                    }
+                }
 
-                    $this->model->votePost($this->ID, $this->username, $this->action);
+
+                }else if($this->type == "post"){
                     
-                    return true;
+                    if($this->update == "true"){
+                        
+                        if(!$this->model->voteExistsPost($this->username,$this->ID,$this->action)){
+
+                            $this->model->votePost($this->ID, $this->username, $this->action);
+                            
+                            return true;
+                        }else{
+        
+                                return false;
+                            }
+
+                    }elseif($this->update == "false"){
+                       
+                        if($this->model->voteExistsPost($this->username,$this->ID,$this->action)){
+                            
+                            $this->model->unvotePost($this->ID, $this->username, $this->action);
+                            
+                            return true;
+                        }else{
+        
+                                return false;
+                            }
+
                     }else{
                         return false;
                     }
+                        
                 }else{
                     return false;
                 }

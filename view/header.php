@@ -30,8 +30,8 @@
         </ul>
         <div  class="nav_button_ct" > 
         
-                <div  class="nav_button" onclick="navDropdown()"> <img src="content/img/icons8-menu.svg" alt="icon">
-                        <div id="navDropdown" class="dropdown-contentNav row_child show ">
+                <div  class="nav_button" onclick="navDropdown()"> <img  class="navDropdownButton" src="content/img/icons8-menu.svg" alt="icon">
+                        <div id="navDropdown" class="dropdown-contentNav row_child ">
                                 <a href="login">LOG IN</a></li>
                                 <a href="login">SIGN UP</a></li>
                         </div>

@@ -25,7 +25,7 @@ function navDropdown() {
 
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
-  if (!event.target.matches('.nav_button')) {
+  if (!event.target.matches('.navDropdownButton')) {
     var dropdowns = document.getElementsByClassName("dropdown-contentNav");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
@@ -87,12 +87,19 @@ function ch_post(){
 }
 
 
-$(document).on('click', '.expand_post', function() {
+$(document).on('click', '.text_cont', function() {
   //$(".row").toggleClass('hoops');
 
-  $(".post_text").toggleClass('expand_text');
-  $(".post_cont").toggleClass('expand_cont');
+  
+  if(!$(this)[0].classList.contains("expand_text")){
+    $(this).closest(".post_cont").toggleClass('expand_cont');
+$(this).toggleClass('expand_text');
+$(this).css("border","none");
+$(this).css("cursor","auto");
+  }
 
+  //$(".post_cont").toggleClass('expand_cont');
+ 
 });
 
 
@@ -255,13 +262,74 @@ $.ajax({
     })*/
 
 
+function vote(thisButton,action,type,prefix,imageName){
+      var ID  = thisButton.closest("div[data-id]").attr('data-id');
+
+      
+
+      
+
+      var updateType;
+      if(!thisButton[0].classList.contains("full")){
+        updateType = true;  
+      }else{
+        updateType = false;
+      }
+
+      var url = window.location.href.split('/');
+          $.ajax({
+              url: "vote",
+              method: "POST",
+              data:{ ID : ID , action : action, type : type, update : updateType},
+              async:false,
+              success: function(data){
+               
+                console.log(data);
+                flag = JSON.parse(data).message;
+                if(flag){
+                  
+                  if(updateType){
+
+                    thisButton.toggleClass("full");
+                    thisButton.find("."+prefix+"Image").attr("src","content/img/"+imageName+"Full.svg");
+                    var ss      = +thisButton.closest("div[data-id]").find("."+prefix+"s").text();
+                    thisButton.closest("div[data-id]").find("."+prefix+"s").text(ss + 1);
+                  }else{
+                    thisButton.removeClass("full");
+                    thisButton.find("."+prefix+"Image").attr("src","content/img/"+imageName+"Empty.svg");
+                    var ss      = +thisButton.closest("div[data-id]").find("."+prefix+"s").text();
+                    thisButton.closest("div[data-id]").find("."+prefix+"s").text(ss - 1);
+                  }
+
+              
+                }
+              }
+          });
+
+
+
+
+}
+
+
 
     $(document).on('click', '#likeButton', function(){
-  
+      vote($(this),"likes","post","like", "green" );
       //Check if empty
+      /*var thisButton = $(this);
       var ID  = $(this).closest("div[data-id]").attr('data-id');
       var ss      = +$(this).closest("div[data-id]").find(".likes").text();
-      $(this).closest("div[data-id]").find(".likes").text(ss + 1);
+      var updateType;
+      if(!thisButton[0].classList.contains("full")){
+        //$(this).closest(".post_cont").toggleClass('expand_cont');
+        updateType = true;  
+        console.log("sss");    
+      }else{
+        updateType = false;
+      }
+
+      
+      
       console.log(ID);
       //console.log("Wrong input");
      var url = window.location.href.split('/');
@@ -269,15 +337,31 @@ $.ajax({
           $.ajax({
               url: "vote",
               method: "POST",
-              data:{ ID : ID , action : "likes", type : "post"},
+              data:{ ID : ID , action : "likes", type : "post", update : updateType},
+              async:false,
               success: function(data){
                 console.log("hg");
                 console.log(data);
+                flag = JSON.parse(data).message;
+                if(flag){
+                  
+                  if(updateType){
+                    thisButton.toggleClass("full");
+                    thisButton.find(".likeImage").attr("src","content/img/greenFull.svg");
+                    thisButton.closest("div[data-id]").find(".likes").text(ss + 1);
+                  }else{
+                    thisButton.removeClass("full");
+                    thisButton.find(".likeImage").attr("src","content/img/greenEmpty.svg");
+                    thisButton.closest("div[data-id]").find(".likes").text(ss - 1);
+                  }
+
+              
+                }
                 //window.location.replace("user.php");
                 //window.location.href = '../profile';
                   //window.location.assign('user.php');
               }
-          });
+          });*/
       
       
       
@@ -289,32 +373,10 @@ $.ajax({
       
 
     $(document).on('click', '#dislikeButton', function(){
-  
-      //Check if empty
-      var ID  = $(this).closest("div[data-id]").attr('data-id');
-      var ss      = +$(this).closest("div[data-id]").find(".dislikes").text();
-      $(this).closest("div[data-id]").find(".dislikes").text(ss + 1);
-      console.log(ID);
-      //console.log("Wrong input");
-     var url = window.location.href.split('/');
-      console.log(url);
-          $.ajax({
-              url: "vote",
-              method: "POST",
-              data:{ ID : ID , action : "dislikes" , type : "post"},
-              success: function(data){
-                console.log("hg");
-                console.log(data);
-               // $(this).closest("div[data-id]").find(".dislikes").text(ss + 22);
-                console.log(ss);
+      vote($(this),"dislikes","post","dislike", "red" );
+     
 
-
-                //ss.closest(".dislikes").val($(this).closest(".dislikes").value + 1) ;
-                //window.location.replace("user.php");
-                //window.location.href = '../profile';
-                  //window.location.assign('user.php');
-              }
-          });
+        
       
       
       
@@ -358,13 +420,66 @@ $.ajax({
 
       
 
-    $(document).on('click', '#cdislikeButton', function(){
+
+
+      function cvote(thisButton,action,type,prefix,imageName){
+        var ID  = thisButton.closest("div[comment-id]").attr('comment-id');
+        
   
+        
+  
+        var updateType;
+        if(!thisButton[0].classList.contains("full")){
+          updateType = true;  
+        }else{
+          updateType = false;
+        }
+  
+        var url = window.location.href.split('/');
+            $.ajax({
+                url: "vote",
+                method: "POST",
+                data:{ ID : ID , action : action, type : type, update : updateType},
+                async:false,
+                success: function(data){
+                 
+                  console.log(data);
+                  flag = JSON.parse(data).message;
+                  if(flag){
+                    
+                    if(updateType){
+  
+                      thisButton.toggleClass("full");
+                      thisButton.find("."+prefix+"Image").attr("src","content/img/"+imageName+"Full.svg");
+                      var ss      = +thisButton.closest("div[comment-id]").find(".comment_"+prefix+"s").text();
+                      thisButton.closest("div[comment-id]").find(".comment_"+prefix+"s").text(ss + 1);
+                    }else{
+                      thisButton.removeClass("full");
+                      thisButton.find("."+prefix+"Image").attr("src","content/img/"+imageName+"Empty.svg");
+                      var ss      = +thisButton.closest("div[comment-id]").find(".comment_"+prefix+"s").text();
+                      thisButton.closest("div[comment-id]").find(".comment_"+prefix+"s").text(ss - 1);
+                    }
+  
+                
+                  }
+                }
+            });
+  
+  
+  
+  
+  }
+  
+  
+
+
+    $(document).on('click', '#cdislikeButton', function(){
+      cvote($(this),"dislikes","comment","dislike", "red" );
       //Check if empty
-      var ID  = $(this).closest("div[comment-id]").attr('comment-id');
+      /*
       var ss      = +$(this).closest("div[comment-id]").find(".comment_dislikes").text();
       $(this).closest("div[comment-id]").find(".comment_dislikes").text(ss + 1);
-      console.log(ID);
+      
       //console.log("Wrong input");
      var url = window.location.href.split('/');
       console.log(url);
@@ -385,7 +500,7 @@ $.ajax({
                   //window.location.assign('user.php');
               }
           });
-      
+      */
       
       
       

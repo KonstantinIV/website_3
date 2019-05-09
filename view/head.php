@@ -3,6 +3,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1., user-scalable=no, target-densityDpi=device-dpi" />
+
 
   <title><?php echo $this->pageData['metaData']['title'];?></title>
   <meta name="description" content=<?php echo $this->pageData['metaData']['title'];?>>
