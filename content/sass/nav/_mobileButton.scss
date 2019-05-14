@@ -1,0 +1,31 @@
+.nav_button{
+    width: 25px;
+    height: 25px;
+    display: none;
+    z-index: 2;
+    margin: 5px;
+}
+.dropdown-contentNav {
+    display: none;
+    position: absolute;
+  margin-top: 5px;
+    z-index: 1;
+    width: 40%;
+    background-color: #3f235a;
+    height: fit-content;
+    padding-left: 5px;
+    right: 0;
+    border:1px solid  rgb(62, 82, 170);
+    padding-bottom: 5px;
+  }
+
+
+  .dropdown-contentNav a:hover {
+    background-color: rgb(62, 82, 170);
+  }
+
+.nav_button img{
+    width: 25px;
+    color: aliceblue;
+    cursor: pointer;
+}

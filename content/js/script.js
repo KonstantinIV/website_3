@@ -6,8 +6,8 @@ function userDropdown() {
 
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-contentUser");
+  if (!event.target.matches('.userDropdownButton') && !event.target.matches('.userIcon')) {
+    var dropdowns = document.getElementsByClassName("userDropdown-content");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
@@ -17,6 +17,8 @@ window.onclick = function(event) {
     }
   }
 }
+
+
 
 
 function navDropdown() {
@@ -37,6 +39,27 @@ window.onclick = function(event) {
   }
 }
 
+
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function optionDropdown() {
+  document.getElementById("sortDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.sortDropdownButton') && !event.target.matches('.sortIcon')) {
+    var dropdowns = document.getElementsByClassName("sortDropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
 
 
 
@@ -389,9 +412,9 @@ function vote(thisButton,action,type,prefix,imageName){
       
 
     $(document).on('click', '#clikeButton', function(){
-  
+      cvote($(this),"likes","comment","like", "green" );
       //Check if empty
-      var ID  = $(this).closest("div[comment-id]").attr('comment-id');
+     /* var ID  = $(this).closest("div[comment-id]").attr('comment-id');
       var ss      = +$(this).closest("div[comment-id]").find(".comment_likes").text();
       $(this).closest("div[comment-id]").find(".comment_likes").text(ss + 1);
       console.log(ID);
@@ -411,7 +434,7 @@ function vote(thisButton,action,type,prefix,imageName){
               }
           });
       
-      
+      */
       
       
       
