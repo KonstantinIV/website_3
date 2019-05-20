@@ -19,11 +19,11 @@
         <div class="val"><?php echo $this->output['postCount']?></div>
     </div>
     <div class="total_user_comment">
-        <div class="exp">Total comments received</div>
+        <div class="exp">Total comments</div>
         <div class="val"><?php echo $this->output['commentCount']?></div>
     </div>
     <div class="total_user_like">
-        <div class="exp">Total likes received</div>
+        <div class="exp">Total likes</div>
         <div class="val"><?php echo $this->output['likeCount']?></div>
     </div>
 

@@ -5,7 +5,8 @@
     //background-color: antiquewhite;
     flex-grow: 1.2;
     flex-basis: 0;
-    margin-left: 20px;
+   margin-left: 20px;
+    height: fit-content;
 }
 .user_profile{
     display: flex;
@@ -65,7 +66,7 @@ font-weight: bold;
 .user_stats{
     display: grid;
     grid-template-columns: 33% 33% 33%;
-    grid-template-rows: 150px 150px 150px;
+    grid-template-rows: 150px 0px 0px;
 }
 .user_stats > div{
     //background-color: rgb(73, 126, 73);
@@ -90,3 +91,9 @@ font-weight: bold;
     padding: 20px;
     color: $green_scr;
 }
+@media (min-width: 0px) and (max-width: 1024px) {
+    
+    .dash_stats{
+    margin-left: 0;
+    }
+    }

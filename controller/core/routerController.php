@@ -55,7 +55,7 @@ class routerController{
             $this->scriptType = "Utility";
             return true;
         }
-        print_r($this->urlArr);
+        //print_r($this->urlArr);
         return false;
        
     }
@@ -67,10 +67,10 @@ class routerController{
 
 
     function setParam(){
-        if(empty($this->urlArr[1])){
+        if(empty($this->urlArr[0])){
             return "";
         }else{
-            return array_slice($this->urlArr, 1);
+            return array_slice($this->urlArr, 0);
         }
         
     }

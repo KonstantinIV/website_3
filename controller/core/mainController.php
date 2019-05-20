@@ -29,6 +29,9 @@ class mainController{
         $this->view->pageData['metaData']['title'] = $title;
         $this->view->pageData['metaData']['body']  = $body; 
 
+       $this->view->pageData['metaData']['sortLinkPopular'] = "/popular";
+       $this->view->pageData['metaData']['sortLinkNew'] = "/new";
+        
 
         
         

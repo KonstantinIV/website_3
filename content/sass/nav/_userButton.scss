@@ -2,7 +2,7 @@
     display: flex;
     flex-flow: row;
     transition: 0.3s;
-  
+  flex-grow: 2;
     height: 20px;
     text-align: center;
     padding-top: 5px;
@@ -23,7 +23,11 @@
     vertical-align: center;
     border:1px solid #ae81ea;
     border-radius: 4px;
+    min-width: 160px;
+    
   }
+ 
+
   .userDropdownButton:hover{
     background-color: rgb(62, 82, 170);
   }
@@ -33,7 +37,7 @@
     position: absolute;
   margin-top: 30px;
     z-index: 1;
-    width: 130%;
+    width: 98%;
     background-color: #3f235a;
     height: fit-content;
     padding-left: 5px;
@@ -41,12 +45,15 @@
     border:1px solid  rgb(62, 82, 170);
     padding-bottom: 5px;
     cursor: default;
+    border-radius: 4px;
   }
+ 
   .dropdown-contentUser a:hover {
     background-color: rgb(62, 82, 170);
   }
   .userIcon{
-      padding-top: 1px;
+    pointer-events: none;
+    padding-top: 1px;
 flex-grow: 1;
  height: 22px;
   }

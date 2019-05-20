@@ -1,6 +1,10 @@
+html{
+    display: grid;
+}
 @import 'style';
 @import 'searchbar';
 @import 'nav/nav';
+@import 'comment/comment';
 @import 'datepicker';
 @import 'popular_container';
 @import 'right_cont';

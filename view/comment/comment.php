@@ -61,7 +61,7 @@ function rec2($id_pos,$space,$key){
                                                         echo ' <div class="comment_dislike_button" id="cdislikeButton"><img class="dislikeImage" src="content/img/redEmpty.svg"></div>';
                                                 } ?>
                                     
-                                    <div class="comment_comment_button">REPLY &#10095;</div>
+                                    <div class="comment_comment_button" id="replyComment">REPLY &#10095;</div>
                             </div>
                     </div>
 

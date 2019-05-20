@@ -12,7 +12,8 @@ class indexPageUtility implements interfaces\utilityInterface{
     private $view;
 
     private $output;
-
+    private $loggedIn;
+    private $username;
     function __construct($input){
        
        $this->model = new model\postModel();
@@ -21,15 +22,25 @@ class indexPageUtility implements interfaces\utilityInterface{
 
        $this->categoryName = isset($_POST['cat']) ? $_POST['cat'] : "" ;
        $this->nextCount = isset($_POST['grab']) ? (int)$_POST['grab'] : "" ;
+       $this->username     =  isset($_SESSION['user']) ? $_SESSION['user'] : false;
+       $this->loggedIn     = isset($_SESSION['user']) ? true : false;
+       $this->sort         = isset($_POST['sort']) ? $_POST['sort'] : false;
+       
+        
+      // echo "ssssssssssssssssssssssssssssssssssss@@";
 
-     
       // $this->view->pageData['metaData']['body']   = "indexUtil";
-
         if($this->categoryName != ""){
+            if($this->sort == "new"){
+                $this->output = $this->model->getNewPostsCategory($this->categoryName, $this->nextCount,$this->loggedIn,$this->username);
 
-            $this->output = $this->model->getPopularPostsCategory($this->categoryName, $this->nextCount);
+            }
+            $this->output = $this->model->getPopularPostsCategory($this->categoryName, $this->nextCount,$this->loggedIn,$this->username);
         }else{
-            $this->output = $this->model->getPopularPosts($this->nextCount);
+            if($this->sort == "new"){
+                $this->output = $this->model->getNewPosts($this->nextCount,$this->loggedIn,$this->username);
+            }
+            $this->output = $this->model->getPopularPosts($this->nextCount,$this->loggedIn,$this->username);
         }
 
     

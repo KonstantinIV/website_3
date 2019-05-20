@@ -7,18 +7,34 @@
     height: 60px;
 }
 
-
+.logoLinkContainer{
+  height: fit-content;
+}
 .logo{
     font-family: sans-serif, Arial, Helvetica ;
-    display: inline-block;
+    display: flex;
+    flex-flow: row;
     color: white;
     height: 50px;
     line-height: 15px;
     font-size: 18px;
-    padding-top: 20px;
+    //padding-top: 20px;
     text-align: center;
     //flex-grow: 0.1;
-    flex-basis: 20%;
+    flex-basis: 10%;
+    padding-left: 20px;
+    padding-right: 10px;
+}
+.headerIcon{
+  height: 50px;
+  width: 50px;
+  padding: 3px;
+}
+.logoText{
+  padding-top: 20px;
+  font-size: 20PX;
+  font-weight: bold;
+  color: #876ee8;
 }
 
 
@@ -45,7 +61,7 @@
 @import "search";
 @import "sortButton";
 @import "userButton";
-
+@import "loginPopup";
 .singleButtonNav a{
   display: flex;
   flex-flow: row;
@@ -85,6 +101,7 @@
 
  .buttonContainerNavText{
    padding-left: 0px;
+   color: white;
  }
 .singleButtonNav a:hover{
   background-color: rgb(62, 82, 170);
@@ -154,7 +171,7 @@
   */
   
   @media (min-width: 30px) and (max-width: 480px) {
-    
+    /*
   .nav_button_ct{
         
    height: 30px;
@@ -186,7 +203,7 @@
     visibility: visible;
     opacity:1;
     transition:0.5s;
-}
+}*/
    
     
   }

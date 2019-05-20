@@ -12,7 +12,7 @@ class commentController extends core\mainController implements interfaces\pageIn
        
         parent::__construct("commentModel", "Comments", "comment" , $input);
        
-       $this->postID = empty($input[0]) ? $this->emptyID() : $input[0] ;
+       $this->postID = empty($input[1]) ? $this->emptyID() : $input[1] ;
        $this->username     =  isset($_SESSION['user']) ? $_SESSION['user'] : false;
   
         $this->output = array($this->getPost());

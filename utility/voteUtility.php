@@ -35,6 +35,10 @@ class voteUtility implements interfaces\utilityInterface{
     }
 
     function vote(){
+        if(!isset($_SESSION['user'])){
+            return false;
+        }
+
         if(is_int($this->ID)  && $this->username && $this->action === "likes" || $this->action === "dislikes" && $this->type === "comment" || $this->type === "post"){
            
                 if($this->type ==  "comment"){
@@ -65,9 +69,7 @@ class voteUtility implements interfaces\utilityInterface{
                     if($this->update == "true"){
                         
                         if(!$this->model->voteExistsPost($this->username,$this->ID,$this->action)){
-
                             $this->model->votePost($this->ID, $this->username, $this->action);
-                            
                             return true;
                         }else{
         
