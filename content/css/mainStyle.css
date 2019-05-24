@@ -478,12 +478,17 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 }*/ }
 /*****************/
 /******************************************/
+.postCommentReply {
+  margin-left: 20px;
+  width: 97%;
+  max-width: 600px; }
+
 ul {
   list-style: none; }
 
 .comment_section {
   width: 97%;
-  margin: 0 auto; }
+  margin-left: 20px; }
 
 .comment_section > div {
   font-family: sans-serif;
@@ -558,7 +563,40 @@ ul {
 
 .comment_comment_button {
   background-color: gray;
-  color: #8b8fa9; }
+  color: #8b8fa9;
+  cursor: pointer;
+  padding: 0 30px; }
+
+.commentReplyContainer {
+  width: 100%;
+  height: 170px;
+  padding-bottom: 50px;
+  padding-top: 10px; }
+
+.replyTextarea {
+  display: block;
+  width: 100%;
+  height: 190px;
+  margin: 0px auto;
+  background-color: #3f2e57;
+  border: none;
+  color: white;
+  resize: none;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid gray;
+  padding: 10px; }
+
+.commentReplyButton {
+  border: 1px solid gray;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  width: 100px;
+  margin-top: 5px;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  font-family: sans-serif; }
 
 .da_cont {
   width: 90.7%;

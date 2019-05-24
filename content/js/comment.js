@@ -69,19 +69,101 @@
 
 
     $(document).on('click', '#replyComment', function(){
-        var large = `
+      if($(this).hasClass("replyDrop")){
+        $(this).removeClass("replyDrop");
+          $(this).closest(".comment").find(".commentReplyContainer").remove();
+      }else{
+        $(this).toggleClass("replyDrop");
+        var replyTextarea = `
         <div class="commentReplyContainer">
             <div class="replyText">
-
+                <textarea class="replyTextarea"> </textarea>
             </div>
-            </div class="commentReplyButton">
-
+            <div class="commentReplyButton">
+                  Reply
             </div>
         </div>
         `;
-        
-        console.log(large);
-     
+        $(this).closest(".comment").append(replyTextarea);
         
         
+        
+      }
+      
+       // $(this).closest(".comment").append(large);
         });
+
+
+
+
+
+
+
+
+
+        $(document).on('click', '.commentReplyButton', function(){
+
+          var parentComment = $(this).closest("div[comment-id]");
+          
+
+          var marginComment = parseInt(parentComment.css('margin-left'), 10)  + 20;
+          var backColor     ;
+          if(parentComment.css('background-color') == "rgb(34, 20, 60)"){
+            backColor = "#36274b";
+          }else{
+            backColor = "#22143c";
+          }
+         
+
+
+          var ID = parentComment.attr('comment-id');
+          var text = $(this).closest(".commentReplyContainer").find(".replyTextarea").val();
+
+         // console.log(ID + text + parentComment.css('background-color'));
+          
+          $.ajax({
+            url: "commentReply",
+            method: "POST",
+            data:{ ID : ID, text : text},
+            async:false,
+            success: function(data){
+              //username = JSON.parse(data).username;
+
+
+              var commentHtml =`
+              <div class="comment" comment-id = "`+ID+`" style="margin-left: `+marginComment+`; background-color:`+backColor+`;">
+              <div class="comment_user"><div class="user">`+ID+`</div>&#9679<div class="comment_date">5 hours ago</div></div>
+              <div class="comment_text">`+text+`</div>
+                      <div class="comment_buttons">
+                       <div class="comment_like_button " id="clikeButton"><img class="likeImage" src="content/img/greenEmpty.svg"></div>  
+                              <div class="comment_di_li_cont">
+                                      <div class="comment_likes">0</div>
+                                      <div class="">&#9679</div>
+                                      <div class="comment_dislikes">0</div>
+                              </div>        
+                      <div class="comment_dislike_button" id="cdislikeButton"><img class="dislikeImage" src="content/img/redEmpty.svg"></div> 
+                        <div class="comment_comment_button" id="replyComment">REPLY &#10095;</div>
+                      </div>
+  </div>
+              `;
+              if(true){
+
+              }else{
+
+              }
+              console.log( parentComment.length);
+              if( parentComment.length === 1){
+              //  console.log(asdsadsad);
+                parentComment.after('<br>');
+                parentComment.after(commentHtml);
+                parentComment.find(".commentReplyContainer").remove();
+              }else{
+                //console.log('asdsadsad');
+                $('.comment_section').prepend(commentHtml);
+              }
+              
+              //console.log(data);
+            
+            }
+          
+          })  });

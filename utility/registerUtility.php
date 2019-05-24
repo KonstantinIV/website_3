@@ -12,12 +12,14 @@ class registerUtility extends mainLoginUtility implements interfaces\utilityInte
 
     private $birthday;
     private $joinDate;
-
+    private $method;
 
 
     function __construct($input){
         ///echo "ssssssssssssssdd";
         parent::__construct();
+        $this->method   = empty($input[1])   ?  false  : $input[1]  ;
+
         $this->username = isset($_POST['user'])   ?  $_POST['user']  : false  ;
         $this->password =  isset($_POST['pass'])  ?  $_POST['pass']    : false  ;
         $this->email    =  isset($_POST['email']) ?  $_POST['email']    : false  ;
@@ -26,6 +28,34 @@ class registerUtility extends mainLoginUtility implements interfaces\utilityInte
     }
 
     function runScript(){
+        if($this->method == 'userVal'){
+            $flag = $this->model->usernameVerification($this->username);
+            
+            echo json_encode(array( "flag" => (bool)$flag)); 
+
+            return false;
+        }elseif($this->method == 'emailVal'){
+            if(!$this->model->emailValidation($this->email)){
+                $arr = array( "flag" => (bool)false, "message" => "Non valid email");
+                echo json_encode($arr); 
+
+            }elseif(!$this->model->emailVerification($this->email)){
+                $arr = array( "flag" => (bool)false, "message" => "Email exists");
+
+                echo json_encode($arr); 
+
+            }else{
+                $arr = array( "flag" => true, "message" => "true");
+
+                echo json_encode($arr); 
+            }
+            
+            
+            return false;
+        }
+
+
+
         if($this->username && $this->password && $this->email){
             if($this->userCreate()){
                 $this->startSession($this->username);

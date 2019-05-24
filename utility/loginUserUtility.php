@@ -7,10 +7,10 @@ use src\model;
 class loginUserUtility extends mainLoginUtility implements interfaces\utilityInterface{
     private $username;
     private $password;
+    
 
     function __construct($input){
         parent::__construct();
-
         $this->username = isset($_POST['user'])   ?  $_POST['user']  : false  ;
         $this->password =  isset($_POST['pass'])  ?  $_POST['pass']    : false  ;
    
@@ -20,6 +20,11 @@ class loginUserUtility extends mainLoginUtility implements interfaces\utilityInt
     }
 
     function runScript(){
+       // echo $this->method;
+        
+
+
+
         if($this->model->userAuth($this->username,$this->password)){
             $this->startSession($this->username);
             echo json_encode(array( "flag" => true , "user" => $this->username)); 
@@ -29,6 +34,7 @@ class loginUserUtility extends mainLoginUtility implements interfaces\utilityInt
         }
         
     }
+    
 
     function getUserExists(){
         return $this->model->errorCode;

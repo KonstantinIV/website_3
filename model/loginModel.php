@@ -59,6 +59,7 @@ class loginModel extends core\modelController{
         $stmt = $this->pdo->prepare('select username from user WHERE username=? LIMIT 1');
         $stmt->execute([$username]);
         //Exists user
+       
         if($stmt->fetchColumn()){
             
             return false;
@@ -73,7 +74,7 @@ class loginModel extends core\modelController{
          //Exists Email
          $stmt = $this->pdo->prepare('select email from user WHERE email=? LIMIT 1');
          $stmt->execute([$email]);
-         if(!$stmt->fetchColumn()){
+         if($stmt->fetchColumn()){
              return false;
          }else{
              return true;

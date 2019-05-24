@@ -21,7 +21,7 @@
 <script  src="/content/js/navigation.js"></script>
 <script  src="/content/js/post.js"></script>
 <script  src="/content/js/comment.js"></script>
-
+<script  src="/content/js/login.js"></script>
 <script  src="/content/js/script.js"></script>
 
 </head>

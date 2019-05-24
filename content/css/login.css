@@ -54,7 +54,8 @@ select:-webkit-autofill:focus {
   background-color: #36274b;
   border-radius: 10px;
   display: flex;
-  padding-bottom: 30px; }
+  padding-bottom: 30px;
+  margin-top: 30px; }
 
 .login_cont {
   width: max-content;
@@ -66,6 +67,24 @@ select:-webkit-autofill:focus {
   font-family: sans-serif;
   font-size: 22px;
   margin: 10px 0; }
+
+.usernameInst {
+  font-size: 12px;
+  color: #366868;
+  font-family: sans-serif; }
+
+.inputMessageContainer {
+  display: flex;
+  flex-flow: row; }
+
+.inputMessage {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  width: 150px;
+  flex-grow: 1;
+  color: #e2333d;
+  font-family: Arial, Helvetica, sans-serif; }
 
 .username_in {
   padding-left: 10px;
