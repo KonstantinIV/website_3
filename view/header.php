@@ -20,7 +20,7 @@
 
 <div class="main_box">      
 <a class="logoLinkContainer" href="/"><div class="logo"><img  class="headerIcon" src="content/img/papirus.svg" alt="icon"><div class="logoText">METHOPHY</div></div></a>
-        <div class="search_bar"><input class="search" type="text" placeholder="Search.."><div class="search_button"><img src="content/img/search.svg" alt="icon"></div> </div>
+        <div class="search_bar"><input class="search" id='searchInput' type="text" placeholder="Search.."><div class="search_button"><img src="content/img/search.svg" alt="icon"></div> </div>
         <ul class="row">   
         
 
@@ -52,7 +52,7 @@
                      }else{
                 ?>
                         <li class="row_child singleButtonNav" ><a href="login"><div class="buttonContainerNav"><div class="buttonContainerNavText">Log In</div> </div></a></li>
-                        <li class="row_child singleButtonNav"><a href="login"><div class="buttonContainerNav"><div class="buttonContainerNavText">Sign Up</div> </div></a></li>
+                        <li class="row_child singleButtonNav"><a href="register"><div class="buttonContainerNav"><div class="buttonContainerNavText">Sign Up</div> </div></a></li>
                 <?php        
                      }
                 ?>
@@ -62,7 +62,7 @@
                 <div  class="nav_button" onclick="navDropdown()"> <img  class="navDropdownButton" src="content/img/icons8-menu.svg" alt="icon">
                         <div id="navDropdown" class="dropdown-contentNav row_child ">
                                 <a href="login">LOG IN</a></li>
-                                <a href="login">SIGN UP</a></li>
+                                <a href="register">SIGN UP</a></li>
                         </div>
                 </div>
         </div>

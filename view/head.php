@@ -9,7 +9,7 @@
   <meta name="description" content=<?php echo $this->pageData['metaData']['title'];?> >
   <meta name="author" content="Konstantin">
 
-  <base href="http://192.168.0.35" >
+  <base href="http://192.168.0.34" >
 
 <link rel="stylesheet" type="text/css" href="/content/css/mainStyle.css">
 <link rel="stylesheet" type="text/css" href="/content/css/login.css">
@@ -22,6 +22,8 @@
 <script  src="/content/js/post.js"></script>
 <script  src="/content/js/comment.js"></script>
 <script  src="/content/js/login.js"></script>
+<script  src="/content/js/search.js"></script>
+
 <script  src="/content/js/script.js"></script>
 
 </head>

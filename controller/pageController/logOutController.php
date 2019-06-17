@@ -26,7 +26,7 @@ function loadPage(){
    }
 
 function pageBody(){
-    header('Location: ../profile');
+    header('Location: /');
 }
 }
 

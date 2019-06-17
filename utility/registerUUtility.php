@@ -4,7 +4,7 @@ use src\model;
 use src\controller;
 use \src\controller\interfaces ;
 
-class registerUtility extends mainLoginUtility implements interfaces\utilityInterface{
+class registerUUtility extends mainLoginUtility implements interfaces\utilityInterface{
     
     private $username;
     private $password;
@@ -56,6 +56,9 @@ class registerUtility extends mainLoginUtility implements interfaces\utilityInte
 
 
 
+
+
+
         if($this->username && $this->password && $this->email){
             if($this->userCreate()){
                 $this->startSession($this->username);
@@ -63,10 +66,10 @@ class registerUtility extends mainLoginUtility implements interfaces\utilityInte
                 echo json_encode(array( "flag" => true)); 
 
             }else{
-                echo json_encode(array( "flag" => false)); 
+                echo json_encode(array( "flag" => false, "message" => "Failed to create user")); 
             }
         }else{
-            echo json_encode(array( "flag" => false)); 
+            echo json_encode(array( "flag" => false,"message" => "One of fields are invalid")); 
         }
         
     }

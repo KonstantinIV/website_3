@@ -11,7 +11,7 @@ function userNameVal(username){
     }
     var flag;
     $.ajax({
-        url: "register/userVal",
+        url: "registerU/userVal",
         async: false,
         method: "POST",
         data:{user : username },
@@ -38,7 +38,7 @@ function emailVal(email){
     var flag = true;
     var message = "";
     $.ajax({
-        url: "register/emailVal",
+        url: "registerU/emailVal",
         async: false,
         method: "POST",
         data:{email : email },
@@ -66,7 +66,7 @@ function emailVal(email){
 function passVal(password){
     if(  password.length < 8 || typeof password != 'string')  {
        
-        return {flag : false, message : "Password must be min. 8 char. long"};
+        return {flag : false, message : "Must be min. 8 char. long"};
     }
    
 
@@ -128,7 +128,7 @@ $(document).on('click', '#log', function(){
   
               var flag = JSON.parse(data).flag;
               if(flag){
-                window.location.href = 'profile';
+                window.location.href = 'profile/' + username;
               }
   
               console.log(data);
@@ -142,27 +142,30 @@ $(document).on('click', '#log', function(){
     });
     
     $(document).on('click', '#reg', function(){
-    
+        var thisInput = $(this);
         //Check if empty
         var username  = $('#usernameReg').val();
         var password  = $('#password1').val();
-        var email     = $('#email').val();
+        var email     = $('#emailReg').val();
         var join_date = $('#join_date').val();
         var birthday  = $('#birthday').val();
         console.log("ks");
         
         if(username == "" || password == "" ){
-            console.log("Wrong input");
+            $('#regMessage').text("Empty fields");
         }else {
             $.ajax({
-                url: "register",
+                url: "registerU",
                 method: "POST",
                 data:{user: username ,pass: password,email : email, join_date : join_date, birthday:birthday},
                 success: function(data){
                 var flag = JSON.parse(data).flag;
+                var message = JSON.parse(data).message;
                   if(flag){
                     window.location.href = 'profile';
                   }
+                  $('#regMessage').text(message);
+
                  console.log(data);
                  
                   //window.location.replace("user.php");

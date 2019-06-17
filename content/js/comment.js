@@ -69,26 +69,43 @@
 
 
     $(document).on('click', '#replyComment', function(){
-      if($(this).hasClass("replyDrop")){
-        $(this).removeClass("replyDrop");
-          $(this).closest(".comment").find(".commentReplyContainer").remove();
-      }else{
-        $(this).toggleClass("replyDrop");
-        var replyTextarea = `
-        <div class="commentReplyContainer">
-            <div class="replyText">
-                <textarea class="replyTextarea"> </textarea>
-            </div>
-            <div class="commentReplyButton">
-                  Reply
-            </div>
-        </div>
-        `;
-        $(this).closest(".comment").append(replyTextarea);
+        var thisButton = $(this);
+
+        $.ajax({
+          url: "islogged",
+          method: "GET",
+          async:false,
+          success: function(data){
+            var flag = Boolean(JSON.parse(data).flag);
+        console.log(data);
+            if(flag == false){
+                $(".loginPopupContainer").css("visibility", "visible");
+            }else{
+              if(thisButton.hasClass("replyDrop")){
+                thisButton.removeClass("replyDrop");
+                thisButton.closest(".comment").find(".commentReplyContainer").remove();
+              }else{
         
-        
-        
-      }
+                thisButton.toggleClass("replyDrop");
+                var replyTextarea = `
+                <div class="commentReplyContainer">
+                    <div class="replyText">
+                        <textarea class="replyTextarea"> </textarea>
+                    </div>
+                    <div class="commentReplyButton">
+                          Reply
+                    </div>
+                </div>
+                `;
+                thisButton.closest(".comment").append(replyTextarea);
+                
+                
+                
+              }
+            }
+        }})  ;
+
+      
       
        // $(this).closest(".comment").append(large);
         });
@@ -167,3 +184,14 @@
             }
           
           })  });
+
+
+
+          
+        $(document).on('click', '#replyComment', function(){
+        
+         
+        });
+
+
+

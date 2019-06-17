@@ -82,7 +82,7 @@ function ch_post(){
             });
    
         });
-
+/////////////////
       var last_grabbed = 10;
       var flag         = false;
       $(window).scroll(function() {
@@ -94,9 +94,9 @@ function ch_post(){
             //console.log(url);
              $.ajax({
                async : false ,
-               url: "../indexPage",
+               url: window.location.href,
                method: "POST",
-               data:{grab : last_grabbed, cat : url[4], sort : url[5]},
+               data:{grab : last_grabbed, cat : url[4], sort : url[5], search: url[6], method: true},
                success: function(data){
                  $('.pop_post_cont').append(JSON.parse(data).content);
 
@@ -133,9 +133,38 @@ $.ajax({
                 last_grabbed += 10;
               }
             });
-
-
-
-
-
     })*/
+
+
+
+
+
+    /*
+    var last_grabbed = 10;
+    var flag         = false;
+    $(window).scroll(function() {
+      
+      if ($(window).scrollTop() + $(window).height() > $('#mn_cont').height()-1){
+        console.log("ssssssssssssssssssss");
+        if(!flag){
+          var url = window.location.href.split('/');
+          //console.log(url);
+           $.ajax({
+             async : false ,
+             url: "../indexPage",
+             method: "POST",
+             data:{grab : last_grabbed, cat : url[4], sort : url[5], search: url[6]},
+             success: function(data){
+               $('.pop_post_cont').append(JSON.parse(data).content);
+
+               console.log(JSON.parse(data));
+               //wconsole.log(JSON.parse(data));
+              flag = JSON.parse(data).flag;
+               last_grabbed = last_grabbed + 10;
+             }
+           });
+        }
+         // alert("bottom!");
+         
+      }
+   });*/

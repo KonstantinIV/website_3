@@ -1,12 +1,14 @@
 .textarea_ct{
     width: 90%;
-    height: 350px;
-    margin-left: 80px;
+    height: fit-content;
+    margin:auto;
     background-color: #36274b;
     border-radius: 10px;
     padding-top: 10px;
     max-width: 700px;
     margin-top: 120px;
+    padding-bottom: 20px;
+    padding-left:35px;
 }
 
 .textarea{
@@ -18,16 +20,19 @@
     border:none;
     color: white;
     resize: none;
+    overflow: hidden;
+    margin-left: 0;
 }
 .p_header{
     height:30px;
     background-color: #36274b;
     line-height: 30px;
     font-size: 18px;
-    border-bottom: 2px solid  #bfbac7;
+    border-bottom: 1px solid  #bfbac7;
     border-radius: 0px;
     margin-bottom: 8px;
-
+    overflow: hidden;
+    margin-left: 0;
 
 }
 input,textarea:focus {
@@ -37,7 +42,7 @@ input,textarea:focus {
 .button_ct{
     width: 90%;
     height: 40px;
-    margin: 0 auto;
+    margin: 0 0;
 }
 .add_post{
     width: 80px;
@@ -50,4 +55,5 @@ input,textarea:focus {
     font-family: sans-serif;
     font-weight: 600;
     color: #36274b;
+    cursor: pointer;
 }

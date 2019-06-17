@@ -13,18 +13,22 @@ class deleteController extends core\mainController implements interfaces\pageInt
         $this->username = $_SESSION['user'];
 
 
-        $this->model->deletePost($this->postID,$this->username);
         
     }
 
+
+
    function loadPage(){
+    $this->model->deletePost($this->postID,$this->username);
+    $this->pageBody();
+ 
+        
+   
+}
+function pageBody(){
     header('Location: ../profile');
-   }
 
-
-
-    
-
+}
 
 
 }

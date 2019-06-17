@@ -10,25 +10,25 @@ class profileController extends core\mainController implements interfaces\pageIn
 
     function __construct($input){
         
-        $this->username = empty($input[0]) ? "" : $input[0];
-
+        
 
 
         parent::__construct("profileModel", "Profile", "profile" , $input);
-       
+        //$this->username = $_SESSION['user'];
         //Chnage to if
+        $this->username = empty($input[1]) ? "" : $input[1];
 
 
         /*if( isset($_SESSION['user'])){
             
            
-            $this->username = $_SESSION['user'];
+            
         }*/
         
-        if(!$this->model->userExists($this->username)){
+        /*if(!$this->model->userExists($this->username)){
             header('Location: /');
 
-        }
+        }*/
 
 
 

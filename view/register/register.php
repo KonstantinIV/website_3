@@ -15,7 +15,9 @@
             </div>
             
             <br>
-            <div class="button_cont">
+             <div class="button_cont">
                 <div class="button" id="reg">SIGN UP</div>
             </div>
+            <div class="inputMessageContainer">
+            <div class="inputMessage" id="regMessage"></div></div>
         </div>
