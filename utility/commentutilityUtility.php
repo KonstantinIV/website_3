@@ -8,19 +8,20 @@ class commentutilityUtility implements interfaces\utilityInterface{
     private $model;
     private $text;
     private $username;
-    private $commentParentID;
+    private $ID;
     private $postID;
 
 
     function __construct($data){
 
         $this->model = new model\commentModel();
-
+session_start();
         $this->username = $_SESSION['user'];
-        $this->text =  isset($_comment['text']) ? $_comment['text'] : "" ; 
-        $this->commentParentID =   isset($_comment['commentParentID']) ? (int)$_comment['commentParentID'] : "" ; 
-        $this->postID          =    isset($_comment['postID']) ? (int)$_comment['postID'] : "" ; 
-        //print_r($_comment);
+        $this->text =  isset($_POST['text']) ? $_POST['text'] : "" ; 
+        $this->ID =   isset($_POST['ID']) ? (int)$_POST['ID'] : "" ; 
+        $this->postID          =    isset($_POST['postID']) ? (int)$_POST['postID'] : "" ; 
+      //  print_r($_POST);
+       // print_r($this->username."sasda");
     }
 
     function runScript(){
@@ -28,8 +29,8 @@ class commentutilityUtility implements interfaces\utilityInterface{
     }
 
     function editcomment(){
-        $this->model->editComment($this->postID, $this->commentParentID, $this->username, $this->text);
-         
+        $id = $this->model->editComment($this->postID, $this->ID, $this->username, $this->text);
+        echo json_encode(array( "username" => $this->username, "commentID" => $id)); 
     }
 
 

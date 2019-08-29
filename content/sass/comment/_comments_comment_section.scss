@@ -120,15 +120,15 @@ text-align: center;
   //  position: absolute;
     width: 100%;
    // background-color: #7cf04f;
-    height: 170px;
+    height: 200px;
     padding-bottom: 50px;
     padding-top: 10px;
 }
 .replyTextarea{
     display: block;
-    width: 100%;
+    width: 96%;
     height: 190px;
-    margin: 0px auto;
+    //margin: 0px auto;
     background-color: #3f2e57;
     border:none;
     color: white;
@@ -139,6 +139,17 @@ text-align: center;
     padding: 10px;
 }
 .commentReplyButton{
+    border: 1px solid gray;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width:100px;
+    margin-top: 5px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    font-family: sans-serif;
+}
+#postReplyButton{
     border: 1px solid gray;
     border-radius: 4px;
     margin-bottom: 10px;

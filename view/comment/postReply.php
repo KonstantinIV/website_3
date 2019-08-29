@@ -1,10 +1,10 @@
 <div class="postCommentReply">
 
-<div class="commentReplyContainer">
+<div comment-id="0" class="commentReplyContainer">
             <div class="replyText">
                 <textarea class="replyTextarea"> </textarea>
             </div>
-            <div class="commentReplyButton">
+            <div id="postReplyButton" class="postReplyButton">
                   Reply
             </div>
         </div>

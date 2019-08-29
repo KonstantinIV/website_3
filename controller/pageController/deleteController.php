@@ -9,9 +9,9 @@ class deleteController extends core\mainController implements interfaces\pageInt
     
     function __construct($input){
         parent::__construct("postModel","","",$input);
-        $this->postID = empty($input[0]) ? "" : $input[0] ;
+        $this->postID = empty($input[1]) ? "" : $input[1] ;
         $this->username = $_SESSION['user'];
-
+        //print_r($input);
 
         
     }
@@ -21,7 +21,7 @@ class deleteController extends core\mainController implements interfaces\pageInt
    function loadPage(){
     $this->model->deletePost($this->postID,$this->username);
     $this->pageBody();
- 
+    
         
    
 }

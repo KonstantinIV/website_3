@@ -18,7 +18,7 @@ class profileModel extends core\modelController{
         post.ID =dislikes.POST_ID  group by post.ID) AS DISLIKETABLE ON post.id = DISLIKETABLE.POSTID 
         INNER JOIN (select post.ID AS POSTID, count(comment.POST_ID) AS comments from post INNER JOIN user ON user.ID = post.USER_ID left JOIN comment ON
         post.ID =comment.POST_ID  group by post.ID) AS COMMENTTABLE ON post.id = COMMENTTABLE.POSTID 
-        left JOIN user ON user.ID = post.USER_ID where username = ?');
+        left JOIN user ON user.ID = post.USER_ID where username = ? ORDER BY post.ID DESC');
         $stmt->execute([$username]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 

@@ -1,12 +1,25 @@
-<div class="loginPopupContainer"><div id="loginPopup">
-<div class="popupText">
-                                Log in or sign up to vote.
-                </div>
+<div class="loginPopupContainer" id="loginPopupCont"><div id="loginPopup">
+        <div class="popupText">
+                Log in or sign up to vote.
+        </div>
         <div class="popupButtonContainer">
-                
                 <a class="popupButton" href="login">
                         <div class="popupButtonText">
                                 Log In
+                        </div>
+                </a>
+        </div>
+</div></div>
+
+<div class="deletePopupContainer" id="deletePopup"><div id="loginPopup">
+<div class="popupText">
+                                Are you sure you want to delete?
+                </div>
+        <div class="popupButtonContainer">
+                
+                <a class="popupButton" id="deleteLink" href="">
+                        <div class="popupButtonText">
+                                Delete
                         </div>
                 
                 </a>
@@ -14,6 +27,8 @@
         </div>
 
 </div></div>
+
+
 
 <header>
 

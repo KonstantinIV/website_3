@@ -319,14 +319,27 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
   flex-grow: 1;
   height: 22px; }
 
+#loginPopupCont {
+  visibility: hidden; }
+
+#deletePopup {
+  visibility: hidden; }
+
+.deletePopupContainer {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(44, 44, 44, 0.5);
+  position: fixed;
+  display: block;
+  z-index: 1; }
+
 .loginPopupContainer {
   width: 100%;
   height: 100%;
   background-color: rgba(44, 44, 44, 0.5);
   position: fixed;
   display: block;
-  z-index: 1;
-  visibility: hidden; }
+  z-index: 1; }
 
 #loginPopup {
   opacity: 1;
@@ -570,15 +583,14 @@ ul {
 
 .commentReplyContainer {
   width: 100%;
-  height: 170px;
+  height: 200px;
   padding-bottom: 50px;
   padding-top: 10px; }
 
 .replyTextarea {
   display: block;
-  width: 100%;
+  width: 96%;
   height: 190px;
-  margin: 0px auto;
   background-color: #3f2e57;
   border: none;
   color: white;
@@ -589,6 +601,17 @@ ul {
   padding: 10px; }
 
 .commentReplyButton {
+  border: 1px solid gray;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  width: 100px;
+  margin-top: 5px;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  font-family: sans-serif; }
+
+#postReplyButton {
   border: 1px solid gray;
   border-radius: 4px;
   margin-bottom: 10px;
@@ -620,17 +643,36 @@ ul {
 
 .year {
   flex-grow: 2;
-  width: 13%; }
+  width: 30%;
+  color: #36274b; }
+
+.year::-webkit-scrollbar {
+  width: 20px;
+  background-color: transparent;
+  border-radius: 5px; }
+
+.year::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  background-color: #523b71; }
+
+.year::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #36274b; }
 
 .date {
   flex-grow: 1;
-  width: 20%; }
+  width: 20%;
+  color: #36274b; }
 
 .dat_text {
   flex-grow: 4;
-  color: white;
+  color: #6c479d;
   width: 100%;
-  line-height: 30px; }
+  line-height: 30px;
+  font-size: 13px;
+  font-family: sans-serif; }
 
 .pop_post_cont {
   flex-grow: 1;

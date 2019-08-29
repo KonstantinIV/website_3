@@ -46,9 +46,9 @@ class commentController extends core\mainController implements interfaces\pageIn
    
     function pageBody(){
     
-        print_r($this->output);
+       // print_r($this->output);
         ob_start();
-            require "view/index/container.php" ;  
+            require "view/comment/container.php" ;  
             if($this->username){
                 require "view/comment/postReply.php";
             }

@@ -1,4 +1,12 @@
 <div class="dash_post_cn">
+ 
+<?php if(isset($_SESSION['user']) && $_SESSION['user'] == $this->username){?>
+<a href="edit">
+    <div class="dash_post">
+        <div class="add_post_plus">&#10010;</div>
+    </div>
+</a>
+    <?php }?>
 <?php foreach($this->output['posts'] as $arr){ ?>
 
 <div class="dash_post">
@@ -27,7 +35,7 @@
                 <?php if(isset($_SESSION['user']) && $_SESSION['user'] == $this->username){?>
  
                     <div class="dashPostButton edit"><a href="edit/<?php echo $arr['postID'];  ?>"><div class="buttonContainerProfile"><div class="buttonContainerProfileText">Edit</div> </div></a></div>
-                    <div class="dashPostButton visit"><a href="delete/<?php echo $arr['postID'];  ?>"><div class="buttonContainerProfile"><div class="buttonContainerProfileText">Delete</div> </div></a></div>
+                    <div class="dashPostButton visit"><div class="buttonContainerProfile deletePost" data-deleteID="<?php echo $arr['postID'];  ?>" ><div class="buttonContainerProfileText">Delete</div> </div></a></div>
                 <?php }?>
             </div>
 
@@ -41,14 +49,7 @@
     <?php }?>
     
     
- 
-    <?php if(isset($_SESSION['user']) && $_SESSION['user'] == $this->username){?>
-<a href="edit">
-    <div class="dash_post">
-        <div class="add_post_plus">&#10010;</div>
-    </div>
-</a>
-    <?php }?>
+
 
 
 </div>

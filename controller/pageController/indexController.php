@@ -21,7 +21,7 @@ class indexController extends core\mainController implements interfaces\pageInte
 
         if($input[0] == "new" || $input[0] =="popular"){
             if($input[1] == "cat"){
-                echo "sdadsada";
+              
 
                 $this->view->pageData['metaData']['sortLinkPopular'] = "/popular"."/".$input[1] . "/". $input[2]."/";
                 $this->view->pageData['metaData']['sortLinkNew'] = "/new"."/".$input[1] . "/". $input[2]."/";

@@ -17,7 +17,7 @@ class commentModel extends core\modelController{
             $stmt = $this->pdo->prepare('SELECT post.ID,if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID where post.ID = :postID group by post.ID ');
             $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
         }else{
-            print_r($postID);
+           // print_r($postID);
             $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  where post.ID = :postID group by post.ID ');
         
         }
@@ -53,12 +53,13 @@ class commentModel extends core\modelController{
   
     function editComment($postID,$parentID,$username, $text){
       
-        $stmt = $this->pdo->prepare("insert into comment    (USER_ID,POST_ID,parent_id,text ) VALUES ((SELECT ID from user where username = :username),:post_id, :parent_id, :text) ");
+        $stmt = $this->pdo->prepare("insert into comment    (USER_ID,POST_ID,parent_id,text ) VALUES ((SELECT ID from user where username = :username),:post_id, :parent_id, :text);SELECT LAST_INSERT_ID(); ");
         $stmt->bindParam(':text', $text, \PDO::PARAM_STR);
         $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
         $stmt->bindParam(':post_id', $postID, \PDO::PARAM_INT);
         $stmt->bindParam(':parent_id', $parentID, \PDO::PARAM_INT);
         $stmt->execute();
+        return  $this->pdo->lastInsertId();
     }
 
 

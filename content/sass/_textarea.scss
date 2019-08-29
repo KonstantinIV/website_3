@@ -22,17 +22,33 @@
     resize: none;
     overflow: hidden;
     margin-left: 0;
+    
 }
+.postText{
+    padding: 10px;
+    font-size: 14px;
+}
+.postText::placeholder{
+    color:#36274b;
+    font-family: sans-serif;
+    font-weight: 400;
+}
+
+
 .p_header{
     height:30px;
     background-color: #36274b;
     line-height: 30px;
     font-size: 18px;
-    border-bottom: 1px solid  #bfbac7;
+    border-bottom: 1px solid  #6f49a1;
     border-radius: 0px;
     margin-bottom: 8px;
     overflow: hidden;
     margin-left: 0;
+
+}
+.p_header::placeholder{
+    color:#6f49a1;
 
 }
 input,textarea:focus {
@@ -40,7 +56,7 @@ input,textarea:focus {
 }
 
 .button_ct{
-    width: 90%;
+    width: 93%;
     height: 40px;
     margin: 0 0;
 }
@@ -56,4 +72,7 @@ input,textarea:focus {
     font-weight: 600;
     color: #36274b;
     cursor: pointer;
+}
+.add_post:hover{
+    background-color: #63d835;
 }

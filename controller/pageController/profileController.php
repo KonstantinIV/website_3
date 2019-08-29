@@ -16,7 +16,7 @@ class profileController extends core\mainController implements interfaces\pageIn
         parent::__construct("profileModel", "Profile", "profile" , $input);
         //$this->username = $_SESSION['user'];
         //Chnage to if
-        $this->username = empty($input[1]) ? "" : $input[1];
+        $this->username = empty($input[1]) ? $_SESSION['user'] : $input[1];
 
 
         /*if( isset($_SESSION['user'])){
@@ -40,7 +40,7 @@ class profileController extends core\mainController implements interfaces\pageIn
         $this->output['postCount'] = $this->model->postCount($this->username);
         $this->output['likeCount'] = $this->model->likeCount($this->username);
         $this->output['commentCount'] = $this->model->commentCount($this->username);
-        $this->output['joinDate'] = $this->model->getUserJoinDate($this->username);
+        $this->output['joinDate'] = explode(" ", $this->model->getUserJoinDate($this->username))[0];
         //print_r($this->pageData);
         
         

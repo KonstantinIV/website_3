@@ -57,7 +57,7 @@
     
                   
                     }else{
-                        $(".loginPopupContainer").css("visibility", "visible");
+                        $("#loginPopupCont").css("visibility", "visible");
                       }
                   }
               });
@@ -79,7 +79,7 @@
             var flag = Boolean(JSON.parse(data).flag);
         console.log(data);
             if(flag == false){
-                $(".loginPopupContainer").css("visibility", "visible");
+                $("#loginPopupCont").css("visibility", "visible");
             }else{
               if(thisButton.hasClass("replyDrop")){
                 thisButton.removeClass("replyDrop");
@@ -114,16 +114,9 @@
 
 
 
-
-
-
-
         $(document).on('click', '.commentReplyButton', function(){
 
           var parentComment = $(this).closest("div[comment-id]");
-          
-
-          var marginComment = parseInt(parentComment.css('margin-left'), 10)  + 20;
           var backColor     ;
           if(parentComment.css('background-color') == "rgb(34, 20, 60)"){
             backColor = "#36274b";
@@ -132,24 +125,24 @@
           }
          
 
-
-          var ID = parentComment.attr('comment-id');
+          var postID        = $(".post_cont").attr('data-id');
+          var ID            = parentComment.attr('comment-id');
+          var marginComment = parseInt(parentComment.css('margin-left'), 10)  + 20;
           var text = $(this).closest(".commentReplyContainer").find(".replyTextarea").val();
 
-         // console.log(ID + text + parentComment.css('background-color'));
-          
+   
           $.ajax({
-            url: "commentReply",
+            url: "commentutility",
             method: "POST",
-            data:{ ID : ID, text : text},
+            data:{ postID: postID, ID : ID, text : text},
             async:false,
             success: function(data){
-              //username = JSON.parse(data).username;
-
+              username = JSON.parse(data).username;
+              commentID = JSON.parse(data).commentID;
 
               var commentHtml =`
-              <div class="comment" comment-id = "`+ID+`" style="margin-left: `+marginComment+`; background-color:`+backColor+`;">
-              <div class="comment_user"><div class="user">`+ID+`</div>&#9679<div class="comment_date">5 hours ago</div></div>
+              <div class="comment" comment-id = "`+commentID+`" style="margin-left: `+marginComment+`px; background-color:`+backColor+`;">
+              <div class="comment_user"><div class="user">`+username+`</div>&#9679<div class="comment_date">5 hours ago</div></div>
               <div class="comment_text">`+text+`</div>
                       <div class="comment_buttons">
                        <div class="comment_like_button " id="clikeButton"><img class="likeImage" src="content/img/greenEmpty.svg"></div>  
@@ -163,23 +156,15 @@
                       </div>
   </div>
               `;
-              if(true){
-
-              }else{
-
-              }
+            
               console.log( parentComment.length);
-              if( parentComment.length === 1){
-              //  console.log(asdsadsad);
+      
                 parentComment.after('<br>');
                 parentComment.after(commentHtml);
                 parentComment.find(".commentReplyContainer").remove();
-              }else{
-                //console.log('asdsadsad');
-                $('.comment_section').prepend(commentHtml);
-              }
+            
               
-              //console.log(data);
+              console.log(data);
             
             }
           
@@ -187,11 +172,62 @@
 
 
 
+
+
+        $(document).on('click', '#postReplyButton', function(){
+
+          var ID = 0;
+          var marginComment = 0;
+          var postID        = $(".post_cont").attr('data-id');
+          var text = $(this).closest(".commentReplyContainer").find(".replyTextarea").val();
+          var backColor = "#22143c";
+          var parentComment = $(this).closest("div[comment-id]");
+
+          $.ajax({
+            url: "commentutility",
+            method: "POST",
+            data:{ postID: postID, ID : ID, text : text},
+            async:false,
+            success: function(data){
+              username = JSON.parse(data).username;
+              commentID = JSON.parse(data).commentID;
+
+
+              var commentHtml =`
+              <div class="comment" comment-id = "`+commentID+`" style="margin-left: `+marginComment+`; background-color:`+backColor+`;">
+              <div class="comment_user"><div class="user">`+username+`</div>&#9679<div class="comment_date">5 hours ago</div></div>
+              <div class="comment_text">`+text+`</div>
+                      <div class="comment_buttons">
+                       <div class="comment_like_button " id="clikeButton"><img class="likeImage" src="content/img/greenEmpty.svg"></div>  
+                              <div class="comment_di_li_cont">
+                                      <div class="comment_likes">0</div>
+                                      <div class="">&#9679</div>
+                                      <div class="comment_dislikes">0</div>
+                              </div>        
+                      <div class="comment_dislike_button" id="cdislikeButton"><img class="dislikeImage" src="content/img/redEmpty.svg"></div> 
+                        <div class="comment_comment_button" id="replyComment">REPLY &#10095;</div>
+                      </div>
+  </div>
+  <br>
+              `;
+              
+             
+               // console.log('asdsadsad');
+               
+                $('.comment_section').prepend(commentHtml);
+               // $('.comment_section').after('<br>');
+               // parentComment.after('<br>');
+              
+              
+              console.log(data);
+            
+            }
           
-        $(document).on('click', '#replyComment', function(){
+          })  });
+
+
+
         
-         
-        });
 
 
 

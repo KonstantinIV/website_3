@@ -21,8 +21,8 @@ class editController extends core\mainController implements interfaces\pageInter
         $this->output      = !( $this->input) ? $this->defaultEdit : $this->model->getPost($_SESSION['user'], $this->postID)[0];
         
         $this->output['releaseDate']      = $this->model->splitDate($this->output['releaseDate']);
-        //print_r($this->output);
-  
+       // print_r($this->output['releaseDate']);
+        
     }
 
 

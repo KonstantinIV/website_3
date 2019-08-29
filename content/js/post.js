@@ -18,6 +18,13 @@ $(document).on('click', '.loginPopupContainer', function() {
   
   
   });
+  $(document).on('click', '.deletePopupContainer', function() {
+  
+    $(this).css("visibility","hidden");
+  
+
+
+});
 
 
   
