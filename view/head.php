@@ -24,6 +24,7 @@
 <script  src="/content/js/login.js"></script>
 <script  src="/content/js/search.js"></script>
 <script  src="/content/js/deletePost.js"></script>
+<script  src="/content/js/editPost.js"></script>
 
 <script  src="/content/js/script.js"></script>
 

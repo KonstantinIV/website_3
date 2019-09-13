@@ -7,4 +7,17 @@ $(document).on('click', '.search_button', function(){
 
     
     });
-    //console.log(url);
+
+
+    $(document).ready(function(){
+        //USERNAME
+        $("#searchInput").keypress(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                
+                $(".search_button").click();
+            }
+        });
+    
+    });
+    

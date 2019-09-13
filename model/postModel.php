@@ -11,8 +11,9 @@ class postModel extends core\modelController{
 
     
 
-     //iNDEX next 10 pages
+     //iNDEX next 10 pages DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%d/%m/%Y") as releaseDate 
      function getPopularPosts( $nextCount,$loggedIn, $username,$search){
+
         if($loggedIn){
             if($search){
                 $stmt = $this->pdo->prepare('SELECT post.ID,if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID where post.title like :search  group by post.ID limit :nextCount , 10');
@@ -21,13 +22,16 @@ class postModel extends core\modelController{
                 $stmt->bindParam(':search', $searchstr , \PDO::PARAM_STR);
 
             }else{
-                $stmt = $this->pdo->prepare('SELECT post.ID,if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  group by post.ID limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('SELECT post.ID,if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%d/%m/%Y") as releaseDate, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  group by post.ID limit :nextCount , 10');
+                $timezoneOffset = $_COOKIE['timezoneOffset'];
+                $stmt->bindParam(':timezoneOffset', $timezoneOffset, \PDO::PARAM_INT);
                 $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
             }
             
         }else{
             if($search){
-                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  where post.title = :search group by post.ID limit :nextCount , 10');
+                
+                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  where post.title LIKE :search group by post.ID limit :nextCount , 10');
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
 
@@ -66,7 +70,7 @@ class postModel extends core\modelController{
       
         }else{
             if($search){
-                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID where post.title = :search group by post.ID order by createdDate  limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID where post.title LIKE :search group by post.ID order by createdDate  limit :nextCount , 10');
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
               
@@ -107,7 +111,7 @@ class postModel extends core\modelController{
         }else{
 
             if($search){
-                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat and post.title = :search group by post.ID order by createdDate  limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat and post.title like :search group by post.ID order by createdDate  limit :nextCount , 10');
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
 
@@ -140,14 +144,14 @@ class postModel extends core\modelController{
 
             }else{
                 $stmt = $this->pdo->prepare('SELECT post.ID, if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted , post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat group by post.ID limit :nextCount , 10');
-
+                
                 $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
             }
 
           
         }else{
             if($search){
-                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat and post.title = :search group by post.ID limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%d/%m/%Y") as createdDate, DATE_FORMAT(rel_date,"%d/%m/%Y") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat and post.title LIKE :search group by post.ID limit :nextCount , 10');
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
 
@@ -177,7 +181,7 @@ class postModel extends core\modelController{
     //Edit
     function getPost($username,$postID){
         //echo"asdasd";
-        $stmt = $this->pdo->prepare("SELECT post.title, post.text, DATE_FORMAT(rel_date,'%d/%m/%Y') as releaseDate from post INNER JOIN user ON user.ID = post.USER_ID where username = ? AND post.ID = ?");
+        $stmt = $this->pdo->prepare("SELECT post.TOPIC_ID as category, post.title, post.text, DATE_FORMAT(rel_date,'%d/%m/%Y') as releaseDate from post INNER JOIN user ON user.ID = post.USER_ID where username = ? AND post.ID = ?");
         $stmt->execute([$username,$postID]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -193,22 +197,25 @@ class postModel extends core\modelController{
 
     }*/
 
-    function editPost($title, $text, $postID){
-        $stmt = $this->pdo->prepare("UPDATE post SET  text = :postText , title = :title WHERE ID = :id");
+    function editPost($title, $text, $postID,$category){
+        $stmt = $this->pdo->prepare("UPDATE post SET  text = :postText , title = :title, TOPIC_ID = :category WHERE ID = :id");
         $stmt->bindParam(':postText', $text, \PDO::PARAM_STR);
         $stmt->bindParam(':title', $title, \PDO::PARAM_STR);
         $stmt->bindParam(':id', $postID, \PDO::PARAM_INT);
+        $stmt->bindParam(':category', $category, \PDO::PARAM_INT);
+
         $stmt->execute();
         //return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
-    function createPost($title, $text,$user,$date){
-        $stmt = $this->pdo->prepare("INSERT INTO post (USER_ID,title,text,rel_date,creation_date) VALUES ((select ID from user where username = :user),:title,:postText,:date , curdate())");
+    function createPost($title, $text,$user,$date,$category){
+        $stmt = $this->pdo->prepare("INSERT INTO post (USER_ID,title,text,rel_date,creation_date,TOPIC_ID) VALUES ((select ID from user where username = :user),:title,:postText,:date , curdate(),:category)");
         $stmt->bindParam(':postText', $text, \PDO::PARAM_STR);
         $stmt->bindParam(':user', $user, \PDO::PARAM_STR);
 
         $stmt->bindParam(':title', $title, \PDO::PARAM_STR);
+        $stmt->bindParam(':category', $category, \PDO::PARAM_INT);
 
         $stmt->bindParam(':date', $date, \PDO::PARAM_STR);
 

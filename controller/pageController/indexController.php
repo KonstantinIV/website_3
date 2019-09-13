@@ -10,12 +10,29 @@ class indexController extends core\mainController implements interfaces\pageInte
     private $username;
     private $sort;
     private $nextCount;
-
+    private $searchInput;
+    protected $output;
     //private categoryName = "";
     
 
     
     function __construct($input){
+      /*  foreach (getallheaders() as $name => $value) { 
+            echo "$name: $value <br>"; 
+        } 
+        print_r($_COOKIE);
+        echo "<br><br><br><br><br><br>";
+        print_r($_SERVER);
+        if (isset($_SERVER['HTTP_COOKIE'])) {
+            $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
+            foreach($cookies as $cookie) {
+                $parts = explode('=', $cookie);
+                $name = trim($parts[0]);
+                setcookie($name, '', time()-1000);
+                setcookie($name, '', time()-1000, '/');
+            }
+        }*/
+        //print_r($_COOKIE);
         parent::__construct("postModel", "Main", "index", $input);
         $this->nextCount = isset($_POST['grab']) ? (int)$_POST['grab'] : 0 ;
 
@@ -57,22 +74,21 @@ class indexController extends core\mainController implements interfaces\pageInte
         $this->loggedIn     = isset($_SESSION['user']) ? true : false;
        
     
-      
+        
        
-        $this->output =  $this->getContent();
+        
         
         //echo "ssssssssssssssssssssssssssssssssssss@@";
 
         
     }
 
-    function setVariables(){
 
-    }
 
 
     function loadPage(){
         if($_POST["method"]){
+            $this->output =  $this->getContent();
             $this->view->renderUtil($this->generatePosts());  
 
         }else{

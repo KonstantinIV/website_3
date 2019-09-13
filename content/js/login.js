@@ -95,6 +95,7 @@ $(document).ready(function(){
     $('#emailReg').on('input', function() {
         inputBorder(emailVal($(this).val()),$(this));
     });
+
     $('#password1').on('input', function() {
         inputBorder(passVal($(this).val()),$(this));
     });
@@ -110,37 +111,59 @@ $(document).ready(function(){
 
 $(document).on('click', '#log', function(){
 
-  
-    var username = $('#username').val();
-    var password = $('#password').val();
-    
-    if(username == "" || password == "" ){
-        console.log("Wrong input");
-    }else {
-      /*var data = {};
-      data['username'] = username;
-      data['password'] = password;  */
-            $.ajax({
-            url: "loginUser",
-            method: "POST",
-            data:{user : username , pass : password},
-            success: function(data){
-  
-              var flag = JSON.parse(data).flag;
-              if(flag){
-                window.location.href = 'profile/' + username;
-              }
-  
-              console.log(data);
-              //window.location.replace("user.php");
-              //window.location.href = 'profile';
-                //window.location.assign('user.php');
-            }
-        });
-    } 
+  log();
     
     });
     
+
+    function log(){
+        var username = $('#username').val();
+        var password = $('#password').val();
+        
+        if(username == "" || password == "" ){
+            console.log("Wrong input");
+        }else {
+          /*var data = {};
+          data['username'] = username;
+          data['password'] = password;  */
+                $.ajax({
+                url: "loginUser",
+                method: "POST",
+                data:{user : username , pass : password},
+                success: function(data){
+      
+                  var flag = JSON.parse(data).flag;
+                  if(flag){
+                    window.location.href = 'profile/' + username;
+                  }
+      
+                  console.log(data);
+                  //window.location.replace("user.php");
+                  //window.location.href = 'profile';
+                    //window.location.assign('user.php');
+                }
+            });
+        } 
+        
+    }
+
+
+
+    
+$(document).ready(function(){
+    //USERNAME
+    $("#password").keypress(function(event) {
+        if (event.which == 13) {
+            event.preventDefault();
+            console.log("ssss");
+            $("#log").click();
+        }
+    });
+
+});
+
+   
+
     $(document).on('click', '#reg', function(){
         var thisInput = $(this);
         //Check if empty

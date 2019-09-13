@@ -394,5 +394,29 @@ select:-webkit-autofill:focus {
 @media (min-width: 0px) and (max-width: 1024px) {
   .dash_stats {
     margin-left: 0; } }
+.threadCont {
+  width: inherit;
+  border: 3px solid #36274b;
+  margin: 2px;
+  margin-right: 4px; }
+
+.threadTitle {
+  font-family: sans-serif;
+  font-size: 15px;
+  margin-top: 6px;
+  padding-left: 20px;
+  color: #36274b;
+  font-weight: bold; }
+
+.thread {
+  margin-left: 20px;
+  color: #7cf04f;
+  font-family: sans-serif;
+  margin-top: 5px;
+  margin-bottom: 5px; }
+
+@media (min-width: 0px) and (max-width: 1024px) {
+  .threadCont {
+    margin-right: 10px; } }
 
 /*# sourceMappingURL=login.css.map */

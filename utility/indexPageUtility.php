@@ -15,7 +15,7 @@ class indexPageUtility implements interfaces\utilityInterface{
     private $loggedIn;
     private $username;
     function __construct($input){
-       
+      
        $this->model = new model\postModel();
        $this->view = new core\viewController;
 

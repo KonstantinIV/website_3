@@ -58,7 +58,57 @@
                                 <div class="dat_text">Date of the release</div>
                         </div>
                 </div>
-                        
+
+                
+
+
+                <div class="cateoryPickerCont da_cont">
+
+                        <select list="Category" class="textarea date categoryPicker" type="text" id="category" placeholder="category" >
+                        <?php
+                         $arrayCat = array("Anime/Manga","Books","Tv show","Movies","Events","Gaming","Sport");
+                                if($this->output['category']){
+                                        echo '<option value='.$this->output['category'].' disabled selected>'.$arrayCat[$this->output['category'] - 1].'</option>';
+                                }else{
+                                        echo '<option value="" disabled selected>Category</option>';
+                                }
+                                       
+                                        for ($x = 0; $x <= 6; $x++) {
+                                                $v = $x + 1;
+
+                                                 echo "<option value=".$v.">".$arrayCat[$x]."</option>";
+                                         } 
+
+                          ?>
+
+                         </select>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 <textarea class="textarea postText" type="text"          id="text"  placeholder="Your prediction..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'><?php echo $this->output['text'] ?></textarea>
                 <div class="button_ct"> 

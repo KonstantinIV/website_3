@@ -9,6 +9,7 @@ class editutilityUtility implements interfaces\utilityInterface{
     private $text;
     private $title;
     private $postID;
+    private $category;
 
     private $day;
     private $month;
@@ -20,7 +21,7 @@ class editutilityUtility implements interfaces\utilityInterface{
         $this->text =  isset($_POST['text']) ? $_POST['text'] : "" ; 
         $this->postID =   isset($_POST['postID']) ? (int)$_POST['postID'] : "" ; 
         $this->title = isset($_POST['title']) ? $_POST['title'] : "" ; 
-
+        $this->category = isset($_POST['category']) ? $_POST['category'] : "" ; 
 
         $this->day = isset($_POST['day']) ? $_POST['day'] : "" ; 
         $this->month = isset($_POST['month']) ? $_POST['month'] : "" ; 
@@ -58,19 +59,22 @@ class editutilityUtility implements interfaces\utilityInterface{
             $content = array("flag" => false, "message" => "Wrong year");
             echo json_encode($content); 
             return false;
+        }elseif(!is_numeric($this->category) || $this->category == 0 ){
+            $content = array("flag" => false, "message" => "Wrong category");
+            echo json_encode($content); 
+            return false;
         }
-
-
+       
      $this->date = $this->year."-".$this->month."-".$this->day;
         
 
 
 
         if($this->postID){
-            $this->model->editPost($this->title, $this->text, $this->postID,$this->user);
+            $this->model->editPost($this->title, $this->text, $this->postID,$this->user,$this->category);
 
         }else{
-            $this->model->createPost($this->title, $this->text,$this->user,$this->date);
+            $this->model->createPost($this->title, $this->text,$this->user,$this->date,$this->category);
 
         }
         $content = array("flag" => true, "message" => "Posted" );
