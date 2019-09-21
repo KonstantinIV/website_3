@@ -1,12 +1,14 @@
 <?php
 namespace src\utility;
 use \src\controller\interfaces ;
+use \src\utility ;
 
-class isloggedUtility implements interfaces\utilityInterface{ 
+class isloggedUtility extends utility\mainUtility implements interfaces\utilityInterface{ 
     
    
-    function __construct($inpu){
-       
+    function __construct($input){
+        parent::__construct();
+
      
     }
 
@@ -15,9 +17,9 @@ class isloggedUtility implements interfaces\utilityInterface{
     {
         session_start();
             if(isset($_SESSION['user'])){
-                    echo json_encode(array( "flag" => true)); 
+                $this->view->renderUtilJSON(array( "flag" => true)); 
             }else{
-                    echo json_encode(array( "flag" => false)); 
+                $this->view->renderUtilJSON(array( "flag" => false)); 
             }
     }
 

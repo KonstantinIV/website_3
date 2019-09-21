@@ -43,7 +43,6 @@ class bootstrap {
     if($this->controller instanceof interfaces\pageInterface){
         $this->controller->loadPage();
     }elseif($this->controller instanceof interfaces\utilityInterface){
-
        $this->controller->runScript();
     }
 

@@ -1,18 +1,19 @@
 <?php
 namespace src\utility;
 use src\model;
+use \src\utility ;
 
 
-class mainLoginUtility {
+class mainLoginUtility extends utility\mainUtility{
     protected $model;
 
     function __construct(){
+        parent::__construct();
         $this->model = new model\loginModel();
     }
 
     function startSession($username){
-        $session = new model\sessionModel();
-        $session->userSetVar($username);
+        $this->sessionModel->userSetVar($username);
     }
     
 }

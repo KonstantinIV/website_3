@@ -15,22 +15,12 @@ class commentController extends core\mainController implements interfaces\pageIn
        $this->postID = empty($input[1]) ? $this->emptyID() : $input[1] ;
        $this->username     =  isset($_SESSION['user']) ? $_SESSION['user'] : false;
   
-        $this->output = array($this->getPost());
         $this->commentData = $this->getComment();
         
     }
 
-    function getPost(){
-        return $this->model->getSinglePost($this->postID,$this->username)[0];
-           
-        
-    }
+    
 
-    function emptyID(){
-        
-    }
-    
-    
     function getComment(){
         return $this->model->getComments($this->postID,$this->username);
         
@@ -38,9 +28,12 @@ class commentController extends core\mainController implements interfaces\pageIn
 
 
     function loadPage(){
-        $this->view->render($this->pageBody());
+      
+            $this->view->render($this->pageBody());
+        
+      
     }
-
+   
 
 
    

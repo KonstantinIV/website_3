@@ -40,8 +40,9 @@ class viewController extends mainController{
         $this->conFooter();
     }
 
-    function renderUtil($body){
-        echo $body;
+    function renderUtilJSON($content){
+        $content = json_encode($content);
+        echo $content;
     }
 
 }

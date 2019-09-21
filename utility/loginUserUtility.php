@@ -3,9 +3,9 @@ namespace src\utility;
 use \src\controller\interfaces ;
 
 use src\model;
+use \src\utility ;
 
-class loginUserUtility extends mainLoginUtility implements interfaces\utilityInterface{
-    private $username;
+class loginUserUtility extends utility\mainLoginUtility implements interfaces\utilityInterface{
     private $password;
     
 
@@ -20,17 +20,13 @@ class loginUserUtility extends mainLoginUtility implements interfaces\utilityInt
     }
 
     function runScript(){
-       // echo $this->method;
-        
-
-
 
         if($this->model->userAuth($this->username,$this->password)){
             $this->startSession($this->username);
-            echo json_encode(array( "flag" => true , "user" => $this->username)); 
+            $this->view->renderUtilJSON(array( "flag" => true , "user" => $this->username)); 
         }else{
             
-            echo json_encode(array( "flag" => false)); 
+            $this->view->renderUtilJSON(array( "flag" => false)); 
         }
         
     }

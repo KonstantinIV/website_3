@@ -6,7 +6,7 @@ use \src\controller\core;
 use \src\controller\interfaces ;
 use \src\utility ;
 
-class indexPageUtility extends utility\mainUtility implements interfaces\utilityInterface{ 
+class singlePostUtility extends utility\mainUtility implements interfaces\utilityInterface{ 
     
     private $model;
     private $categoryName;
@@ -14,43 +14,23 @@ class indexPageUtility extends utility\mainUtility implements interfaces\utility
     
     
     
+    
     function __construct($input){
         parent::__construct();
-
-       $this->model = new model\postModel();
+        //echo($this->username);
+       $this->model = new model\commentModel();
        $input =  isset($_POST['url']) ? $_POST['url'] : false ;
-       $this->nextCount = isset($_POST['grab']) ? (int)$_POST['grab'] : 0 ;
-      
 
-       if($input[0] == "new" || $input[0] =="popular"){
-        if($input[1] == "cat"){
-            $this->searchInput  = isset($input[4]) ? $input[4] : false;
-            $this->sort         = isset($input[0]) ? $input[0] : false;
-            $this->categoryName = empty($input[2]) ? "" : $input[2] ;
-        }else{
-            $this->sort         = isset($input[0]) ? $input[0] : false;
-            $this->searchInput  = isset($input[2]) ? $input[2] : false;
-        }
-    }else{
-        if($input[0] == "cat" ){
-            $this->searchInput  = isset($input[3]) ? $input[3] : false;
-            $this->categoryName = empty($input[1]) ? "" : $input[1] ;
-        }else{
-            $this->searchInput  = isset($input[1]) ? $input[1] : false;
-        }
-        
-        $this->sort         = "popular";
+       $this->postID = empty($input[1]) ? false : $input[1] ;
 
-    }
         
     }
 
     
 
     function runScript(){
-        $this->output =  $this->getContent();
-        $this->view->renderUtilJSON($this->generatePosts()); 
-
+        $this->output =  array($this->model->getSinglePost($this->postID,$this->username)[0]);
+        $this->view->renderUtilJSON($this->generatePosts());  
 
     }
 
@@ -77,17 +57,16 @@ class indexPageUtility extends utility\mainUtility implements interfaces\utility
      
      }
 
-     function generatePosts(){
-      
+    function generatePosts(){
+        //echo json_encode(array("flag" => true));
+        //echo sizeof($this->output);
         ob_start();
             require "view/index/posts.php";
         $html = ob_get_clean();
 
-        $flag = (sizeof($this->output) < 10  ) ? true : false ; 
-        return array("flag" => $flag, "content" => $html); 
+        return array( "content" => $html);
 
     }
-
     
 
 

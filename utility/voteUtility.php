@@ -2,31 +2,26 @@
 namespace src\utility;
 
 use \src\model;
+use \src\utility ;
 use \src\controller\interfaces ;
 
-class voteUtility implements interfaces\utilityInterface{
+class voteUtility extends utility\mainUtility implements interfaces\utilityInterface{
     private $model;
-    private $session;
 
-    private $username;
     private $ID;
     private $action;
     private $type;
     private $update;
 
     function __construct($data){
+        parent::__construct();
         $this->model = new model\postModel();
-        $this->session = new model\sessionModel();
 
-        $this->username = isset($_SESSION['user']) ? $_SESSION['user'] : false;
         $this->ID   = isset($_POST['ID']) ? (int)$_POST['ID'] : false; 
         $this->action   =  isset($_POST['action']) ? $_POST['action'] : false; 
         $this->type   =  isset($_POST['type']) ? $_POST['type'] : false; 
         $this->update   =  isset($_POST['update']) ? $_POST['update'] : false; 
-     //  echo $this->username;
-        //$this->model->likePost((int)$_POST['ID'],$_SESSION['user']);
-       // echo $this->update;
-      // echo gettype($this->update). "\n";
+     
     }
 
 
@@ -35,7 +30,7 @@ class voteUtility implements interfaces\utilityInterface{
     }
 
     function vote(){
-        if(!isset($_SESSION['user'])){
+        if(!$this->username){
             return false;
         }
 
@@ -105,11 +100,13 @@ class voteUtility implements interfaces\utilityInterface{
 
     }
 
-    function success($message){
-        if($message){
-            echo json_encode(array("message" => true));
+    function success($bool){
+        if($bool){
+            $this->view->renderUtilJSON(array("message" => true));
+
         }else{
-            echo json_encode(array("message" => false));
+            $this->view->renderUtilJSON(array("message" => true));
+
         }
 
     }

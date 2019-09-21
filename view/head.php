@@ -18,6 +18,8 @@
 
 <script  type="text/javascript" src="http://livejs.com/live.js"></script>
 <script src="/content/js/jquery-3.3.1.js"></script>
+<script  src="/content/js/script.js"></script>
+
 <script  src="/content/js/navigation.js"></script>
 <script  src="/content/js/post.js"></script>
 <script  src="/content/js/comment.js"></script>
@@ -26,6 +28,5 @@
 <script  src="/content/js/deletePost.js"></script>
 <script  src="/content/js/editPost.js"></script>
 
-<script  src="/content/js/script.js"></script>
 
 </head>

@@ -39,27 +39,6 @@ class mainController{
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     function setPageDataVariables($title, $body,$input ){
         $this->pageData['metaData']['title'] = $title;
         $this->pageData['metaData']['body']  = $body; 
@@ -76,6 +55,10 @@ class mainController{
         $this->view->pageData = $this->pageData;
 
         $this->view->render()           ;
+    }
+
+    function ajaxCall(){
+        
     }
 
 
