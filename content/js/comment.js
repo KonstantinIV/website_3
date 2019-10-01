@@ -123,7 +123,7 @@ function generateSinglePost(){
               }else{
         
                 thisButton.toggleClass("replyDrop");
-                var replyTextarea = `
+                var replyTextarea =`
                 <div class="commentReplyContainer">
                     <div class="replyText">
                         <textarea class="replyTextarea"> </textarea>
