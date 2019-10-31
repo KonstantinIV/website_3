@@ -235,9 +235,14 @@ class postModel extends core\modelController{
         $stmt->bindParam(':timezoneOffset', $timezoneOffset, \PDO::PARAM_INT);
         $stmt->bindParam(':date', $date, \PDO::PARAM_STR);
 
-        $stmt->execute();
-        //return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        if($stmt->execute()){
+            return true;
+        }else{
+            return $stmt->errorInfo();
+            //return $stmt->errorInfo();
+        }
+        
     }
 
 

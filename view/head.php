@@ -12,8 +12,7 @@
   <base href="http://192.168.1.246" >
 
 <link rel="stylesheet" type="text/css" href="/content/css/mainStyle.css">
-<link rel="stylesheet" type="text/css" href="/content/css/login.css">
-<link rel="stylesheet" type="text/css" href="/content/css/edit_post.css">
+
 
 
 <script  type="text/javascript" src="http://livejs.com/live.js"></script>

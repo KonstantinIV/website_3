@@ -1,0 +1,21 @@
+.pop_post_cont{
+    //width: 70%;
+    flex-grow: 1;
+    margin-left:20px;
+    margin-right: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: min-content;
+}
+
+.post_cont{
+    background-color: #36274b;
+    border-radius: 5px;
+    width: 100%;
+    height: 400px;
+    max-width: 600px;
+    margin-bottom: 20px;
+  //  margin-left: 20px;
+  margin-left: auto;
+}
+

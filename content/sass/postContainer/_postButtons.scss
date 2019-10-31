@@ -1,0 +1,85 @@
+
+// Thir cont bottom buttons
+.post_buttons{
+    display: flex;
+    height:50px;
+    //border-top: 1px solid #7cf04f;
+    border:4px solid #36274b;
+    border-top: none;
+    flex-flow:row;
+    padding-top: 5px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.post_buttons *{
+    height: 40px;
+    flex-grow: 1;
+    margin: 2px 4px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+
+    line-height: 40px;
+font-size: 18px;
+font-weight: 550;
+color:#3f4566;
+font-family: sans-serif;
+text-align: center;
+
+}
+.di_li_cont{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.likes{
+    color:#7cf04f;
+
+}
+.dislikes{
+    color:#ca3939;
+}
+
+
+.post_buttons div:nth-child(4){
+    background-color: transparent; 
+
+}
+.like_button{
+    cursor: pointer;
+    border:1px solid #7cf04f;
+    background-color: #36274b;
+
+}
+.dislike_button{
+    cursor: pointer;
+    border:1px solid #ca3939;
+    background-color: #36274b;
+
+}
+.like_button:hover{
+    
+    border:1px solid #255a11;
+    
+
+}
+.dislike_button:hover{
+    
+    border:1px solid #ec1111;
+    
+
+}
+
+
+
+.comment_button{
+    border:1px solid gray;
+  
+    color: #8b8fa9;
+}
+
+.commentLinkButton:hover .comment_button{
+    
+    border:1px solid rgb(88, 88, 88);
+    
+
+}

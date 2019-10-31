@@ -71,14 +71,14 @@ class editutilityUtility extends utility\mainUtility implements interfaces\utili
      
         if($this->postID){
            // print_r($_POST);
-            $flag = $this->model->editPost($this->title, $this->text, $this->postID,$this->category);
+              $this->model->editPost($this->title, $this->text, $this->postID,$this->category);
 
         }else{
 
-             $this->model->createPost($this->title, $this->text,$this->username,$this->date,$this->category);
-
+             $flag = $this->model->createPost($this->title, $this->text,$this->username,$this->date,$this->category);
+             //print_r($_POST);
         }
-        $this->view->renderUtilJSON(array("flag" => $flag, "message" => "Posted" ));
+        $this->view->renderUtilJSON(array("flag" => true, "message" => $flag ));
         return false;
         
 
