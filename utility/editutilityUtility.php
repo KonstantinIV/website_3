@@ -31,7 +31,6 @@ class editutilityUtility extends utility\mainUtility implements interfaces\utili
         $this->year = isset($_POST['year']) ? $_POST['year'] : "" ; 
 
         
-        //print_r($_POST);
     }
 
     function runScript(){
@@ -69,15 +68,17 @@ class editutilityUtility extends utility\mainUtility implements interfaces\utili
         
 
 
-
+     
         if($this->postID){
-            $this->model->editPost($this->title, $this->text, $this->postID,$this->username,$this->category);
+           // print_r($_POST);
+            $flag = $this->model->editPost($this->title, $this->text, $this->postID,$this->category);
 
         }else{
-            $this->model->createPost($this->title, $this->text,$this->username,$this->date,$this->category);
+
+             $this->model->createPost($this->title, $this->text,$this->username,$this->date,$this->category);
 
         }
-        $this->view->renderUtilJSON(array("flag" => true, "message" => "Posted" ));
+        $this->view->renderUtilJSON(array("flag" => $flag, "message" => "Posted" ));
         return false;
         
 

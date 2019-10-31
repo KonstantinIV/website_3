@@ -105,7 +105,7 @@ class voteUtility extends utility\mainUtility implements interfaces\utilityInter
             $this->view->renderUtilJSON(array("message" => true));
 
         }else{
-            $this->view->renderUtilJSON(array("message" => true));
+            $this->view->renderUtilJSON(array("message" => false));
 
         }
 

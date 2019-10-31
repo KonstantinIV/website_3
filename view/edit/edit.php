@@ -4,19 +4,17 @@
                 <textarea class="textarea p_header" type="text" id="title" placeholder="Title" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' ><?php echo $this->output['title'] ?></textarea>
                 <div class="da_cont">
                         <div class="datepicker">
-                                <select list="year" class="textarea year" type="text" id="year" placeholder="yyyy" ><?php echo $this->output['releaseDate'][0] ?>
+                        <select list="day" class="textarea date" type="text" id="day" placeholder="dd" ><?php echo $this->output['releaseDate'][0] ?>
                                 <?php
-                                $date = (int)date("Y");
                                 if($this->output['releaseDate'][0]){
-                                        echo '<option value="" disabled selected>'.$this->output['releaseDate'][0].'</option>';
+                                        echo '<option value="'.$this->output['releaseDate'][0].'"  selected>'.$this->output['releaseDate'][0].'</option>';
                                 }else{
-                                        echo '<option value="" disabled selected>yyyy</option>';
+                                        echo '<option value="" disabled selected>dd</option>';
                                 }
-                                        for ($x = 1; $x <= 80; $x++) {
-                                                $year = $date + $x;
+                                        for ($x = 1; $x <= 31; $x++) {
 
-                                                echo "<option value=".$year.">".$year."</option>";
-                                                
+
+                                                echo "<option value=".$x.">".$x."</option>";
                                             } 
 
                                 ?>
@@ -25,7 +23,7 @@
                                 <select list="month" class="textarea date" type="text" id="month" placeholder="mm" >
                                 <?php
                                 if($this->output['releaseDate'][1]){
-                                        echo '<option value="" disabled selected>'.$this->output['releaseDate'][1].'</option>';
+                                        echo '<option value="'.$this->output['releaseDate'][1].'"  selected>'.$this->output['releaseDate'][1].'</option>';
                                 }else{
                                         echo '<option value="" disabled selected>mm</option>';
                                 }
@@ -39,17 +37,22 @@
                                 ?>
 
                                 </select>
-                                <select list="day" class="textarea date" type="text" id="day" placeholder="dd" ><?php echo $this->output['releaseDate'][2] ?>
+                                
+
+                                <select list="year" class="textarea year" type="text" id="year" placeholder="yyyy" ><?php echo $this->output['releaseDate'][2] ?>
+                                
                                 <?php
+                                $date = (int)date("Y");
                                 if($this->output['releaseDate'][2]){
-                                        echo '<option value="" disabled selected>'.$this->output['releaseDate'][2].'</option>';
+                                        echo '<option value="'.$this->output['releaseDate'][2].'"  selected>'.$this->output['releaseDate'][2].'</option>';
                                 }else{
-                                        echo '<option value="" disabled selected>dd</option>';
+                                        echo '<option value="" disabled selected>yyyy</option>';
                                 }
-                                        for ($x = 1; $x <= 31; $x++) {
+                                        for ($x = 1; $x <= 80; $x++) {
+                                                $year = $date + $x;
 
-
-                                                echo "<option value=".$x.">".$x."</option>";
+                                                echo "<option value=".$year.">".$year."</option>";
+                                                
                                             } 
 
                                 ?>
@@ -68,7 +71,7 @@
                         <?php
                          $arrayCat = array("Anime/Manga","Books","Tv show","Movies","Events","Gaming","Sport");
                                 if($this->output['category']){
-                                        echo '<option value='.$this->output['category'].' disabled selected>'.$arrayCat[$this->output['category'] - 1].'</option>';
+                                        echo '<option value='.$this->output['category'].' selected>'.$arrayCat[$this->output['category'] - 1].'</option>';
                                 }else{
                                         echo '<option value="" disabled selected>Category</option>';
                                 }

@@ -14,16 +14,16 @@ window.onclick = function(event) {
   }
   
 
-  $(document).ready(function() {
+  
     $("#userDropdownButton").click(function () {
     document.getElementById("userDropdown").classList.toggle("show");
      
     });
-  });
+  
 
-  $(document).ready(function() {
+  
     $("#sortDropdownButton").click(function () {
     document.getElementById("sortDropdown").classList.toggle("show");
      
     });
-  });
+  

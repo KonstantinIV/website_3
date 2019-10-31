@@ -1,367 +1,3 @@
-
-$(document).ready(function() {
-  
-  
-
-  //generateSinglePost();
-
-
-
-  
-  
-
-});
-
-function generateSinglePost(){
-  var url = window.location.href.split('/');
-  //console.log(url.slice(4));
-   $.ajax({
-     async : false ,
-     url: "singlePost",
-     method: "POST",
-     data:{ cat : url[4], sort : url[5], search: url[6], method: true,url : url.slice(3)},
-     success: function(data){
-       $('.pop_post_cont').append(JSON.parse(data).content);
-      // $('.pop_post_cont').append("ssssssssssssssssssss");
-
-       console.log(JSON.parse(data));
-       //wconsole.log(JSON.parse(data));
-     }
-   });
- }
-
-
-
-
-
-
-
-    $(document).on('click', '#clikeButton', function(){
-        cvote($(this),"likes","comment","like", "green" );
-        
-        
-        });
-        
-      $(document).on('click', '#cdislikeButton', function(){
-        cvote($(this),"dislikes","comment","dislike", "red" );
-        
-    
-        });
-    
-    
-        
-    
-    
-    
-        function cvote(thisButton,action,type,prefix,imageName){
-          var ID  = thisButton.closest("div[comment-id]").attr('comment-id');
-          
-    
-          
-    
-          var updateType;
-          if(!thisButton[0].classList.contains("full")){
-            updateType = true;  
-          }else{
-            updateType = false;
-          }
-    
-          var url = window.location.href.split('/');
-              $.ajax({
-                  url: "vote",
-                  method: "POST",
-                  data:{ ID : ID , action : action, type : type, update : updateType},
-                  async:false,
-                  success: function(data){
-                   
-                    console.log(data);
-                    flag = JSON.parse(data).message;
-                    if(flag){
-                      
-                      if(updateType){
-    
-                        thisButton.toggleClass("full");
-                        thisButton.find("."+prefix+"Image").attr("src","content/img/"+imageName+"Full.svg");
-                        var ss      = +thisButton.closest("div[comment-id]").find(".comment_"+prefix+"s").text();
-                        thisButton.closest("div[comment-id]").find(".comment_"+prefix+"s").text(ss + 1);
-                      }else{
-                        thisButton.removeClass("full");
-                        thisButton.find("."+prefix+"Image").attr("src","content/img/"+imageName+"Empty.svg");
-                        var ss      = +thisButton.closest("div[comment-id]").find(".comment_"+prefix+"s").text();
-                        thisButton.closest("div[comment-id]").find(".comment_"+prefix+"s").text(ss - 1);
-                      }
-    
-                  
-                    }else{
-                        $("#loginPopupCont").css("visibility", "visible");
-                      }
-                  }
-              });
-    
-    
-    
-    
-    }
-
-
-    $(document).on('click', '#replyComment', function(){
-        var thisButton = $(this);
-
-        $.ajax({
-          url: "islogged",
-          method: "GET",
-          async:false,
-          success: function(data){
-            var flag = Boolean(JSON.parse(data).flag);
-        console.log(data);
-            if(flag == false){
-                $("#loginPopupCont").css("visibility", "visible");
-            }else{
-              if(thisButton.hasClass("replyDrop")){
-                thisButton.removeClass("replyDrop");
-                thisButton.closest(".comment").find(".commentReplyContainer").remove();
-              }else{
-        
-                thisButton.toggleClass("replyDrop");
-                var replyTextarea =`
-                <div class="commentReplyContainer">
-                    <div class="replyText">
-                        <textarea class="replyTextarea"> </textarea>
-                    </div>
-                    <div class="commentReplyButton">
-                          Reply
-                    </div>
-                </div>
-                `;
-                thisButton.closest(".comment").append(replyTextarea);
-                
-                
-                
-              }
-            }
-        }})  ;
-
-      
-      
-       // $(this).closest(".comment").append(large);
-        });
-
-
-
-
-
-        $(document).on('click', '.commentReplyButton', function(){
-
-          var parentComment = $(this).closest("div[comment-id]");
-          var backColor     ;
-          if(parentComment.css('background-color') == "rgb(34, 20, 60)"){
-            backColor = "#36274b";
-          }else{
-            backColor = "#22143c";
-          }
-         
-
-          var postID        = $(".post_cont").attr('data-id');
-          var ID            = parentComment.attr('comment-id');
-          var marginComment = parseInt(parentComment.css('margin-left'), 10)  + 20;
-          var text = $(this).closest(".commentReplyContainer").find(".replyTextarea").val();
-
-   
-          $.ajax({
-            url: "commentutility",
-            method: "POST",
-            data:{ postID: postID, ID : ID, text : text},
-            async:false,
-            success: function(data){
-              username = JSON.parse(data).username;
-              commentID = JSON.parse(data).commentID;
-
-              var commentHtml =`
-              <div class="comment" comment-id = "`+commentID+`" style="margin-left: `+marginComment+`px; background-color:`+backColor+`;">
-              <div class="comment_user"><div class="user">`+username+`</div>&#9679<div class="comment_date">5 hours ago</div></div>
-              <div class="comment_text">`+text+`</div>
-                      <div class="comment_buttons">
-                       <div class="comment_like_button " id="clikeButton"><img class="likeImage" src="content/img/greenEmpty.svg"></div>  
-                              <div class="comment_di_li_cont">
-                                      <div class="comment_likes">0</div>
-                                      <div class="">&#9679</div>
-                                      <div class="comment_dislikes">0</div>
-                              </div>        
-                      <div class="comment_dislike_button" id="cdislikeButton"><img class="dislikeImage" src="content/img/redEmpty.svg"></div> 
-                        <div class="comment_comment_button" id="replyComment">REPLY &#10095;</div>
-                      </div>
-  </div>
-              `;
-            
-              console.log( parentComment.length);
-      
-                parentComment.after('<br>');
-                parentComment.after(commentHtml);
-                parentComment.find(".commentReplyContainer").remove();
-            
-              
-              console.log(data);
-            
-            }
-          
-          })  });
-
-
-
-
-
-        $(document).on('click', '#postReplyButton', function(){
-
-          var ID = 0;
-          var marginComment = 0;
-          var postID        = $(".post_cont").attr('data-id');
-          var text = $(this).closest(".commentReplyContainer").find(".replyTextarea").val();
-          var backColor = "#22143c";
-          var parentComment = $(this).closest("div[comment-id]");
-
-          $.ajax({
-            url: "commentutility",
-            method: "POST",
-            data:{ postID: postID, ID : ID, text : text},
-            async:false,
-            success: function(data){
-              username = JSON.parse(data).username;
-              commentID = JSON.parse(data).commentID;
-
-
-              var commentHtml =`
-              <div class="comment" comment-id = "`+commentID+`" style="margin-left: `+marginComment+`; background-color:`+backColor+`;">
-              <div class="comment_user"><div class="user">`+username+`</div>&#9679<div class="comment_date">5 hours ago</div></div>
-              <div class="comment_text">`+text+`</div>
-                      <div class="comment_buttons">
-                       <div class="comment_like_button " id="clikeButton"><img class="likeImage" src="content/img/greenEmpty.svg"></div>  
-                              <div class="comment_di_li_cont">
-                                      <div class="comment_likes">0</div>
-                                      <div class="">&#9679</div>
-                                      <div class="comment_dislikes">0</div>
-                              </div>        
-                      <div class="comment_dislike_button" id="cdislikeButton"><img class="dislikeImage" src="content/img/redEmpty.svg"></div> 
-                        <div class="comment_comment_button" id="replyComment">REPLY &#10095;</div>
-                      </div>
-  </div>
-  <br>
-              `;
-              
-             
-               // console.log('asdsadsad');
-               
-                $('.comment_section').prepend(commentHtml);
-               // $('.comment_section').after('<br>');
-               // parentComment.after('<br>');
-              
-              
-              console.log(data);
-            
-            }
-          
-          })  });
-
-
-
-        
-
-
-
-
-$(document).on('click', '.deletePost', function(){
-    var ID = $(this).attr("data-deleteID");
-    $("#deletePopup").css("visibility", "visible");
-    $("#deleteLink").attr("href", "delete/"+ID)
-    console.log("sss");
-
-    });
-
-
-
-// Check
-function ch_post(postTitle,postYear,postMonth,postDay,postText, postCat){
-
-    var title = postTitle;
-    var text  = postText;
-    var year  = postYear;
-    var month = postMonth;
-    var day = postDay;
-    var cat = postCat;
-  
-  
-  
-    if(title == null || title == "" || text == null || text == "" || cat == 0){
-      return false;
-    }else if(year == null || year == "" ){
-      return false;
-    }else if(year == null || year == "" || month == null || month == "" && day == null || day == ""){
-      return false;
-    }else if(year == null || year == "" && month == null || month == ""){
-      return false;
-    }else{
-      return true;
-    }
-  
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-        $(document).on('click', '#editPost', function(){
-    
-          //Check if empty
-          var postTitle  = $('#title').val();
-          var postYear  = $('#year').val();
-          var postMonth     = $('#month').val();
-          var postDay = $('#day').val();
-          var postText  = $('#text').val();
-          var postCat  = $('#category').val();
-  
-  
-         
-  
-          if(!ch_post(postTitle,postYear,postMonth,postDay,postText)){
-            $("#editError").text("Somethign went wrong");
-            return false;
-          }
-  
-          //console.log("Wrong input");
-          var url = window.location.href.split('/');
-          console.log(url);
-              $.ajax({
-                  url: "editutility",
-                  method: "POST",
-                  data:{title: postTitle , year: postYear ,month : postMonth, day : postDay, text:postText,category:postCat, ID : url[4]},
-                  success: function(data){
-                    console.log("hg");
-                    console.log(data);
-                    if(JSON.parse(data).flag == false){
-                      $("#editError").text(JSON.parse(data).message);
-                      return false;
-                    }
-                    //window.location.replace("user.php");
-                   // window.location.href = '../profile';
-                      //window.location.assign('user.php');
-                  }
-              });
-     
-          });
-  /////////////////
-  
-  
-  
-  
-  
-  
-  
-  
 /*!
  * jQuery JavaScript Library v3.3.1
  * https://jquery.com/
@@ -10727,160 +10363,457 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-function userNameVal(username){
-    if( username.length > 24 || username.length < 3 || typeof username != 'string')  {
-       
-        return {flag : false, message : "Invalid length"};
+(function() {
+  Date.prototype.stdTimezoneOffset = function () {
+    var jan = new Date(this.getFullYear(), 0, 1);
+    var jul = new Date(this.getFullYear(), 6, 1);
+    return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+  }
+  
+  Date.prototype.isDstObserved = function () {
+    return this.getTimezoneOffset() < this.stdTimezoneOffset();
+  }
+  
+  var offset = new Date().getTimezoneOffset()/60 * -1;
+    document.cookie = "timezoneOffset"+"=" + offset;
+  
+  
+    var today = new Date();
+  
+    if (today.isDstObserved()) { 
+      document.cookie = "timezoneDst"+"=" + 1;
+    }else{
+      document.cookie = "timezoneDst"+"=" + 0;
+  
     }
-    var usernameReg = new RegExp('^[a-zA-Z0-9_-]{3,24}$');
+        
+}());
 
-    if(!usernameReg.test(username)){
-        console.log(typeof username);
-        return {flag : false, message : "Contains wrong characters"};
-    }
-    var flag;
-    $.ajax({
-        url: "registerU/userVal",
-        async: false,
-        method: "POST",
-        data:{user : username },
-        success: function(data){
 
-          flag = Boolean(JSON.parse(data).flag);
-          
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+     
+   
+
+(function() {
+  $(document).ready(function() {
+    generateSinglePost();
+
+  });
+
+  function generateSinglePost(){
+    var url = window.location.href.split('/');
+    //console.log(url.slice(4));
+     $.ajax({
+       async : false ,
+       url: "singlePost",
+       method: "POST",
+       data:{ cat : url[4], sort : url[5], search: url[6], method: true,url : url.slice(3)},
+       success: function(data){
+         $('.pop_post_cont').append(JSON.parse(data).content);
+        // $('.pop_post_cont').append("ssssssssssssssssssss");
+  
+         console.log(JSON.parse(data));
+         //wconsole.log(JSON.parse(data));
+       }
+     });
+   }
+
+}());
+//var commentPost = 0;
+
+
+
+
+
+
+
+
+
+      
+
+
         
 
-          
-        }
-    });
+
+
+
+
+(function() {
+    $(document).on('click', '.commentReplyButton', function(){
+  
+      var parentComment = $(this).closest("div[comment-id]");
+      var backColor = getBackColor(parentComment);
      
-    if(!flag){
-        return {flag : false, message : "Username exists"};
+      var postID        = $(".post_cont").attr('data-id');
+      var ID            = parentComment.attr('comment-id');
+      var marginComment = parseInt(parentComment.css('margin-left'), 10)  + 20;
+      var text =          $(this).closest(".commentReplyContainer").find(".replyTextarea").val();
+  
+      var commentDataArr   = sendCommentReply(postID,ID,text);
+      var username         = JSON.parse(commentDataArr).username; 
+      var commentID        = JSON.parse(commentDataArr).commentID;
+
+      var commentHtml =  addCommenView(commentID,marginComment,backColor,username,text);
+
+      parentComment.after('<br>');
+      parentComment.after(commentHtml);
+      parentComment.find(".commentReplyContainer").remove();
+       });
+
+
+    $(document).on('click', '#postReplyButton', function(){
+
+        var backColor = "#22143c";
+
+        var postID        = $(".post_cont").attr('data-id');
+        var ID = 0;
+        var marginComment = 0;
+        var text = $(this).closest(".commentReplyContainer").find(".replyTextarea").val();
+
+        var commentDataArr   = sendCommentReply(postID,ID,text);
+        var username         = JSON.parse(commentDataArr).username; 
+        var commentID        = JSON.parse(commentDataArr).commentID;
+        
+        var commentHtml = addCommenView(commentID,marginComment,backColor,username,text);
+        $('.comment_section').prepend(commentHtml);
+
+        });
+
+
+
+
+  
+    function getBackColor(parentComment){
+      
+      if(parentComment.css('background-color') == "rgb(34, 20, 60)"){
+        return "#36274b";
+      }else{
+        return "#22143c";
+      }
     }
-
-
-    return {flag : true, message : ""};
-}
-
-function emailVal(email){
-    console.log("SS");
-    var flag = true;
-    var message = "";
-    $.ajax({
-        url: "registerU/emailVal",
-        async: false,
+  
+    function sendCommentReply(postID,ID,text){
+      return $.ajax({
+        url: "commentutility",
         method: "POST",
-        data:{email : email },
-        success: function(data){
+        data:{ postID: postID, ID : ID, text : text},
+        async:false
+      }).responseText;
+    }
+  
+    function addCommenView(commentID,marginComment,backColor,username,text){
+      var commentHtml =`
+          <div class="comment" comment-id = "`+commentID+`" style="margin-left: `+marginComment+`px; background-color:`+backColor+`;">
+          <div class="comment_user"><div class="user">`+username+`</div>&#9679<div class="comment_date">5 hours ago</div></div>
+          <div class="comment_text">`+text+`</div>
+                  <div class="comment_buttons">
+                   <div class="comment_like_button " id="clikeButton"><img class="likeImage" src="content/img/greenEmpty.svg"></div>  
+                          <div class="comment_di_li_cont">
+                                  <div class="comment_likes">0</div>
+                                  <div class="">&#9679</div>
+                                  <div class="comment_dislikes">0</div>
+                          </div>        
+                  <div class="comment_dislike_button" id="cdislikeButton"><img class="dislikeImage" src="content/img/redEmpty.svg"></div> 
+                    <div class="comment_comment_button" id="replyComment">REPLY &#10095;</div>
+                  </div>
+          </div>
+          `;
+        return commentHtml;
+         // console.log( parentComment.length);
             
-          flag = Boolean(JSON.parse(data).flag);
-          message = JSON.parse(data).message;
-          console.log(typeof(message));
-          console.log(typeof(flag));
-          
         
-
-          
-        }
-    });
-     
-    if(!flag){
-        return {flag : false, message : message};
     }
+  
+  
+  }());
+  
 
 
-    return {flag : true, message : ""};
-}
-
-function passVal(password){
-    if(  password.length < 8 || typeof password != 'string')  {
+  
+(function() {
+  
+    $(document).on('click', '#replyComment', function(){
+      if(JSON.parse(isLoggedIn()).flag ){
+        showMessage();
+      }else{
+        showTextbox($(this));
+      }
+      });
+  
+  function isLoggedIn(){
+   return $.ajax({
+      url: "islogged",
+      method: "GET",
+      async:false}).responseText  ;
+  }
+  
+  
+  function showMessage(){
+        
+            $("#loginPopupCont").css("visibility", "visible");
        
-        return {flag : false, message : "Must be min. 8 char. long"};
+  }
+  
+  function showTextbox(thisButton){
+    if(thisButton.hasClass("replyDrop")){
+      thisButton.removeClass("replyDrop");
+      thisButton.closest(".comment").find(".commentReplyContainer").remove();
+    }else{
+      thisButton.toggleClass("replyDrop");
+      var replyTextarea =`
+      <div class="commentReplyContainer">
+          <div class="replyText">
+              <textarea class="replyTextarea"> </textarea>
+          </div>
+          <div class="commentReplyButton">
+                Reply
+          </div>
+      </div>
+      `;
+      thisButton.closest(".comment").append(replyTextarea); 
+      
+    }
+  }
+  
+  
+  }());
+     
+
+
+  
+
+ /*var voteModule = { 
+
+
+    init : function(){
+     
+      $(document).on('click', '#clikeButton', function(){
+        voteModule.cvote($(this),"likes","comment","like", "green")});
+
+      $(document).on('click', '#cdislikeButton',function(){
+        voteModule.cvote($(this),"dislikes","comment","dislike", "red")});
+    },
+ 
+    
+  
+  cvote : function(button,voteType,postType,action,color){
+      var filled = this.checkVote(button);
+      var ID     = button.closest("div[comment-id]").attr('comment-id');
+      var data   = this.sendvote(ID,voteType,postType,filled);
+      this.updateVisualVote(JSON.parse(data).message,filled,button,action,color) ;
+    
+  },
+
+  checkVote: function(button){
+    if(!button[0].classList.contains("full")){
+      return true; 
+    }else{
+      return false;
+    }     
+
+  },
+
+  sendvote:function(ID,voteType,postType,filled){
+   return  $.ajax({
+      url: "vote",
+      method: "POST",
+      data:{ ID : ID , action : voteType, type : postType, update : filled},
+      async:false,
+  }).responseText;
+  
+},
+
+  updateVisualVote:function(flag,updateType,button,prefix,imageName){
+                    if(flag){
+                      if(updateType){
+                        this.setImage(button,prefix,"content/img/"+imageName+"Full.svg",true,1);
+                    
+                      }else{
+                        this.setImage(button,prefix,"content/img/"+imageName+"Empty.svg",false,-1);
+
+                      }
+                    }else{
+                        $("#loginPopupCont").css("visibility", "visible");
+                      }
+  },
+
+  setImage: function(button,prefix,imageName,isSet,score){
+    if(isSet){
+      button.toggleClass("full");
+    }else{
+      button.removeClass("full");
+    }
+    button.find("."+prefix+"Image").attr("src",imageName);
+    var ss      = +button.closest("div[comment-id]").find(".comment_"+prefix+"s").text();
+    button.closest("div[comment-id]").find(".comment_"+prefix+"s").text(ss + score);
+
+  }
+
+
+};
+voteModule.init();*/
+$(document).on('click', '.deletePost', function(){
+    var ID = $(this).attr("data-deleteID");
+    $("#deletePopup").css("visibility", "visible");
+    $("#deleteLink").attr("href", "delete/"+ID)
+    console.log("sss");
+
+    });
+
+
+(function() {
+  function validatePostTitle(postTitle){
+    if(postTitle == null || postTitle == "" ){
+      return false;
+    }
+      return true;
+  }
+
+  function validatePostText(postText){
+    if(postText == null || postText == ""){
+      return false;
+    }
+      return true;
+  }
+
+  function validateDate(year,month,day){
+    
+    if(year == null || year == "" ){
+      return false;
+    }else if(year == null || year == "" || month == null || month == "" && day == null || day == ""){
+      return false;
+    }else if(year == null || year == "" && month == null || month == ""){
+      
+      return false;
+    }
+      return true;
+  }
+
+  function validateCategory(category){
+
+    if( category == 0){
+      return false;
     }
    
 
-    return {flag : true, message : ""};
+    return true;
+  }
 
-}
 
-function inputBorder(arr,thisInput){
+  function sendPost(postTitle,postYear,postMonth,postDay,postText,postCat,postID){
+   return $.ajax({
+      url: "editutility",
+      method: "POST",
+      async:false,
+      data:{title: postTitle , year: postYear ,month : postMonth, day : postDay, text:postText,category:postCat, postID : postID}
+      
+  }).responseText;
+  }
 
-    if(arr['flag']){
-        thisInput.closest(".inputMessageContainer").find(".inputMessage").text(arr['message'])
-        thisInput.css("border", "1px solid green")
+  /*
+  function ch_post(postTitle,postYear,postMonth,postDay,postText, postCat){
+
+    var title = postTitle;
+    var text  = postText;
+    var year  = postYear;
+    var month = postMonth;
+    var day = postDay;
+    var cat = postCat;
+  
+    if(title == null || title == "" || text == null || text == "" || cat == 0){
+      return false;
+    }else if(year == null || year == "" ){
+      return false;
+    }else if(year == null || year == "" || month == null || month == "" && day == null || day == ""){
+      return false;
+    }else if(year == null || year == "" && month == null || month == ""){
+      return false;
     }else{
-        thisInput.closest(".inputMessageContainer").find(".inputMessage").text(arr['message'])
-        thisInput.css("border", "1px solid #e2333d")
+      return true;
     }
-}
+  
+  }*/
+  
+  
 
-
-$(document).ready(function(){
-    //USERNAME
-    $('#usernameReg').on('input', function() {
-        inputBorder(userNameVal($(this).val()),$(this));
-    });
-    //EMAIL
-    $('#emailReg').on('input', function() {
-        inputBorder(emailVal($(this).val()),$(this));
-    });
-
-    $('#password1').on('input', function() {
-        inputBorder(passVal($(this).val()),$(this));
-    });
-
-});
-
-
-
-
-
-
-
-
-$(document).on('click', '#log', function(){
-
-  log();
+  
+        $(document).on('click', '#editPost', function(){
     
-    });
-    
-
-    function log(){
-        var username = $('#username').val();
-        var password = $('#password').val();
-        
-        if(username == "" || password == "" ){
-            console.log("Wrong input");
-        }else {
-          /*var data = {};
-          data['username'] = username;
-          data['password'] = password;  */
-                $.ajax({
-                url: "loginUser",
-                method: "POST",
-                data:{user : username , pass : password},
-                success: function(data){
-      
-                  var flag = JSON.parse(data).flag;
-                  if(flag){
-                    window.location.href = 'profile/' + username;
-                  }
-      
-                  console.log(data);
-                  //window.location.replace("user.php");
-                  //window.location.href = 'profile';
-                    //window.location.assign('user.php');
-                }
-            });
-        } 
-        
-    }
+          //Check if empty
+          var postTitle  = $('#title').val();
+          var postYear  = $('#year').val();
+          var postMonth     = $('#month').val();
+          var postDay = $('#day').val();
+          var postText  = $('#text').val();
+          var postCat  = $('#category').val();
+          var postID = window.location.href.split('/')[4];
 
 
+          if(!validatePostText(postText)){
+            $("#editError").text("Invalid characters in text");
 
-    
-$(document).ready(function(){
-    //USERNAME
+            return false;
+
+          }else if(!validateCategory(postCat)){
+            $("#editError").text("Invalid category");
+
+            return false;
+
+          }else if( !validateDate(postYear,postMonth,postDay)){
+            $("#editError").text("Invalid date");
+
+            return false;
+
+          }else if( !validatePostTitle(postTitle) ){
+            $("#editError").text("Invalid title");
+
+            return false;
+          }
+
+          var data = sendPost(postTitle,postYear,postMonth,postDay,postText,postCat,postID);
+          console.log(data);
+
+          if(JSON.parse(data).flag == false){
+            $("#editError").text(JSON.parse(data).message);
+            return false;
+          }
+         
+  
+          /*if(!ch_post(postTitle,postYear,postMonth,postDay,postText)){
+            $("#editError").text("Somethign went wrong");
+            return false;
+          }*/
+  
+     
+          });
+}());
+
+
+  /////////////////
+  
+  
+  
+  
+  
+  
+  
+  
+
+(function() {
     $("#password").keypress(function(event) {
         if (event.which == 13) {
             event.preventDefault();
@@ -10889,49 +10822,177 @@ $(document).ready(function(){
         }
     });
 
-});
+    $(document).on('click', '#log', function(){
 
-   
+        logIn();
+      
+      });   
 
-    $(document).on('click', '#reg', function(){
-        var thisInput = $(this);
-        //Check if empty
+      $(document).on('click', '#reg', function(){
         var username  = $('#usernameReg').val();
         var password  = $('#password1').val();
         var email     = $('#emailReg').val();
         var join_date = $('#join_date').val();
         var birthday  = $('#birthday').val();
-        console.log("ks");
-        
-        if(username == "" || password == "" ){
+
+        if(!validateUser(username,password) ){
             $('#regMessage').text("Empty fields");
-        }else {
-            $.ajax({
+        }else if(!(JSON.parse(register(username,password,email,join_date,birthday)).flag)){
+            
+              if(flag){
+                window.location.href = 'profile';
+              }
+              var message = JSON.parse(data).message;
+              $('#regMessage').text(message);
+        }
+    });   
+
+
+      function logIn(){
+        var username = $('#username').val();
+        var password = $('#password').val();
+        
+            if(validateUser(username,password) ){
+                console.log("Wrong input");
+            }else if(!(JSON.parse(loginUser(username,password)).flag)) {
+                console.log("Login failed");
+            }
+           
+        } 
+
+  
+      function validateUser(username,password){
+        if(username == "" || password == "" ){
+            return false;
+        }
+      }
+
+
+      function loginUser(username,password){
+       return $.ajax({
+            url: "loginUser",
+            method: "POST",
+            async:false,
+            data:{user : username , pass : password}
+        }).responseText;
+      }
+
+      function register(username,password,email,join_date,birthday){
+            return $.ajax({
                 url: "registerU",
                 method: "POST",
-                data:{user: username ,pass: password,email : email, join_date : join_date, birthday:birthday},
-                success: function(data){
-                var flag = JSON.parse(data).flag;
-                var message = JSON.parse(data).message;
-                  if(flag){
-                    window.location.href = 'profile';
-                  }
-                  $('#regMessage').text(message);
+                async:false,
+                data:{user: username ,pass: password,email : email, join_date : join_date, birthday:birthday}
+            }).responseText;
+      }
 
-                 console.log(data);
-                 
-                  //window.location.replace("user.php");
-                  //window.location.href = 'profile';
-                    //window.location.assign('user.php');
-                }
-            });
-        } 
-        
-        
-        
-        
-        });
+
+  }());
+
   
+(function() {
+    $(document).ready(function(){
+        //USERNAME
+        $('#usernameReg').on('input', function() {
+            inputBorder(userNameVal($(this).val()),$(this));
+        });
+        //EMAIL
+        $('#emailReg').on('input', function() {
+            inputBorder(emailVal($(this).val()),$(this));
+        });
+    
+        $('#password1').on('input', function() {
+            inputBorder(passVal($(this).val()),$(this));
+        });
+    });
+
+    function inputBorder(arr,thisInput){
+        if(arr['flag']){
+            thisInput.closest(".inputMessageContainer").find(".inputMessage").text(arr['message'])
+            thisInput.css("border", "1px solid green")
+        }else{
+            thisInput.closest(".inputMessageContainer").find(".inputMessage").text(arr['message'])
+            thisInput.css("border", "1px solid #e2333d")
+        }
+    }
+    function validateUsernameLength(username){
+        if( username.length > 24 || username.length < 3 || typeof username != 'string')  {
+            return false;
+        }
+        return true;
+    }
+    function regexUsername(username){
+        var usernameReg = new RegExp('^[a-zA-Z0-9_-]{3,24}$');
+        if(!usernameReg.test(username)){
+            return false;
+        }
+        return true;
+    }
+    function usernameExists(username){
+        return $.ajax({
+            url: "registerU/userVal",
+            async: false,
+            method: "POST",
+            data:{user : username }
+        }).responseText;
+    }
+
+    function userNameVal(username){
+        if(!validateUsernameLenght()){
+            return {flag : false, message : "Invalid length"};
+        }else if(!regexUsername(username)){
+            return {flag : false, message : "Contains wrong characters"};
+        }else if(!Boolean(JSON.parse(usernameExists(username)).flag)){
+            return {flag : false, message : "Username exists"};
+        }
+        return {flag : true, message : ""};
+    }
+
+    function emailExists(email){
+        return $.ajax({
+            url: "registerU/emailVal",
+            async: false,
+            method: "POST",
+            data:{email : email }
+        }).responseText;
+    }
+
+    function emailVal(email){
+        console.log("SS");
+        var flag = true;
+        var message = "";
+
+        data = emailExists(email);
+        flag = Boolean(JSON.parse(data).flag);
+        message = JSON.parse(data).message;
+ 
+        if(!flag){
+            return {flag : false, message : message};
+        }
+        return {flag : true, message : ""};
+    }
+
+    function validatePassword(password){
+        if(  password.length < 8 || typeof password != 'string')  {
+           return false;
+        }
+        return true;
+    }
+
+    function passVal(password){
+        if(!validatePassword(password)){
+            return {flag : false, message : "Must be min. 8 char. long"};
+
+        }
+       
+    
+        return {flag : true, message : ""};
+    
+    }
+
+
+
+  }());
 
 window.onclick = function(event) {
     if (!event.target.matches('#userDropdownButton') 
@@ -10948,126 +11009,36 @@ window.onclick = function(event) {
   }
   
 
-  $(document).ready(function() {
+  
     $("#userDropdownButton").click(function () {
     document.getElementById("userDropdown").classList.toggle("show");
      
     });
-  });
+  
 
-  $(document).ready(function() {
+  
     $("#sortDropdownButton").click(function () {
     document.getElementById("sortDropdown").classList.toggle("show");
      
     });
-  });
-$(document).on('click', '.text_cont', function() {
   
-    if(!$(this)[0].classList.contains("expand_text")){
-      $(this).closest(".post_cont").toggleClass('expand_cont');
-      $(this).toggleClass('expand_text');
-      $(this).css("border","none");
-      $(this).css("cursor","auto");
+var search = {
+    init : function(){
+        $(document).on('click', '.search_button', this.searchLink);
+
+    },
+    
+
+
+    searchLink :function searchLink(){
+        var searchInput = $('#searchInput').val();
+        var url = window.location.href.split('search');
+        window.location.href = url[0] + "search/" + searchInput;
     }
-  
-  
-  });
-
-
-$(document).on('click', '.loginPopupContainer', function() {
-  
-      $(this).css("visibility","hidden");
-    
-  
-  
-  });
-  $(document).on('click', '.deletePopupContainer', function() {
-  
-    $(this).css("visibility","hidden");
-  
-
-
-});
-
-
-  
-function vote(thisButton,action,type,prefix,imageName){
-    var ID  = thisButton.closest("div[data-id]").attr('data-id');
-    var updateType;
-    if(!thisButton[0].classList.contains("full")){
-      updateType = true;  
-    }else{
-      updateType = false;
-    }
-
-    var url = window.location.href.split('/');
-
-
-        $.ajax({
-            url: "vote",
-            method: "POST",
-            data:{ ID : ID , action : action, type : type, update : updateType},
-            async:false,
-            success: function(data){
-             
-              console.log(data);
-              flag = JSON.parse(data).message;
-              if(flag){
-                
-                if(updateType){
-
-                  thisButton.toggleClass("full");
-                  thisButton.find("."+prefix+"Image").attr("src","content/img/"+imageName+"Full.svg");
-                  var ss      = +thisButton.closest("div[data-id]").find("."+prefix+"s").text();
-                  thisButton.closest("div[data-id]").find("."+prefix+"s").text(ss + 1);
-                  
-                }else{
-                  thisButton.removeClass("full");
-                  thisButton.find("."+prefix+"Image").attr("src","content/img/"+imageName+"Empty.svg");
-                  var ss      = +thisButton.closest("div[data-id]").find("."+prefix+"s").text();
-                  thisButton.closest("div[data-id]").find("."+prefix+"s").text(ss - 1);
-                }
-
-            
-              }else{
-                $(".loginPopupContainer").css("visibility", "visible");
-              }
-            }
-        });
-
-
-
-
-}
-
-
-
-  $(document).on('click', '#likeButton', function(){
-    vote($(this),"likes","post","like", "green" );
-    
-    });
-
-
     
 
-  $(document).on('click', '#dislikeButton', function(){
-    vote($(this),"dislikes","post","dislike", "red" );
-    
-    });
-
-
-
-    
-
-
-
-
-
-
-//hi
-
-//document.cookie = "date"+"=" + new Date();
-var demon = "aaaa";
+};
+search.init();
 
 
 
@@ -11075,114 +11046,6 @@ var demon = "aaaa";
 
 
 
-var a = 0;
-if(a != 0){
-  location.reload();
-}
-
-
-
-
-
-
-
-
-
-
-
-Date.prototype.stdTimezoneOffset = function () {
-  var jan = new Date(this.getFullYear(), 0, 1);
-  var jul = new Date(this.getFullYear(), 6, 1);
-  return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
-}
-
-Date.prototype.isDstObserved = function () {
-  return this.getTimezoneOffset() < this.stdTimezoneOffset();
-}
-
-
-
-
-
-$(document).ready(function() {
-  console.log(document.title)
-  var offset = new Date().getTimezoneOffset()/60 * -1;
-  document.cookie = "timezoneOffset"+"=" + offset;
-
-
-  var today = new Date();
-
-  if (today.isDstObserved()) { 
-    document.cookie = "timezoneDst"+"=" + 1;
-  }else{
-    document.cookie = "timezoneDst"+"=" + 0;
-
-  }
-
-
-
-  generatePost();
-
-
-
-  
-  
-
-});
-
-
-
-
-
-
-      var last_grabbed = 1;
-      var flag         = false;
-      $(window).scroll(function() {
-        
-        if ($(window).scrollTop() + $(window).height() > $('#mn_cont').height()-1){
-          console.log("ssssssssssssssssssss");
-          if(!flag){
-           generatePost();
-          }
-           // alert("bottom!");
-           
-        }
-     });
-
-
-     function generatePost(){
-      var url = window.location.href.split('/');
-      //console.log(url);
-       $.ajax({
-         async : false ,
-         url: "indexPage",
-         method: "POST",
-         data:{grab : last_grabbed, cat : url[4], sort : url[5], search: url[6], method: true,url : url.slice(3)},
-         success: function(data){
-           $('.pop_post_cont').append(JSON.parse(data).content);
-          //$('.pop_post_cont').append("ssssssssssssssssssss");
-
-           console.log(JSON.parse(data));
-           console.log();
-          flag = JSON.parse(data).flag;
-           last_grabbed = last_grabbed + 10;
-         }
-       });
-     }
-   
-$(document).on('click', '.search_button', function(){
-    var thisButton = $(this);
-    var searchInput = $('#searchInput').val();
-    var url = window.location.href.split('search');
-    
-    window.location.href = url[0] + "search/" + searchInput;
-
-    
-    });
-
-
-    $(document).ready(function(){
-        //USERNAME
         $("#searchInput").keypress(function(event) {
             if (event.which == 13) {
                 event.preventDefault();
@@ -11191,5 +11054,207 @@ $(document).on('click', '.search_button', function(){
             }
         });
     
-    });
+  
     
+
+
+(function() {
+  
+    var last_grabbed = 1;
+    var flag         = false;
+    $(window).scroll(function() {
+      
+      if ($(window).scrollTop() + $(window).height() > $('#mn_cont').height()-1){
+        console.log("ssssssssssssssssssss");
+        if(!flag){
+         generatePost(last_grabbed);
+        }
+         // alert("bottom!");
+         
+      }
+   });
+   
+  
+   function generatePost(){
+    var url = window.location.href.split('/');
+    var data = getPost(last_grabbed,url[4],url[5],url[6],url);
+    addPost(JSON.parse(data).content);
+    flag = JSON.parse(data).flag;
+    last_grabbed = last_grabbed + 10;
+
+   }
+  
+   
+   function getPost(lastFetch,category,sortType,searchText,url){
+    return $.ajax({
+      async : false ,
+      url: "indexPage",
+      method: "POST",
+      data:{grab : lastFetch, cat : category, sort : sortType, search: searchText, method: true,url : url.slice(3)}
+    }).responseText;
+   }
+
+   function addPost(content){
+    $('.pop_post_cont').append(content);
+   }
+   generatePost();
+
+  }());
+
+
+
+
+
+(function() {
+  $(document).on('click', '.text_cont', function() {
+  
+    if(!$(this)[0].classList.contains("expand_text")){
+      $(this).closest(".post_cont").toggleClass('expand_cont');
+      $(this).toggleClass('expand_text');
+      $(this).css("border","none");
+      $(this).css("cursor","auto");
+    }
+  });
+
+  $(document).on('click', '.loginPopupContainer', function() {
+
+    $(this).css("visibility","hidden");
+  });
+
+
+  $(document).on('click', '.deletePopupContainer', function() {
+
+    $(this).css("visibility","hidden");
+  });
+
+
+}());
+
+
+  
+
+
+
+    
+
+
+
+
+
+
+ var voteModule = { 
+
+
+    init : function(){
+     //comment
+    $(document).on('click', '#clikeButton', function(){
+        voteModule.vote(
+            $(this),
+            $(this).closest("div[comment-id]").attr('comment-id'),
+            "div[comment-id]",
+            "likes",
+            "comment",
+            "like",
+            "green",
+            ".comment_likes")});
+
+    $(document).on('click', '#cdislikeButton',function(){
+        voteModule.vote(
+            $(this),
+            $(this).closest("div[comment-id]").attr('comment-id'),
+            "div[comment-id]",
+            "dislikes",
+            "comment",
+            "dislike",
+            "red",
+            ".comment_dislikes")});
+
+
+
+     //post   
+    $(document).on('click', '#likeButton', function(){
+        voteModule.vote(
+            $(this),
+            $(this).closest("div[data-id]").attr('data-id'),
+            "div[data-id]",
+            "likes",
+            "post",
+            "like",
+            "green",
+            ".likes" )});
+        
+    $(document).on('click', '#dislikeButton', function(){
+        voteModule.vote(
+            $(this),
+            $(this).closest("div[data-id]").attr('data-id'),
+            "div[data-id]",
+            "dislikes",
+            "post",
+            "dislike",
+            "red",
+            ".dislikes" )});
+
+
+    },
+ 
+    
+  
+  vote : function(button,ID,attribute,voteType,postType,action,color,cssClass){
+
+      var filled = this.checkVote(button);
+      var data   = this.sendvote(ID,voteType,postType,filled);
+      this.updateVisualVote(JSON.parse(data).message,filled,button,action,color,attribute,cssClass) ;
+    
+  },
+
+  checkVote: function(button){
+    if(!button[0].classList.contains("full")){
+      return true; 
+    }else{
+      return false;
+    }     
+
+  },
+
+  sendvote:function(ID,voteType,postType,filled){
+   return  $.ajax({
+      url: "vote",
+      method: "POST",
+      data:{ ID : ID , action : voteType, type : postType, update : filled},
+      async:false,
+  }).responseText;
+  
+},
+
+  updateVisualVote:function(flag,updateType,button,prefix,imageName,attribute,cssClass){
+
+                    if(flag){
+                      if(updateType){
+                        this.setImage(button,prefix,"content/img/"+imageName+"Full.svg",true,1,attribute,cssClass);
+                    
+                      }else{
+                        this.setImage(button,prefix,"content/img/"+imageName+"Empty.svg",false,-1,attribute,cssClass);
+
+                      }
+                    }else{
+                        console.log("asdsad");
+                        $("#loginPopupCont").css("visibility", "visible");
+                      }
+  },
+
+  setImage: function(button,prefix,imageName,isSet,score,attribute,cssClass){
+
+    if(isSet){
+      button.toggleClass("full");
+    }else{
+      button.removeClass("full");
+    }
+    button.find("."+prefix+"Image").attr("src",imageName);
+    var ss      = +button.closest(attribute).find(cssClass).text();
+    button.closest(attribute).find(cssClass).text(ss + score);
+
+  }
+
+
+};
+voteModule.init();

@@ -52,7 +52,7 @@ class commentModel extends core\modelController{
 
   
     function editComment($postID,$parentID,$username, $text){
-      
+        
         $stmt = $this->pdo->prepare("insert into comment    (USER_ID,POST_ID,parent_id,text ) VALUES ((SELECT ID from user where username = :username),:post_id, :parent_id, :text);SELECT LAST_INSERT_ID(); ");
         $stmt->bindParam(':text', $text, \PDO::PARAM_STR);
         $stmt->bindParam(':username', $username, \PDO::PARAM_STR);

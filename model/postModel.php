@@ -211,8 +211,14 @@ class postModel extends core\modelController{
         $stmt->bindParam(':title', $title, \PDO::PARAM_STR);
         $stmt->bindParam(':id', $postID, \PDO::PARAM_INT);
         $stmt->bindParam(':category', $category, \PDO::PARAM_INT);
-
         $stmt->execute();
+        /*
+        if($stmt->execute()){
+            return true;
+        }else{
+            return $category;
+            //return $stmt->errorInfo();
+        }*/
         //return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }

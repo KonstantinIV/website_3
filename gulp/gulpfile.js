@@ -6,11 +6,12 @@ var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
 
 
-var jsFiles = '../content/js/*.js',
-jsDest = '../content';
+var jsFiles = '../content/js/**/*',
+jsDumpdest = '../content/mainJS';
+jsDest = '../content/mainJS';
 
 gulp.task('watch', function() {
-    gulp.watch('../content/js/*.js', gulp.series('scripts'));
+    gulp.watch('../content/js/**/*', gulp.series('scripts'));
 
 });
 
@@ -18,7 +19,7 @@ gulp.task('watch', function() {
 gulp.task('scripts', function() {
     return gulp.src(jsFiles)
         .pipe(concat('scripts.js'))
-        .pipe(gulp.dest(jsDest))
+        .pipe(gulp.dest(jsDumpdest))
         .pipe(rename('scripts.min.js'))
         .pipe(babel({ presets: ['@babel/preset-env'] }))
         .pipe(uglify())
