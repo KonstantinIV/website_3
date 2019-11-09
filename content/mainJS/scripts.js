@@ -10386,6 +10386,64 @@ return jQuery;
       document.cookie = "timezoneDst"+"=" + 0;
   
     }
+//TEEEEEEEST
+
+
+
+
+
+
+
+
+function timeSince(date) {
+
+  var seconds = Math.floor((new Date() - date) / 1000);
+
+  var interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) {
+    return interval + " years";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    return interval + " months";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    return interval + " days";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return interval + " hours";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return interval + " minutes";
+  }
+  return Math.floor(seconds) + " seconds";
+}
+var aDay = 24*60*60*1000
+
+console.log(aDay);
+
+console.log(timeSince(new Date(Date.now()-aDay)));
+console.log(timeSince(new Date(Date.now()-aDay*2)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
 }());
 
@@ -10407,151 +10465,19 @@ return jQuery;
 
      
    
+$(document).on('click', '.deletePost', function(){
+    var ID = $(this).attr("data-deleteID");
+    $("#deletePopup").css("visibility", "visible");
+    $("#deleteLink").attr("href", "delete/"+ID)
+    console.log("sss");
+
+    });
+
 
 (function() {
-  function validatePostTitle(postTitle){
-    if(postTitle == null || postTitle == "" ){
-      return false;
-    }
-      return true;
-  }
-
-  function validatePostText(postText){
-    if(postText == null || postText == ""){
-      return false;
-    }
-      return true;
-  }
-
-  function validateDate(year,month,day){
-    
-    if(year == null || year == "" ){
-      return false;
-    }else if(year == null || year == "" || month == null || month == "" && day == null || day == ""){
-      return false;
-    }else if(year == null || year == "" && month == null || month == ""){
-      
-      return false;
-    }
-      return true;
-  }
-
-  function validateCategory(category){
-
-    if( category == 0){
-      return false;
-    }
-   
-
-    return true;
-  }
-
-
-  function sendPost(postTitle,postYear,postMonth,postDay,postText,postCat,postID){
-   return $.ajax({
-      url: "editutility",
-      method: "POST",
-      async:false,
-      data:{title: postTitle , year: postYear ,month : postMonth, day : postDay, text:postText,category:postCat, postID : postID}
-      
-  }).responseText;
-  }
-
-  /*
-  function ch_post(postTitle,postYear,postMonth,postDay,postText, postCat){
-
-    var title = postTitle;
-    var text  = postText;
-    var year  = postYear;
-    var month = postMonth;
-    var day = postDay;
-    var cat = postCat;
-  
-    if(title == null || title == "" || text == null || text == "" || cat == 0){
-      return false;
-    }else if(year == null || year == "" ){
-      return false;
-    }else if(year == null || year == "" || month == null || month == "" && day == null || day == ""){
-      return false;
-    }else if(year == null || year == "" && month == null || month == ""){
-      return false;
-    }else{
-      return true;
-    }
-  
-  }*/
-  
-  
-
-  
-        $(document).on('click', '#editPost', function(){
-    
-          //Check if empty
-          var postTitle  = $('#title').val();
-          var postYear  = $('#year').val();
-          var postMonth     = $('#month').val();
-          var postDay = $('#day').val();
-          var postText  = $('#text').val();
-          var postCat  = $('#category').val();
-          var postID = window.location.href.split('/')[4];
-
-
-          if(!validatePostText(postText)){
-            $("#editError").text("Invalid characters in text");
-
-            return false;
-
-          }else if(!validateCategory(postCat)){
-            $("#editError").text("Invalid category");
-
-            return false;
-
-          }else if( !validateDate(postYear,postMonth,postDay)){
-            $("#editError").text("Invalid date");
-
-            return false;
-
-          }else if( !validatePostTitle(postTitle) ){
-            $("#editError").text("Invalid title");
-
-            return false;
-          }
-
-          var data = sendPost(postTitle,postYear,postMonth,postDay,postText,postCat,postID);
-          console.log(data);
-
-          if(JSON.parse(data).flag == false){
-            $("#editError").text(JSON.parse(data).message);
-            return false;
-          }
-         
-  
-          /*if(!ch_post(postTitle,postYear,postMonth,postDay,postText)){
-            $("#editError").text("Somethign went wrong");
-            return false;
-          }*/
-  
-     
-          });
-}());
-
-
-  /////////////////
-  
-  
-  
-  
-  
-  
-  
-  
-
-(function() {
-  $(document).ready(function() {
+  if(document.title == 'Comments') {
     generateSinglePost();
-
-  });
-
+}
   function generateSinglePost(){
     var url = window.location.href.split('/');
     //console.log(url.slice(4));
@@ -10569,6 +10495,18 @@ return jQuery;
        }
      });
    }
+
+   $( ".comment_date" ).hover(function() {
+    var date = $(this).attr('date');
+    $(this).append(' <div class="box">   '  +date+'   </div>');
+   
+  },
+  function() {
+  $(".box" ).remove();  
+    
+  });
+
+
 
 }());
 //var commentPost = 0;
@@ -10804,14 +10742,187 @@ return jQuery;
 
 };
 voteModule.init();*/
-$(document).on('click', '.deletePost', function(){
-    var ID = $(this).attr("data-deleteID");
-    $("#deletePopup").css("visibility", "visible");
-    $("#deleteLink").attr("href", "delete/"+ID)
-    console.log("sss");
 
+(function() {
+
+  function validatePostTitle(postTitle){
+    if(postTitle == null || postTitle == "" ){
+      return false;
+    }
+      return true;
+  }
+
+  function validatePostText(postText){
+    if(postText == null || postText == ""){
+      return false;
+    }
+      return true;
+  }
+
+  function validateDate(year,month,day){
+    
+    if(year == null || year == "" ){
+      return false;
+    }else if(year == null || year == "" || month == null || month == "" && day == null || day == ""){
+      return false;
+    }else if(year == null || year == "" && month == null || month == ""){
+      
+      return false;
+    }
+      return true;
+  }
+
+  function validateCategory(category){
+
+    if( category == 0){
+      return false;
+    }
+   
+
+    return true;
+  }
+
+
+  function sendPost(postTitle,postYear,postMonth,postDay,postText,postCat,postID){
+   return $.ajax({
+      url: "editutility",
+      method: "POST",
+      async:false,
+      data:{title: postTitle , year: postYear ,month : postMonth, day : postDay, text:postText,category:postCat, postID : postID}
+      
+  }).responseText;
+  }
+
+  /*
+  function ch_post(postTitle,postYear,postMonth,postDay,postText, postCat){
+
+    var title = postTitle;
+    var text  = postText;
+    var year  = postYear;
+    var month = postMonth;
+    var day = postDay;
+    var cat = postCat;
+  
+    if(title == null || title == "" || text == null || text == "" || cat == 0){
+      return false;
+    }else if(year == null || year == "" ){
+      return false;
+    }else if(year == null || year == "" || month == null || month == "" && day == null || day == ""){
+      return false;
+    }else if(year == null || year == "" && month == null || month == ""){
+      return false;
+    }else{
+      return true;
+    }
+  
+  }*/
+  
+  
+
+  
+        $(document).on('click', '#editPost', function(){
+    
+          //Check if empty
+          var postTitle  = $('#title').val();
+          var postYear  = $('#year').val();
+          var postMonth     = $('#month').val();
+          var postDay = $('#day').val();
+          //var postText  = $('#text').val(); 
+          var postText  = JSON.stringify(quill.getContents());
+          var postCat  = $('#category').val();
+          var postID = window.location.href.split('/')[4];
+          console.log(JSON.stringify(quill.getContents()));
+
+          if(!validatePostText(postText)){
+            $("#editError").text("Invalid characters in text");
+
+            return false;
+
+          }else if(!validateCategory(postCat)){
+            $("#editError").text("Invalid category");
+
+            return false;
+
+          }else if( !validateDate(postYear,postMonth,postDay)){
+            $("#editError").text("Invalid date");
+
+            return false;
+
+          }else if( !validatePostTitle(postTitle) ){
+            $("#editError").text("Invalid title");
+
+            return false;
+          }
+
+          var data = sendPost(postTitle,postYear,postMonth,postDay,postText,postCat,postID);
+          console.log(data);
+
+          if(JSON.parse(data).flag == false){
+            $("#editError").text(JSON.parse(data).message);
+            return false;
+          }
+         
+  
+          /*if(!ch_post(postTitle,postYear,postMonth,postDay,postText)){
+            $("#editError").text("Somethign went wrong");
+            return false;
+          }*/
+  
+     
+          });
+          var quill = new Quill('#quillText', {
+            theme: 'snow',
+            modules: {
+              toolbar: [
+                [{ header: [1, 2, false] }],
+                ['bold', 'italic', 'underline',"strike"],
+                ['image', 'code-block'],
+                ["color","background"],
+                ["blockquote","list"]
+              ]
+            },
+          });
+}());
+
+
+  /////////////////
+  
+  
+  
+  
+  
+  
+  
+  
+
+window.onclick = function(event) {
+    if (!event.target.matches('#userDropdownButton') 
+    && !event.target.matches('#sortDropdownButton')                  
+    
+    
+    ) {
+        if(document.getElementById("userDropdown")){
+            document.getElementById("userDropdown").classList.remove("show");
+        }
+     
+      document.getElementById("sortDropdown").classList.remove("show");
+    }
+  }
+  
+
+  
+    $("#userDropdownButton").click(function () {
+    document.getElementById("userDropdown").classList.toggle("show");
+     
     });
+  
 
+  
+    $("#sortDropdownButton").click(function () {
+    document.getElementById("sortDropdown").classList.toggle("show");
+     
+    });
+  
 
 (function() {
     $("#password").keypress(function(event) {
@@ -10837,13 +10948,16 @@ $(document).on('click', '.deletePost', function(){
 
         if(!validateUser(username,password) ){
             $('#regMessage').text("Empty fields");
-        }else if(!(JSON.parse(register(username,password,email,join_date,birthday)).flag)){
-            
-              if(flag){
+        }
+        data = register(username,password,email,join_date,birthday);
+        if((JSON.parse(data).flag)){
+       
                 window.location.href = 'profile';
-              }
-              var message = JSON.parse(data).message;
-              $('#regMessage').text(message);
+              
+              
+        }else{
+            var message = JSON.parse(data).message;
+            $('#regMessage').text(message);
         }
     });   
 
@@ -10856,6 +10970,9 @@ $(document).on('click', '.deletePost', function(){
                 console.log("Wrong input");
             }else if(!(JSON.parse(loginUser(username,password)).flag)) {
                 console.log("Login failed");
+            }else{
+                window.location.href = 'profile';
+
             }
            
         } 
@@ -10994,69 +11111,6 @@ $(document).on('click', '.deletePost', function(){
 
   }());
 
-window.onclick = function(event) {
-    if (!event.target.matches('#userDropdownButton') 
-    && !event.target.matches('#sortDropdownButton')                  
-    
-    
-    ) {
-        if(document.getElementById("userDropdown")){
-            document.getElementById("userDropdown").classList.remove("show");
-        }
-     
-      document.getElementById("sortDropdown").classList.remove("show");
-    }
-  }
-  
-
-  
-    $("#userDropdownButton").click(function () {
-    document.getElementById("userDropdown").classList.toggle("show");
-     
-    });
-  
-
-  
-    $("#sortDropdownButton").click(function () {
-    document.getElementById("sortDropdown").classList.toggle("show");
-     
-    });
-  
-var search = {
-    init : function(){
-        $(document).on('click', '.search_button', this.searchLink);
-
-    },
-    
-
-
-    searchLink :function searchLink(){
-        var searchInput = $('#searchInput').val();
-        var url = window.location.href.split('search');
-        window.location.href = url[0] + "search/" + searchInput;
-    }
-    
-
-};
-search.init();
-
-
-
-
-
-
-
-        $("#searchInput").keypress(function(event) {
-            if (event.which == 13) {
-                event.preventDefault();
-                
-                $(".search_button").click();
-            }
-        });
-    
-  
-    
-
 
 (function() {
   
@@ -11097,7 +11151,11 @@ search.init();
    function addPost(content){
     $('.pop_post_cont').append(content);
    }
-   generatePost();
+
+   if(document.title == 'Main') {
+    generatePost();
+
+}
 
   }());
 
@@ -11126,6 +11184,27 @@ search.init();
 
     $(this).css("visibility","hidden");
   });
+
+  $( ".createdDate" ).hover(function() {
+    var date = $(this).attr('date');
+    $(this).append(' <div class="box">   '  +date+'   </div>');
+   
+  },
+  function() {
+  $(".box" ).remove();  
+    
+});    
+
+$( ".releaseDate" ).hover(function() {
+  var date = $(this).attr('date');
+  $(this).append(' <div class="box">   '  +date+'   </div>');
+ 
+},
+function() {
+$(".box" ).remove();  
+  
+});  
+
 
 
 }());
@@ -11258,3 +11337,37 @@ search.init();
 
 };
 voteModule.init();
+var search = {
+    init : function(){
+        $(document).on('click', '.search_button', this.searchLink);
+
+    },
+    
+
+
+    searchLink :function searchLink(){
+        var searchInput = $('#searchInput').val();
+        var url = window.location.href.split('search');
+        window.location.href = url[0] + "search/" + searchInput;
+    }
+    
+
+};
+search.init();
+
+
+
+
+
+
+
+        $("#searchInput").keypress(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                
+                $(".search_button").click();
+            }
+        });
+    
+  
+    

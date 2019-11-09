@@ -3,11 +3,14 @@
 
 
 
-//$key = $profile->getCommentid($id);
-
+foreach($this->commentData as $id => $array){
+    $this->commentData[$id]['createdDateText'] = $this->helper->time_elapsed_string($array["createdDate"]);
+    
+}
+//print_r($this->commentData);
 
 $color = 0;
-function rec2($id_pos,$space,$key){
+function rec2($id_pos,$space,$key) {
     global $color;
         if($color ==0){
                 $color = 1;
@@ -35,7 +38,19 @@ function rec2($id_pos,$space,$key){
                 } 
                     ?>
 
-                    <div class="comment_user"><div class="user"><a href="profile/<?php echo $parent_id['username'] ;?>"><?php echo $parent_id['username'] ;?></a></div>&#9679<div class="comment_date">5 hours ago</div></div>
+                    <div class="comment_user">
+                    <div class="user">
+                        <a href="profile/<?php echo $parent_id['username'] ;?>"><?php echo $parent_id['username'] ;?></a>
+                    </div>
+                    &#9679
+                    <div class="comment_date" date='<?php echo $parent_id['createdDate']; ?>'>
+                        <?php echo $parent_id['createdDateText']; ?>
+                    </div>
+                     </div>
+                   
+                   
+                   
+                   
                     <div class="comment_text"><?php echo $parent_id['text'] ;?></div>
                             <div class="comment_buttons">
                             <?php  if($parent_id['livoted'] == 1){

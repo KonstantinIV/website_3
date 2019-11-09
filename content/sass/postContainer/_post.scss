@@ -1,7 +1,7 @@
 //TWO CONTAINERS
 .column_2{
     display: flex;
-    flex-direction: row ;
+    flex-direction: column-reverse ;
     height: 68%;
     align-items: stretch;
 }
@@ -20,6 +20,7 @@
     flex-basis: 65%;
     position: relative;
     cursor: pointer;
+    margin-right: 10px;
 }
 .text_cont:hover{
     border: 1px solid rgb(150, 150, 197);
@@ -27,7 +28,7 @@
 .date_cont{
     display: block;
     
-    flex-grow: 4;
+    //flex-grow: 4;
     border-color: aquamarine;
 }
 
@@ -105,14 +106,20 @@ color:rgb(120, 120, 243);
 .post_user{
     margin-left: 20px;
     line-height: 0px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #575f8d;
+    
 
-
+}
+.usernameDot{
+    font-size: 10px;
 }
 .post_user:hover{
  
+}
+.post_user a:hover{
     color: #7782c2;
+    text-decoration: underline;
 }
 .post_cont hr{
     margin: 10px auto;
@@ -157,19 +164,41 @@ color:rgb(120, 120, 243);
 
 //Second container
 .date_cont *{
-text-align: center;
-height: 40px;
-
+margin-left: 20px;
+//height: 40px;
+font-size: 14px;
 //line-height: 30px;
-font-size: 18px;
-font-weight: 550;
+//font-weight: 550;
 color:#7cf04f;
-font-family: sans-serif;
 
 }
-.date_f{
-    font-size: 16px;
+
+.createdDate{
+    font-size: 14px;
+    position: relative;
+    font-family: sans-serif;
+
+}
+.releaseDate{
+    font-size: 14px;
     color: #65c240;
+    margin-left: 0px;
+    position: relative;
+    font-family: sans-serif;
 
 
+    
+}
+.box{
+    position: absolute;
+    background-color: #1a0c2e !important;
+    height: 25px;
+    width:  max-content;
+    top: -25px;
+    left: 0px;
+    line-height: 25px;
+    color: white;
+    padding: 0 5px;
+    border-radius: 5px;
+    font-size: 14px;
 }

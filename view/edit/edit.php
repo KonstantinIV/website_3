@@ -114,6 +114,7 @@
 
 
                 <textarea class="textarea postText" type="text"          id="text"  placeholder="Your prediction..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'><?php echo $this->output['text'] ?></textarea>
+                <div id="quillText"></div>
                 <div class="button_ct"> 
                         <div class="add_post" id="editPost">POST</div>
                 </div>
@@ -122,8 +123,7 @@
                 </div>
 
 
-     
-
+                
  
         
 </div>

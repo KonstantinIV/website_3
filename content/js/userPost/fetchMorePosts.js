@@ -39,7 +39,11 @@
    function addPost(content){
     $('.pop_post_cont').append(content);
    }
-   generatePost();
+
+   if(document.title == 'Main') {
+    generatePost();
+
+}
 
   }());
 

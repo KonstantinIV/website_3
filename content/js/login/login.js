@@ -23,13 +23,16 @@
 
         if(!validateUser(username,password) ){
             $('#regMessage').text("Empty fields");
-        }else if(!(JSON.parse(register(username,password,email,join_date,birthday)).flag)){
-            
-              if(flag){
+        }
+        data = register(username,password,email,join_date,birthday);
+        if((JSON.parse(data).flag)){
+       
                 window.location.href = 'profile';
-              }
-              var message = JSON.parse(data).message;
-              $('#regMessage').text(message);
+              
+              
+        }else{
+            var message = JSON.parse(data).message;
+            $('#regMessage').text(message);
         }
     });   
 
@@ -42,6 +45,9 @@
                 console.log("Wrong input");
             }else if(!(JSON.parse(loginUser(username,password)).flag)) {
                 console.log("Login failed");
+            }else{
+                window.location.href = 'profile';
+
             }
            
         } 

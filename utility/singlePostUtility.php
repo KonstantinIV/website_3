@@ -5,6 +5,7 @@ use \src\model;
 use \src\controller\core;
 use \src\controller\interfaces ;
 use \src\utility ;
+use \src\controller\helpers;
 
 class singlePostUtility extends utility\mainUtility implements interfaces\utilityInterface{ 
     
@@ -19,6 +20,8 @@ class singlePostUtility extends utility\mainUtility implements interfaces\utilit
         parent::__construct();
         //echo($this->username);
        $this->model = new model\commentModel();
+       $this->helper = new helpers\helpers();
+
        $input =  isset($_POST['url']) ? $_POST['url'] : false ;
 
        $this->postID = empty($input[1]) ? false : $input[1] ;

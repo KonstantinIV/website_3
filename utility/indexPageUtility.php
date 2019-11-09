@@ -5,6 +5,7 @@ use \src\model;
 use \src\controller\core;
 use \src\controller\interfaces ;
 use \src\utility ;
+use \src\controller\helpers;
 
 class indexPageUtility extends utility\mainUtility implements interfaces\utilityInterface{ 
     
@@ -16,7 +17,8 @@ class indexPageUtility extends utility\mainUtility implements interfaces\utility
     
     function __construct($input){
         parent::__construct();
-
+        $this->helper = new helpers\helpers();
+        //echo helpers\helpers::time_elapsed_string("2019-10-02 18:00:00")  ;
        $this->model = new model\postModel();
        $input =  isset($_POST['url']) ? $_POST['url'] : false ;
        $this->nextCount = isset($_POST['grab']) ? (int)$_POST['grab'] : 0 ;
@@ -77,8 +79,7 @@ class indexPageUtility extends utility\mainUtility implements interfaces\utility
      
      }
 
-     function generatePosts(){
-      
+      function generatePosts(){
         ob_start();
             require "view/index/posts.php";
         $html = ob_get_clean();

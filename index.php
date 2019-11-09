@@ -11,6 +11,7 @@ error_reporting(E_ALL|E_STRICT);*/
 
 
 require  __DIR__."/controller/core/autoloader.php";
+require  __DIR__."/controller/helpers/helpers.php";
 
 
 spl_autoload_register(

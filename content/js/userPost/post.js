@@ -20,6 +20,27 @@
     $(this).css("visibility","hidden");
   });
 
+  $( ".createdDate" ).hover(function() {
+    var date = $(this).attr('date');
+    $(this).append(' <div class="box">   '  +date+'   </div>');
+   
+  },
+  function() {
+  $(".box" ).remove();  
+    
+});    
+
+$( ".releaseDate" ).hover(function() {
+  var date = $(this).attr('date');
+  $(this).append(' <div class="box">   '  +date+'   </div>');
+ 
+},
+function() {
+$(".box" ).remove();  
+  
+});  
+
+
 
 }());
 

@@ -1,10 +1,8 @@
 
 (function() {
-  $(document).ready(function() {
+  if(document.title == 'Comments') {
     generateSinglePost();
-
-  });
-
+}
   function generateSinglePost(){
     var url = window.location.href.split('/');
     //console.log(url.slice(4));
@@ -22,6 +20,18 @@
        }
      });
    }
+
+   $( ".comment_date" ).hover(function() {
+    var date = $(this).attr('date');
+    $(this).append(' <div class="box">   '  +date+'   </div>');
+   
+  },
+  function() {
+  $(".box" ).remove();  
+    
+  });
+
+
 
 }());
 //var commentPost = 0;

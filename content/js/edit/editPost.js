@@ -1,5 +1,6 @@
 
 (function() {
+
   function validatePostTitle(postTitle){
     if(postTitle == null || postTitle == "" ){
       return false;
@@ -82,10 +83,11 @@
           var postYear  = $('#year').val();
           var postMonth     = $('#month').val();
           var postDay = $('#day').val();
-          var postText  = $('#text').val();
+          //var postText  = $('#text').val(); 
+          var postText  = JSON.stringify(quill.getContents());
           var postCat  = $('#category').val();
           var postID = window.location.href.split('/')[4];
-
+          console.log(JSON.stringify(quill.getContents()));
 
           if(!validatePostText(postText)){
             $("#editError").text("Invalid characters in text");
@@ -123,6 +125,18 @@
           }*/
   
      
+          });
+          var quill = new Quill('#quillText', {
+            theme: 'snow',
+            modules: {
+              toolbar: [
+                [{ header: [1, 2, false] }],
+                ['bold', 'italic', 'underline',"strike"],
+                ['image', 'code-block'],
+                ["color","background"],
+                ["blockquote","list"]
+              ]
+            },
           });
 }());
 
