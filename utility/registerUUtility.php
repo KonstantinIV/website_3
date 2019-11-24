@@ -5,9 +5,9 @@ use src\controller;
 use \src\controller\interfaces ;
 use \src\utility ;
 
-class registerUUtility extends mainLoginUtility implements interfaces\utilityInterface{
+class registerUUtility extends utility\mainLoginUtility implements interfaces\utilityInterface{
     
-    private $username;
+    protected $username;
     private $password;
     private $email   ;
 
@@ -20,8 +20,8 @@ class registerUUtility extends mainLoginUtility implements interfaces\utilityInt
         parent::__construct();
         $this->method   = empty($input[1])   ?  false  : $input[1]  ;
 
-        $this->username = isset($_POST['user'])   ?  $_POST['user']  : false  ;
-        $this->password =  isset($_POST['pass'])  ?  $_POST['pass']    : false  ;
+        $this->username = isset($_POST['user'])   ?  (string)$_POST['user']  : false  ;
+        $this->password =  isset($_POST['pass'])  ?  (string)$_POST['pass']    : false  ;
         $this->email    =  isset($_POST['email']) ?  $_POST['email']    : false  ;
         
 

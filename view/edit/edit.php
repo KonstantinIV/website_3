@@ -1,5 +1,5 @@
 <div class="textarea_ct">
-        
+
                 
                 <textarea class="textarea p_header" type="text" id="title" placeholder="Title" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' ><?php echo $this->output['title'] ?></textarea>
                 <div class="da_cont">
@@ -113,8 +113,10 @@
 
 
 
-                <textarea class="textarea postText" type="text"          id="text"  placeholder="Your prediction..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'><?php echo $this->output['text'] ?></textarea>
-                <div id="quillText"></div>
+                <!--<textarea class="textarea postText" type="text"          id="text"  placeholder="Your prediction..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>-->
+                <div id="quillText">
+                <?php echo $this->output['text'] ?></div>
+              
                 <div class="button_ct"> 
                         <div class="add_post" id="editPost">POST</div>
                 </div>

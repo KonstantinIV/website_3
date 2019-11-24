@@ -10,17 +10,18 @@
   }
   
   var offset = new Date().getTimezoneOffset()/60 * -1;
+
+  var today = new Date();
+  
+  if (today.isDstObserved()) { 
+    offset = offset  + 1;
+  }
+
+
     document.cookie = "timezoneOffset"+"=" + offset;
   
   
-    var today = new Date();
-  
-    if (today.isDstObserved()) { 
-      document.cookie = "timezoneDst"+"=" + 1;
-    }else{
-      document.cookie = "timezoneDst"+"=" + 0;
-  
-    }
+    
 //TEEEEEEEST
 
 
@@ -58,13 +59,13 @@ function timeSince(date) {
   return Math.floor(seconds) + " seconds";
 }
 var aDay = 24*60*60*1000
-
+/*
 console.log(aDay);
 
 console.log(timeSince(new Date(Date.now()-aDay)));
 console.log(timeSince(new Date(Date.now()-aDay*2)));
 
-
+*/
 
 
 

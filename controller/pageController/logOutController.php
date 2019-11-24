@@ -11,6 +11,7 @@ class logOutController extends core\mainController implements interfaces\pageInt
         
         $session = new model\sessionModel();
         $session->destroySession();
+        session_unset();
     }
     
     

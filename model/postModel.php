@@ -19,13 +19,69 @@ class postModel extends core\modelController{
 
         if($loggedIn){
             if($search){
-                $stmt = $this->pdo->prepare('SELECT post.ID,if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID where post.title like :search  group by post.ID limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('SELECT 
+                post.ID,
+                
+                if((
+                    SELECT likes.USER_ID from likes 
+                    inner join user on user.ID = likes.USER_ID 
+                    WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, 
+                
+                if((
+                    SELECT dislikes.USER_ID from dislikes 
+                    inner join user on user.ID = dislikes.USER_ID 
+                    WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, 
+                
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes,
+                
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   
+                
+                from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID 
+                
+                where post.title like :search 
+                AND post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY)  
+                group by post.ID order by likes desc  limit :nextCount , 10');
+
+
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':username',$username , \PDO::PARAM_STR);
                 $stmt->bindParam(':search', $searchstr , \PDO::PARAM_STR);
 
             }else{
-                $stmt = $this->pdo->prepare('SELECT post.ID,if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  group by post.ID limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('SELECT 
+                post.ID,
+                if((
+                    SELECT likes.USER_ID from likes 
+                    inner join user on user.ID = likes.USER_ID 
+                    WHERE likes.POST_ID = post.ID 
+                    and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, 
+                if((
+                    SELECT dislikes.USER_ID from dislikes 
+                    inner join user on user.ID = dislikes.USER_ID 
+                    WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, 
+                
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate, 
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate   
+                
+                from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID  
+                
+                where post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY)
+                group by post.ID order by likes desc limit :nextCount , 10');
                 
                 $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
             }
@@ -33,18 +89,75 @@ class postModel extends core\modelController{
         }else{
             if($search){
                 
-                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR), "%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  where post.title LIKE :search group by post.ID limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('SELECT 
+                post.ID, 
+                0 as livoted,
+                0 as divoted, 
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR), "%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   
+                
+                from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID  
+                where  post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY) and 
+                post.title LIKE :search  group by post.ID order by likes desc limit  :nextCount , 10');
+
+
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
 
             }else{
-                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  group by post.ID limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('SELECT 
+                post.ID, 
+                0 as livoted,
+                0 as divoted, 
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   
+                
+                from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID  
+                
+                where post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY)
+                group by post.ID order by likes desc limit :nextCount , 10');
         
-            }
+            }/*
+            SELECT 
+                post.ID, 
+                0 as livoted,
+                0 as divoted, 
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL 5 HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL 5 HOUR),"%Y-%m-%d") as releaseDate   
+                
+                from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID  
+                
+                where post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY)
+                group by post.ID order by likes desc limit 0 , 10'
+            
+            
+            */ 
             
         }
         
-        $timezoneOffset = $_COOKIE['timezoneOffset'] + $_COOKIE['timezoneDst'];
+        $timezoneOffset = $_COOKIE['timezoneOffset'];
         $stmt->bindParam(':timezoneOffset', $timezoneOffset, \PDO::PARAM_INT);
         $stmt->bindParam(':nextCount', $nextCount, \PDO::PARAM_INT);
         $stmt->execute();
@@ -54,17 +167,63 @@ class postModel extends core\modelController{
     }
 
     function getNewPosts( $nextCount,$loggedIn, $username, $search){
-        
+
         if($loggedIn){
 
             if($search){
-                $stmt = $this->pdo->prepare('SELECT post.ID,if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID where post.title like :search group by post.ID order by createdDate  limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('
+                SELECT post.ID,
+                
+                if((SELECT likes.USER_ID from likes 
+                inner join user on user.ID = likes.USER_ID 
+                WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted,
+
+                if((SELECT dislikes.USER_ID from dislikes 
+                inner join user on user.ID = dislikes.USER_ID 
+                WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted,
+
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate  
+
+                from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID 
+                
+                where post.title like :search group by post.ID order by createdDate desc limit :nextCount , 10');
+
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
 
             }else{
-                $stmt = $this->pdo->prepare('SELECT post.ID,if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID group by post.ID order by createdDate  limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('
+                SELECT post.ID,
+
+                if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID 
+                WHERE likes.POST_ID = post.ID and 
+                user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, 
+                
+                if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID 
+                WHERE dislikes.POST_ID = post.ID and 
+                user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, 
+                
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   
+                
+                from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID 
+                
+                group by post.ID order by createdDate DESC  limit :nextCount , 10');
                 $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
                
             }
@@ -73,13 +232,45 @@ class postModel extends core\modelController{
       
         }else{
             if($search){
-                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID where post.title LIKE :search group by post.ID order by createdDate  limit :nextCount , 10');
+
+                $stmt = $this->pdo->prepare('
+                SELECT post.ID,
+                0 as livoted,0 as divoted, 
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   
+                
+                from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID where post.title 
+                
+                LIKE :search group by post.ID order by createdDate DESC  limit :nextCount , 10');
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
               
 
             }else{
-                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  group by post.ID order by createdDate  limit :nextCount , 10');
+                
+                $stmt = $this->pdo->prepare('SELECT post.ID, 
+                0 as livoted,
+                0 as divoted, 
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   
+                
+                from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID  
+                group by post.ID order by createdDate DESC limit :nextCount , 10');
             }
 
 
@@ -87,11 +278,13 @@ class postModel extends core\modelController{
     
         }
         
-        $timezoneOffset = $_COOKIE['timezoneOffset'] + $_COOKIE['timezoneDst'];
+        $timezoneOffset = $_COOKIE['timezoneOffset'];
+       // echo $timezoneOffset;
+
         $stmt->bindParam(':timezoneOffset', $timezoneOffset, \PDO::PARAM_INT);
         $stmt->bindParam(':nextCount', $nextCount, \PDO::PARAM_INT);
         $stmt->execute();
-       
+       //echo $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
@@ -101,33 +294,128 @@ class postModel extends core\modelController{
     function getNewPostsCategory($categoryName, $nextCount, $loggedIn,$username,$search){
         if($loggedIn){
             if($search){
-                $stmt = $this->pdo->prepare('SELECT post.ID, if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted , post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat and post.title like :search group by post.ID order by createdDate  limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('
+                SELECT post.ID, 
+                
+                if((
+                    SELECT likes.USER_ID from likes 
+                    inner join user on user.ID = likes.USER_ID 
+                    WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, 
+                    
+                if((
+                    SELECT dislikes.USER_ID from dislikes 
+                    inner join user on user.ID = dislikes.USER_ID 
+                    WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted , 
+                    
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
+                
+                from post inner join user on user.ID = post.USER_ID 
+                inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID   
+                
+                where category.category = :cat and post.title like :search 
+                group by post.ID order by createdDate desc  limit :nextCount , 10');
               
                 $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
 
             }else{
-                 $stmt = $this->pdo->prepare('SELECT post.ID, if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted , post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat group by post.ID order by createdDate  limit :nextCount , 10');
+                 $stmt = $this->pdo->prepare('
+                 SELECT post.ID, 
+
+                 if((
+                     SELECT likes.USER_ID from likes 
+                     inner join user on user.ID = likes.USER_ID 
+                     WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, 
+                     
+                if((
+                    SELECT dislikes.USER_ID from dislikes 
+                    inner join user on user.ID = dislikes.USER_ID 
+                    WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted , 
+                    
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
+                
+                from post inner join user on user.ID = post.USER_ID 
+                inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID   
+                
+                where category.category = :cat group by post.ID order by createdDate DESC limit :nextCount , 10');
+
                  $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
             }
 
         }else{
 
             if($search){
-                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat and post.title like :search group by post.ID order by createdDate  limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('
+                SELECT post.ID, 
+                0 as livoted,
+                0 as divoted, 
+                post.title, 
+                user.username, 
+                post.text, 
+                
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
+                
+                from post inner join user on user.ID = post.USER_ID 
+                inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID   
+                
+                where category.category = :cat and post.title like :search 
+                group by post.ID order by createdDate desc limit :nextCount , 10');
+
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
 
             }else{
 
-                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat group by post.ID order by createdDate  limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('
+                SELECT post.ID, 
+                0 as livoted,
+                0 as divoted, 
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
+                
+                from post inner join user on user.ID = post.USER_ID 
+                inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID   
+                
+                where category.category = :cat group by post.ID order by createdDate DESC limit :nextCount , 10');
             }
 
 
 
         }
-        $timezoneOffset = $_COOKIE['timezoneOffset'] + $_COOKIE['timezoneDst'];
+        $timezoneOffset = $_COOKIE['timezoneOffset'];
         $stmt->bindParam(':timezoneOffset', $timezoneOffset, \PDO::PARAM_INT);
         $stmt->bindParam(':cat', $categoryName, \PDO::PARAM_STR);
         $stmt->bindParam(':nextCount', $nextCount, \PDO::PARAM_INT);
@@ -142,14 +430,61 @@ class postModel extends core\modelController{
      function getPopularPostsCategory($categoryName, $nextCount, $loggedIn,$username,$search){
         if($loggedIn){
             if($search){
-                $stmt = $this->pdo->prepare('SELECT post.ID, if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted , post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat and post.title like :search group by post.ID limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('SELECT 
+                post.ID, 
+                if((
+                    SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID 
+                    WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, 
+                if((
+                    SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID 
+                    WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted , 
+                
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
+                
+                from post inner join user on user.ID = post.USER_ID 
+                inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID   
+                
+                where  post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY) 
+                AND category.category = :cat and post.title like :search group by post.ID order by likes desc limit :nextCount , 10');
 
                 $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
 
             }else{
-                $stmt = $this->pdo->prepare('SELECT post.ID, if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted , post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat group by post.ID limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('SELECT 
+                post.ID, 
+                if((
+                    SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID 
+                    WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, 
+                if((
+                    SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID 
+                    WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted , 
+                
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
+                
+                from post inner join user on user.ID = post.USER_ID 
+                inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID   
+                
+                where category.category = :cat AND post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY) group by post.ID order by likes desc limit :nextCount , 10');
                 
                 $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
             }
@@ -157,13 +492,53 @@ class postModel extends core\modelController{
           
         }else{
             if($search){
-                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat and post.title LIKE :search group by post.ID limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('SELECT 
+                post.ID, 
+                0 as livoted,
+                0 as divoted, 
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
+                
+                from post inner join user on user.ID = post.USER_ID 
+                inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID   
+                
+                where category.category = :cat 
+                AND post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY) 
+                and post.title LIKE :search group by post.ID order by likes desc limit :nextCount , 10');
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
 
             }else{
 
-                $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate from post inner join user on user.ID = post.USER_ID inner join category on category.ID = post.TOPIC_ID  LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID   where category.category = :cat group by post.ID limit :nextCount , 10');
+                $stmt = $this->pdo->prepare('SELECT 
+                post.ID, 
+                0 as livoted,
+                0 as divoted, 
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
+
+                from post inner join user on user.ID = post.USER_ID 
+                inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID   
+
+                where category.category = :cat 
+                AND post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY) 
+                group by post.ID order by likes desc limit :nextCount , 10');
 
             }
             
@@ -173,7 +548,7 @@ class postModel extends core\modelController{
 
         
         //print_r($this->data);
-        $timezoneOffset = $_COOKIE['timezoneOffset'] + $_COOKIE['timezoneDst'];
+        $timezoneOffset = $_COOKIE['timezoneOffset'];
         $stmt->bindParam(':timezoneOffset', $timezoneOffset, \PDO::PARAM_INT);
         $stmt->bindParam(':cat', $categoryName, \PDO::PARAM_STR);
         $stmt->bindParam(':nextCount', $nextCount, \PDO::PARAM_INT);
@@ -212,13 +587,13 @@ class postModel extends core\modelController{
         $stmt->bindParam(':id', $postID, \PDO::PARAM_INT);
         $stmt->bindParam(':category', $category, \PDO::PARAM_INT);
         $stmt->execute();
-        /*
+        
         if($stmt->execute()){
             return true;
         }else{
-            return $category;
+            return false;
             //return $stmt->errorInfo();
-        }*/
+        }
         //return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }

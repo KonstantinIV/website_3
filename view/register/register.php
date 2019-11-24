@@ -11,7 +11,10 @@
 
             
             <div class="passwordForm">
-            <div class="inputMessageContainer"><input class="password_in" type="password" id="password1" name="pass1" placeholder="New Password" required><div class="inputMessage"></div></div>
+            <div class="inputMessageContainer">
+            <input class="password_in" type="password" id="password1" name="pass1" placeholder="New Password" required>
+            <div class="inputMessage"></div>
+            </div>
             </div>
             
             <br>
@@ -19,5 +22,6 @@
                 <div class="button" id="reg">SIGN UP</div>
             </div>
             <div class="inputMessageContainer">
-            <div class="inputMessage" id="regMessage"></div></div>
+            <div class="inputMessage" id="regMessage"></div>
+            </div>
         </div>

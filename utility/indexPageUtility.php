@@ -22,7 +22,7 @@ class indexPageUtility extends utility\mainUtility implements interfaces\utility
        $this->model = new model\postModel();
        $input =  isset($_POST['url']) ? $_POST['url'] : false ;
        $this->nextCount = isset($_POST['grab']) ? (int)$_POST['grab'] : 0 ;
-      
+     // print_r($input);
 
        if($input[0] == "new" || $input[0] =="popular"){
         if($input[1] == "cat"){
@@ -83,7 +83,6 @@ class indexPageUtility extends utility\mainUtility implements interfaces\utility
         ob_start();
             require "view/index/posts.php";
         $html = ob_get_clean();
-
         $flag = (sizeof($this->output) < 10  ) ? true : false ; 
         return array("flag" => $flag, "content" => $html); 
 

@@ -10375,17 +10375,18 @@ return jQuery;
   }
   
   var offset = new Date().getTimezoneOffset()/60 * -1;
+
+  var today = new Date();
+  
+  if (today.isDstObserved()) { 
+    offset = offset  + 1;
+  }
+
+
     document.cookie = "timezoneOffset"+"=" + offset;
   
   
-    var today = new Date();
-  
-    if (today.isDstObserved()) { 
-      document.cookie = "timezoneDst"+"=" + 1;
-    }else{
-      document.cookie = "timezoneDst"+"=" + 0;
-  
-    }
+    
 //TEEEEEEEST
 
 
@@ -10423,13 +10424,13 @@ function timeSince(date) {
   return Math.floor(seconds) + " seconds";
 }
 var aDay = 24*60*60*1000
-
+/*
 console.log(aDay);
 
 console.log(timeSince(new Date(Date.now()-aDay)));
 console.log(timeSince(new Date(Date.now()-aDay*2)));
 
-
+*/
 
 
 
@@ -10465,14 +10466,6 @@ console.log(timeSince(new Date(Date.now()-aDay*2)));
 
      
    
-$(document).on('click', '.deletePost', function(){
-    var ID = $(this).attr("data-deleteID");
-    $("#deletePopup").css("visibility", "visible");
-    $("#deleteLink").attr("href", "delete/"+ID)
-    console.log("sss");
-
-    });
-
 
 (function() {
   if(document.title == 'Comments') {
@@ -10828,10 +10821,11 @@ voteModule.init();*/
           var postMonth     = $('#month').val();
           var postDay = $('#day').val();
           //var postText  = $('#text').val(); 
-          var postText  = JSON.stringify(quill.getContents());
+          var postText  = $('.ql-editor').html();
           var postCat  = $('#category').val();
           var postID = window.location.href.split('/')[4];
           console.log(JSON.stringify(quill.getContents()));
+          //console.log();
 
           if(!validatePostText(postText)){
             $("#editError").text("Invalid characters in text");
@@ -10870,18 +10864,40 @@ voteModule.init();*/
   
      
           });
-          var quill = new Quill('#quillText', {
-            theme: 'snow',
-            modules: {
-              toolbar: [
-                [{ header: [1, 2, false] }],
-                ['bold', 'italic', 'underline',"strike"],
-                ['image', 'code-block'],
-                ["color","background"],
-                ["blockquote","list"]
-              ]
-            },
-          });
+          var colorValues = ["#000000",
+          "#e60000", "#ff9900",
+          "#ffff00", "#008a00", 
+          "#0066cc", "#9933ff", 
+          "#ffffff", "#facccc", 
+          "#ffebcc", "#ffffcc", 
+          "#cce8cc", "#cce0f5", 
+          "#ebd6ff", "#bbbbbb", 
+          "#f06666", "#ffc266", 
+          "#ffff66", "#66b966", 
+          "#66a3e0", "#c285ff", 
+          "#888888", "#a10000", 
+          "#b26b00", "#b2b200", 
+          "#006100", "#0047b2", 
+          "#6b24b2", "#444444", 
+          "#5c0000", "#663d00", 
+          "#666600", "#003700", 
+          "#002966", "#3d1466"];
+          if(document.getElementById("quillText")){
+            var quill = new Quill('#quillText', {
+              theme: 'snow',
+              modules: {
+                toolbar: [
+                  [{ header: [1, 2, false] }],
+                  ['bold', 'italic', 'underline','strike'],
+                  [ 'link','code-block'],
+                  [{'color': colorValues },
+                   {'background': colorValues}],
+                  ['blockquote','list']
+                ]
+              },
+            });
+        }
+          
 }());
 
 
@@ -10894,6 +10910,14 @@ voteModule.init();*/
   
   
   
+$(document).on('click', '.deletePost', function(){
+    var ID = $(this).attr("data-deleteID");
+    $("#deletePopup").css("visibility", "visible");
+    $("#deleteLink").attr("href", "delete/"+ID)
+    console.log("sss");
+
+    });
+
 
 window.onclick = function(event) {
     if (!event.target.matches('#userDropdownButton') 
@@ -10948,8 +10972,9 @@ window.onclick = function(event) {
 
         if(!validateUser(username,password) ){
             $('#regMessage').text("Empty fields");
+            return false;
         }
-        data = register(username,password,email,join_date,birthday);
+        var data = register(username,password,email,join_date,birthday);
         if((JSON.parse(data).flag)){
        
                 window.location.href = 'profile';
@@ -10966,10 +10991,20 @@ window.onclick = function(event) {
         var username = $('#username').val();
         var password = $('#password').val();
         
-            if(validateUser(username,password) ){
-                console.log("Wrong input");
+            if(!validateUser(username,password) ){
+
+                $(".loginError").text("Username or Password incorrect")
+                $('#username').css("border", "1px solid red")
+                $('#password').css("border", "1px solid red")
+                return false;
             }else if(!(JSON.parse(loginUser(username,password)).flag)) {
-                console.log("Login failed");
+
+                $(".loginError").text("Username or Password incorrect")
+                $('#username').css("border", "1px solid red")
+                $('#password').css("border", "1px solid red")
+
+                return false;
+                
             }else{
                 window.location.href = 'profile';
 
@@ -10981,6 +11016,9 @@ window.onclick = function(event) {
       function validateUser(username,password){
         if(username == "" || password == "" ){
             return false;
+        }else{
+            return true;
+
         }
       }
 
@@ -11021,6 +11059,20 @@ window.onclick = function(event) {
         $('#password1').on('input', function() {
             inputBorder(passVal($(this).val()),$(this));
         });
+
+        $('#username').on('input', function() {
+            console.log("Sasd");
+          /*  if(!Boolean(JSON.parse(usernameExists($(this).val())).flag)){
+            }else{
+                inputBorder({flag : true, message : ""},$(this));
+                inputBorder({flag : false, message : "Username does not exist"},$(this));
+
+            }*/
+            
+        });
+
+
+
     });
 
     function inputBorder(arr,thisInput){
@@ -11055,7 +11107,8 @@ window.onclick = function(event) {
     }
 
     function userNameVal(username){
-        if(!validateUsernameLenght()){
+       // console.log(JSON.parse(usernameExists(username)));
+        if(!validateUsernameLength(username)){
             return {flag : false, message : "Invalid length"};
         }else if(!regexUsername(username)){
             return {flag : false, message : "Contains wrong characters"};
@@ -11075,11 +11128,10 @@ window.onclick = function(event) {
     }
 
     function emailVal(email){
-        console.log("SS");
         var flag = true;
         var message = "";
 
-        data = emailExists(email);
+        var data = emailExists(email);
         flag = Boolean(JSON.parse(data).flag);
         message = JSON.parse(data).message;
  
@@ -11110,19 +11162,56 @@ window.onclick = function(event) {
 
 
   }());
+var search = {
+    init : function(){
+        $(document).on('click', '.search_button', this.searchLink);
+
+    },
+    
+
+
+    searchLink :function searchLink(){
+        var searchInput = $('#searchInput').val();
+        var url = window.location.href.split('search');
+        window.location.href = url[0] + "search/" + searchInput;
+    }
+    
+
+};
+search.init();
+
+
+
+
+
+
+
+        $("#searchInput").keypress(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                
+                $(".search_button").click();
+            }
+        });
+    
+  
+    
 
 
 (function() {
   
-    var last_grabbed = 1;
+    var last_grabbed =0;
     var flag         = false;
+    var endOfContent = false;
     $(window).scroll(function() {
       
       if ($(window).scrollTop() + $(window).height() > $('#mn_cont').height()-1){
-        console.log("ssssssssssssssssssss");
         if(!flag){
-         generatePost(last_grabbed);
+         generatePost();
         }
+       
+        
+       
          // alert("bottom!");
          
       }
@@ -11130,11 +11219,27 @@ window.onclick = function(event) {
    
   
    function generatePost(){
+
     var url = window.location.href.split('/');
     var data = getPost(last_grabbed,url[4],url[5],url[6],url);
-    addPost(JSON.parse(data).content);
+    addPost(JSON.parse(data).content );
+
     flag = JSON.parse(data).flag;
     last_grabbed = last_grabbed + 10;
+    //console.log(data);
+
+    if(endOfContent== false && flag == true){
+      addPost(`
+        <div class="post_cont">
+          <div class="finalResult">
+            No more resuslts
+          </div>
+        </div>`);
+        
+      endOfContent = true;
+    }
+    attachHoverDate();
+
 
    }
   
@@ -11149,14 +11254,38 @@ window.onclick = function(event) {
    }
 
    function addPost(content){
+    
     $('.pop_post_cont').append(content);
    }
 
    if(document.title == 'Main') {
-    generatePost();
 
+    
+    generatePost();
+    
 }
 
+function attachHoverDate(){
+$( ".createdDate" ).hover(function() {
+  var date = $(this).attr('date');
+  $(this).append(' <div class="box">   '  +new Date(date)+'   </div>');
+ 
+},
+function() {
+$(".box" ).remove();  
+  
+});    
+
+$( ".releaseDate" ).hover(function() {
+var date = $(this).attr('date');
+$(this).append(' <div class="box">   '  +new Date(date)+'   </div>');
+
+},
+function() {
+$(".box" ).remove();  
+
+}); 
+}
   }());
 
 
@@ -11185,25 +11314,7 @@ window.onclick = function(event) {
     $(this).css("visibility","hidden");
   });
 
-  $( ".createdDate" ).hover(function() {
-    var date = $(this).attr('date');
-    $(this).append(' <div class="box">   '  +date+'   </div>');
-   
-  },
-  function() {
-  $(".box" ).remove();  
-    
-});    
-
-$( ".releaseDate" ).hover(function() {
-  var date = $(this).attr('date');
-  $(this).append(' <div class="box">   '  +date+'   </div>');
- 
-},
-function() {
-$(".box" ).remove();  
   
-});  
 
 
 
@@ -11337,37 +11448,3 @@ $(".box" ).remove();
 
 };
 voteModule.init();
-var search = {
-    init : function(){
-        $(document).on('click', '.search_button', this.searchLink);
-
-    },
-    
-
-
-    searchLink :function searchLink(){
-        var searchInput = $('#searchInput').val();
-        var url = window.location.href.split('search');
-        window.location.href = url[0] + "search/" + searchInput;
-    }
-    
-
-};
-search.init();
-
-
-
-
-
-
-
-        $("#searchInput").keypress(function(event) {
-            if (event.which == 13) {
-                event.preventDefault();
-                
-                $(".search_button").click();
-            }
-        });
-    
-  
-    

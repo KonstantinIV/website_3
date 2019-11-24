@@ -24,25 +24,29 @@ class loginModel extends core\modelController{
     function usernameValidation($username){
    
         if( strlen($username) > 24 || strlen($username) < 3 || !is_string($username))  {
-            
+
             return false;
         }else if(!preg_match("/^[a-zA-Z0-9_-]{3,24}$/",$username)){
-            
+
             return false;
         }
+
         return true;
     }
 
     function passwordValidation($password){
         
+       // echo strlen($password);
         if(strlen($password) < 8 || !is_string($password ))  {
+            
           return false;
         }
         return true;
     }
     function emailValidation($email){
+        // /^[\p{L}0-9_]+[\p{L}0-9_]+([-_+.'][\p{L}0-9_]+)*@[\p{L}0-9_]+([-_.][\p{L}0-9_]+)*\.[\p{L}0-9_]+([-._][\p{L}0-9_]+)*$/
         
-        if(!preg_match("/^[\p{L}0-9_]+[\p{L}0-9_]+([-_+.'][\p{L}0-9_]+)*@[\p{L}0-9_]+([-_.][\p{L}0-9_]+)*\.[\p{L}0-9_]+([-._][\p{L}0-9_]+)*$/",$email ) || !is_string($email))  {
+        if(!preg_match("/^.+@.+$/",$email ) || !is_string($email))  {
             return false;
         }
         return true;

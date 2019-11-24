@@ -23,8 +23,9 @@
 
         if(!validateUser(username,password) ){
             $('#regMessage').text("Empty fields");
+            return false;
         }
-        data = register(username,password,email,join_date,birthday);
+        var data = register(username,password,email,join_date,birthday);
         if((JSON.parse(data).flag)){
        
                 window.location.href = 'profile';
@@ -41,10 +42,20 @@
         var username = $('#username').val();
         var password = $('#password').val();
         
-            if(validateUser(username,password) ){
-                console.log("Wrong input");
+            if(!validateUser(username,password) ){
+
+                $(".loginError").text("Username or Password incorrect")
+                $('#username').css("border", "1px solid red")
+                $('#password').css("border", "1px solid red")
+                return false;
             }else if(!(JSON.parse(loginUser(username,password)).flag)) {
-                console.log("Login failed");
+
+                $(".loginError").text("Username or Password incorrect")
+                $('#username').css("border", "1px solid red")
+                $('#password').css("border", "1px solid red")
+
+                return false;
+                
             }else{
                 window.location.href = 'profile';
 
@@ -56,6 +67,9 @@
       function validateUser(username,password){
         if(username == "" || password == "" ){
             return false;
+        }else{
+            return true;
+
         }
       }
 

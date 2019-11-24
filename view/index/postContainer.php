@@ -6,7 +6,9 @@
 var_dump($this->searchInput);*/
 if(!$this->output && $this->searchInput ||$this->output && !$this->searchInput || $this->output && $this->searchInput || !$this->output && !$this->searchInput){
     require_once "posts.php";
+?>
 
+<?php
 }else{
     //print_r("no resultsd");
     print_r("no results");

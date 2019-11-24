@@ -71,7 +71,7 @@ class editutilityUtility extends utility\mainUtility implements interfaces\utili
      
         if($this->postID){
            // print_r($_POST);
-              $this->model->editPost($this->title, $this->text, $this->postID,$this->category);
+             $flag =  $this->model->editPost($this->title, $this->text, $this->postID,$this->category);
 
         }else{
 

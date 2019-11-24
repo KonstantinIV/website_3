@@ -2,8 +2,9 @@
 .column_2{
     display: flex;
     flex-direction: column-reverse ;
-    height: 68%;
+    height: fit-content;
     align-items: stretch;
+    
 }
 
 
@@ -21,7 +22,19 @@
     position: relative;
     cursor: pointer;
     margin-right: 10px;
+    margin-left: 20px;
+    height: fit-content;
+    max-height: 260px;
 }
+.text_cont * {
+    color: white;
+}
+.text_cont img{
+    max-width: 100%;
+    height: auto;
+    
+}
+
 .text_cont:hover{
     border: 1px solid rgb(150, 150, 197);
 }
@@ -36,7 +49,7 @@
 .expand_post{
     //position: absolute;
     //bottom: 20px;
-    width: 100%;
+    //width: 100%;
     //height: 100%;
     //top:0;
     background-color: transparent;
@@ -155,22 +168,23 @@ color:rgb(120, 120, 243);
 .expand_text{
     overflow:none;
     height: fit-content;
+    max-height: none;
+
 }
-.expand_cont{
-    height: fit-content;
-}
+
 
 
 
 //Second container
 .date_cont *{
+    margin: 3px 0;
+
 margin-left: 20px;
 //height: 40px;
 font-size: 14px;
 //line-height: 30px;
 //font-weight: 550;
 color:#7cf04f;
-
 }
 
 .createdDate{

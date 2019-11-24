@@ -12,6 +12,20 @@
         $('#password1').on('input', function() {
             inputBorder(passVal($(this).val()),$(this));
         });
+
+        $('#username').on('input', function() {
+            console.log("Sasd");
+          /*  if(!Boolean(JSON.parse(usernameExists($(this).val())).flag)){
+            }else{
+                inputBorder({flag : true, message : ""},$(this));
+                inputBorder({flag : false, message : "Username does not exist"},$(this));
+
+            }*/
+            
+        });
+
+
+
     });
 
     function inputBorder(arr,thisInput){
@@ -46,7 +60,8 @@
     }
 
     function userNameVal(username){
-        if(!validateUsernameLenght()){
+       // console.log(JSON.parse(usernameExists(username)));
+        if(!validateUsernameLength(username)){
             return {flag : false, message : "Invalid length"};
         }else if(!regexUsername(username)){
             return {flag : false, message : "Contains wrong characters"};
@@ -66,11 +81,10 @@
     }
 
     function emailVal(email){
-        console.log("SS");
         var flag = true;
         var message = "";
 
-        data = emailExists(email);
+        var data = emailExists(email);
         flag = Boolean(JSON.parse(data).flag);
         message = JSON.parse(data).message;
  
