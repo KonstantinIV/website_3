@@ -10466,6 +10466,14 @@ console.log(timeSince(new Date(Date.now()-aDay*2)));
 
      
    
+$(document).on('click', '.deletePost', function(){
+    var ID = $(this).attr("data-deleteID");
+    $("#deletePopup").css("visibility", "visible");
+    $("#deleteLink").attr("href", "delete/"+ID)
+    console.log("sss");
+
+    });
+
 
 (function() {
   if(document.title == 'Comments') {
@@ -10910,14 +10918,6 @@ voteModule.init();*/
   
   
   
-$(document).on('click', '.deletePost', function(){
-    var ID = $(this).attr("data-deleteID");
-    $("#deletePopup").css("visibility", "visible");
-    $("#deleteLink").attr("href", "delete/"+ID)
-    console.log("sss");
-
-    });
-
 
 window.onclick = function(event) {
     if (!event.target.matches('#userDropdownButton') 
@@ -10947,6 +10947,175 @@ window.onclick = function(event) {
      
     });
   
+var search = {
+    init : function(){
+        $(document).on('click', '.search_button', this.searchLink);
+
+    },
+    
+
+
+    searchLink :function searchLink(){
+        var searchInput = $('#searchInput').val();
+        var url = window.location.href.split('search');
+        window.location.href = url[0] + "search/" + searchInput;
+    }
+    
+
+};
+search.init();
+
+
+
+
+
+
+
+        $("#searchInput").keypress(function(event) {
+            if (event.which == 13) {
+                event.preventDefault();
+                
+                $(".search_button").click();
+            }
+        });
+    
+  
+    
+
+
+(function() {
+  
+    var last_grabbed =0;
+    var flag         = false;
+    var endOfContent = false;
+    $(window).scroll(function() {
+      
+      if ($(window).scrollTop() + $(window).height() > $('#mn_cont').height()-1){
+        if(!flag){
+         generatePost();
+        }
+       
+        
+       
+         // alert("bottom!");
+         
+      }
+   });
+   
+  
+   function generatePost(){
+
+    var url = window.location.href.split('/');
+    var data = getPost(last_grabbed,url[4],url[5],url[6],url);
+    addPost(JSON.parse(data).content );
+
+    flag = JSON.parse(data).flag;
+    last_grabbed = last_grabbed + 10;
+    //console.log(data);
+
+    if(endOfContent== false && flag == true){
+      addPost(`
+        <div class="post_cont">
+          <div class="finalResult">
+            No more resuslts
+          </div>
+        </div>`);
+        
+      endOfContent = true;
+    }
+    attachHoverDate();
+
+
+   }
+  
+   
+   function getPost(lastFetch,category,sortType,searchText,url){
+    return $.ajax({
+      async : false ,
+      url: "indexPage",
+      method: "POST",
+      data:{grab : lastFetch, cat : category, sort : sortType, search: searchText, method: true,url : url.slice(3)}
+    }).responseText;
+   }
+
+   function addPost(content){
+    
+    $('.pop_post_cont').append(content);
+   }
+
+   if(document.title == 'Main') {
+
+    
+    generatePost();
+    
+}
+
+function attachHoverDate(){
+$( ".createdDate" ).hover(function() {
+  var date = $(this).attr('date');
+  $(this).append(' <div class="box">   '  +new Date(date)+'   </div>');
+ 
+},
+function() {
+$(".box" ).remove();  
+  
+});    
+
+$( ".releaseDate" ).hover(function() {
+var date = $(this).attr('date');
+$(this).append(' <div class="box">   '  +new Date(date)+'   </div>');
+
+},
+function() {
+$(".box" ).remove();  
+
+}); 
+}
+  }());
+
+
+
+
+
+(function() {
+  $(document).on('click', '.text_cont', function() {
+  
+    if(!$(this)[0].classList.contains("expand_text")){
+      $(this).closest(".post_cont").toggleClass('expand_cont');
+      $(this).toggleClass('expand_text');
+      $(this).css("border","none");
+      $(this).css("cursor","auto");
+    }
+  });
+
+  $(document).on('click', '.loginPopupContainer', function() {
+
+    $(this).css("visibility","hidden");
+  });
+
+
+  $(document).on('click', '.deletePopupContainer', function() {
+
+    $(this).css("visibility","hidden");
+  });
+
+  
+
+
+
+}());
+
+
+  
+
+
+
+    
+
+
+
+
+
 
 (function() {
     $("#password").keypress(function(event) {
@@ -11162,175 +11331,104 @@ window.onclick = function(event) {
 
 
   }());
-var search = {
-    init : function(){
-        $(document).on('click', '.search_button', this.searchLink);
-
-    },
-    
-
-
-    searchLink :function searchLink(){
-        var searchInput = $('#searchInput').val();
-        var url = window.location.href.split('search');
-        window.location.href = url[0] + "search/" + searchInput;
-    }
-    
-
-};
-search.init();
-
-
-
-
-
-
-
-        $("#searchInput").keypress(function(event) {
-            if (event.which == 13) {
-                event.preventDefault();
-                
-                $(".search_button").click();
-            }
-        });
-    
-  
-    
-
-
 (function() {
-  
-    var last_grabbed =0;
-    var flag         = false;
-    var endOfContent = false;
-    $(window).scroll(function() {
-      
-      if ($(window).scrollTop() + $(window).height() > $('#mn_cont').height()-1){
-        if(!flag){
-         generatePost();
+    function unsetAllBorder(){
+        var tabs = document.getElementsByClassName("tabSettings");
+
+        for(var i = 0; i < tabs.length; i++){
+            $(tabs[i]).css( "border-bottom", "none" );
         }
-       
-        
-       
-         // alert("bottom!");
+
+
+    }
+
+    function getSettingsBlock(tabName){
+            return $.ajax({
+              async : false ,
+              url: "settingsU",
+              method: "POST",
+              data:{tabName: tabName}
+            }).responseText;
          
-      }
-   });
-   
-  
-   function generatePost(){
-
-    var url = window.location.href.split('/');
-    var data = getPost(last_grabbed,url[4],url[5],url[6],url);
-    addPost(JSON.parse(data).content );
-
-    flag = JSON.parse(data).flag;
-    last_grabbed = last_grabbed + 10;
-    //console.log(data);
-
-    if(endOfContent== false && flag == true){
-      addPost(`
-        <div class="post_cont">
-          <div class="finalResult">
-            No more resuslts
-          </div>
-        </div>`);
-        
-      endOfContent = true;
     }
-    attachHoverDate();
-
-
-   }
-  
-   
-   function getPost(lastFetch,category,sortType,searchText,url){
-    return $.ajax({
-      async : false ,
-      url: "indexPage",
-      method: "POST",
-      data:{grab : lastFetch, cat : category, sort : sortType, search: searchText, method: true,url : url.slice(3)}
-    }).responseText;
-   }
-
-   function addPost(content){
-    
-    $('.pop_post_cont').append(content);
-   }
-
-   if(document.title == 'Main') {
 
     
-    generatePost();
-    
-}
 
-function attachHoverDate(){
-$( ".createdDate" ).hover(function() {
-  var date = $(this).attr('date');
-  $(this).append(' <div class="box">   '  +new Date(date)+'   </div>');
+    $( document ).on("change", "#inputImageSettings", function() {
+     
+
+
+        var input = this
+        var url = $(this).val();
+       // console.log(url+"asdad");
+        var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+        if (input.files && input.files[0]&& ( ext == "png" || ext == "jpeg" || ext == "jpg")) 
+         {
+            var reader = new FileReader();
+    
+            reader.onload = function (e) {
+               $('#outputImageSettings').attr('src', e.target.result);
+            }
+           reader.readAsDataURL(input.files[0]);
+           
+           
+           
+        }
+        else
+        {
+          $('#outputImageSettings').attr('src', 'content/img/defaultAvatar.jpg');
+        }
+
+      });
+
+
  
-},
-function() {
-$(".box" ).remove();  
-  
-});    
 
-$( ".releaseDate" ).hover(function() {
-var date = $(this).attr('date');
-$(this).append(' <div class="box">   '  +new Date(date)+'   </div>');
+    
+    function switchSettings(thisTab){
+        //console.log($(thisTab).text());
+        window.history.replaceState(null, null, "settings/" + $(thisTab).text().toLowerCase());
+        unsetAllBorder();
 
-},
-function() {
-$(".box" ).remove();  
+        $(thisTab).css( "border-bottom", "3px solid #5950ad" );
+        var html = JSON.parse(getSettingsBlock($(thisTab).text().toLowerCase())).html ;
+        $(".tabContainerSettings").html(html);
 
-}); 
-}
-  }());
-
-
-
-
-
-(function() {
-  $(document).on('click', '.text_cont', function() {
-  
-    if(!$(this)[0].classList.contains("expand_text")){
-      $(this).closest(".post_cont").toggleClass('expand_cont');
-      $(this).toggleClass('expand_text');
-      $(this).css("border","none");
-      $(this).css("cursor","auto");
     }
-  });
-
-  $(document).on('click', '.loginPopupContainer', function() {
-
-    $(this).css("visibility","hidden");
-  });
-
-
-  $(document).on('click', '.deletePopupContainer', function() {
-
-    $(this).css("visibility","hidden");
-  });
-
-  
-
-
-
-}());
-
-
-  
-
-
 
     
 
+     
+      function saveAvatar(image){
+        return $.ajax({
+           url: "avatarSettings",
+           method: "POST",
+           data: image,
+           contentType: false,
+           processData: false,
+           async:false}).responseText  ;
+       }
 
+       $(document).on('click', '.tabSettings', function() {
+        switchSettings($(this));
+        
+      });
 
+       switchSettings((document.getElementsByClassName("tabSettings"))[0]);
 
-
+       $(document).on('click', '#avatarButtonSettings', function() {
+        var formData = new FormData();
+        formData.append('image', $("#inputImageSettings")[0].files[0]);
+        
+         console.log(formData);
+        console.log(saveAvatar(formData));
+        
+      });
+       
+  }());
+  
+  
+  
 
  var voteModule = { 
 

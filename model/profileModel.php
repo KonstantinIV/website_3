@@ -94,6 +94,15 @@ class profileModel extends core\modelController{
         return $stmt->fetchColumn();
     }
 
+    function saveAvatar($image,$username,$imageExtension){
+        
+        
+        //$image=file_get_contents($link);
+
+        move_uploaded_file($_FILES["image"]["tmp_name"],"/var/www/html/i/".$username.".".$imageExtension);
+        //file_put_contents("/var/www/html/i/".$username.".".$imageExtension, $image);  basename($_FILES['image']['name'])
+    }
+
 
 
     

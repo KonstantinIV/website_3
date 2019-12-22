@@ -80,7 +80,11 @@ class registerUUtility extends utility\mainLoginUtility implements interfaces\ut
            
             if($this->model->usernameValidation($this->username) && $this->model->passwordValidation($this->password) && $this->model->emailValidation($this->email) ){
                 
+                $this->password = $this->model->encryptPass($this->password);
+                
+
                 if($this->model->userCreate($this->username, $this->password, $this->email) == true){
+
                    
                     return true;
                 } 

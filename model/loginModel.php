@@ -12,10 +12,13 @@ class loginModel extends core\modelController{
     function userAuth($username,$password){
         $stmt = $this->pdo->prepare('SELECT password  from user WHERE username=? LIMIT 1');
         $stmt->execute([$username]);
-       
-        if( $stmt->fetchColumn() != $password){
+
+        if(!$this->verifyHashPassword($password,$stmt->fetchColumn())){
             return false;
         }
+       /* if(  != $password){
+            return false;
+        }*/
         return true;
     }
 
@@ -86,6 +89,13 @@ class loginModel extends core\modelController{
        
          
 
+    }
+    
+    function encryptPass($password){
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
+    function verifyHashPassword($password,$hash){
+        return password_verify($password, $hash);
     }
 
        

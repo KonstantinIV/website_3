@@ -22,7 +22,7 @@ class bootstrap {
         if($this->router->validateUrl()){
             $controllerPath = $this->router->setControllerPath();
             $params         = $this->router->setParam();
-                        //print_r($controllerPath);     
+                        
             $this->controller = new $controllerPath($params);
 
         }else{
