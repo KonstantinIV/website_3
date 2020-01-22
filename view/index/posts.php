@@ -1,6 +1,9 @@
 
 
 <?php 
+if(is_array($this->output)){
+
+
   foreach($this->output as $arr){/* echo $arr['ID'];*/?>
         
     <div class="post_cont" data-id = "<?php echo $arr['ID'];  ?>">
@@ -60,7 +63,7 @@
                             <a class="commentLinkButton" href="comment/<?php echo $arr['ID'];  ?>" ><div class="comment_button">COMMENTS</div></a>
                     </div>
     </div>
-<?php }   ?>
+<?php }}   ?>
 
 
 

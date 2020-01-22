@@ -81,8 +81,8 @@
         
       });
 
-       switchSettings((document.getElementsByClassName("tabSettings"))[0]);
-
+       //switchSettings((document.getElementsByClassName("tabSettings"))[0]);
+      //console.log("ll")
        $(document).on('click', '#avatarButtonSettings', function() {
         var formData = new FormData();
         formData.append('image', $("#inputImageSettings")[0].files[0]);

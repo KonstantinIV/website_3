@@ -3,9 +3,11 @@ namespace src\model;
 use src\controller\core;
 class postModel extends core\modelController{
     public $inputData;
+    const INTERVAL = 3000 ; 
 
     function __construct(){
        parent::__construct();
+       
     }
 
 
@@ -46,7 +48,7 @@ class postModel extends core\modelController{
                 left JOIN likes on post.ID = likes.POST_ID 
                 
                 where post.title like :search 
-                AND post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY)  
+                AND post.creation_date > DATE_SUB( NOW(), INTERVAL :interval DAY)  
                 group by post.ID order by likes desc  limit :nextCount , 10');
 
 
@@ -80,10 +82,11 @@ class postModel extends core\modelController{
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID  
                 
-                where post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY)
+                where post.creation_date > DATE_SUB( NOW(), INTERVAL :interval DAY)
                 group by post.ID order by likes desc limit :nextCount , 10');
                 
                 $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+
             }
             
         }else{
@@ -105,7 +108,7 @@ class postModel extends core\modelController{
                 from post INNER JOIN user ON user.ID = post.USER_ID 
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID  
-                where  post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY) and 
+                where  post.creation_date > DATE_SUB( NOW(), INTERVAL :interval DAY) and 
                 post.title LIKE :search  group by post.ID order by likes desc limit  :nextCount , 10');
 
 
@@ -129,7 +132,7 @@ class postModel extends core\modelController{
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID  
                 
-                where post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY)
+                where post.creation_date > DATE_SUB( NOW(), INTERVAL :interval DAY)
                 group by post.ID order by likes desc limit :nextCount , 10');
         
             }/*
@@ -149,7 +152,7 @@ class postModel extends core\modelController{
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID  
                 
-                where post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY)
+                where post.creation_date > DATE_SUB( NOW(), INTERVAL :interval DAY)
                 group by post.ID order by likes desc limit 0 , 10'
             
             
@@ -160,6 +163,9 @@ class postModel extends core\modelController{
         $timezoneOffset = $_COOKIE['timezoneOffset'];
         $stmt->bindParam(':timezoneOffset', $timezoneOffset, \PDO::PARAM_INT);
         $stmt->bindParam(':nextCount', $nextCount, \PDO::PARAM_INT);
+        $interval = self::INTERVAL;
+        $stmt->bindParam(':interval', $interval, \PDO::PARAM_INT);
+
         $stmt->execute();
        
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -283,6 +289,9 @@ class postModel extends core\modelController{
 
         $stmt->bindParam(':timezoneOffset', $timezoneOffset, \PDO::PARAM_INT);
         $stmt->bindParam(':nextCount', $nextCount, \PDO::PARAM_INT);
+        $interval = self::INTERVAL;
+        $stmt->bindParam(':interval', $interval, \PDO::PARAM_INT);
+
         $stmt->execute();
        //echo $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -419,7 +428,9 @@ class postModel extends core\modelController{
         $stmt->bindParam(':timezoneOffset', $timezoneOffset, \PDO::PARAM_INT);
         $stmt->bindParam(':cat', $categoryName, \PDO::PARAM_STR);
         $stmt->bindParam(':nextCount', $nextCount, \PDO::PARAM_INT);
-        
+        $interval = self::INTERVAL;
+        $stmt->bindParam(':interval', $interval, \PDO::PARAM_INT);
+
         
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -453,7 +464,7 @@ class postModel extends core\modelController{
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID   
                 
-                where  post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY) 
+                where  post.creation_date > DATE_SUB( NOW(), INTERVAL :interval DAY) 
                 AND category.category = :cat and post.title like :search group by post.ID order by likes desc limit :nextCount , 10');
 
                 $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
@@ -484,7 +495,7 @@ class postModel extends core\modelController{
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID   
                 
-                where category.category = :cat AND post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY) group by post.ID order by likes desc limit :nextCount , 10');
+                where category.category = :cat AND post.creation_date > DATE_SUB( NOW(), INTERVAL :interval DAY) group by post.ID order by likes desc limit :nextCount , 10');
                 
                 $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
             }
@@ -511,7 +522,7 @@ class postModel extends core\modelController{
                 left JOIN likes on post.ID = likes.POST_ID   
                 
                 where category.category = :cat 
-                AND post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY) 
+                AND post.creation_date > DATE_SUB( NOW(), INTERVAL :interval DAY) 
                 and post.title LIKE :search group by post.ID order by likes desc limit :nextCount , 10');
                 $searchstr = "%".$search."%";
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
@@ -537,7 +548,7 @@ class postModel extends core\modelController{
                 left JOIN likes on post.ID = likes.POST_ID   
 
                 where category.category = :cat 
-                AND post.creation_date > DATE_SUB( NOW(), INTERVAL 30 DAY) 
+                AND post.creation_date > DATE_SUB( NOW(), INTERVAL :interval DAY) 
                 group by post.ID order by likes desc limit :nextCount , 10');
 
             }
@@ -552,7 +563,9 @@ class postModel extends core\modelController{
         $stmt->bindParam(':timezoneOffset', $timezoneOffset, \PDO::PARAM_INT);
         $stmt->bindParam(':cat', $categoryName, \PDO::PARAM_STR);
         $stmt->bindParam(':nextCount', $nextCount, \PDO::PARAM_INT);
-        
+        $interval = self::INTERVAL;
+        $stmt->bindParam(':interval', $interval, \PDO::PARAM_INT);
+
         
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);

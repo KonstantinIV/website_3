@@ -8,14 +8,14 @@ class bootstrap {
     private $router;
     private $url;
 
+    private $reqMethod;
+
    function __construct(){
     $this->url    =    !(isset($_GET['url'])) ? "" : $_GET['url']; 
+    $this->reqMethod =  $_SERVER['REQUEST_METHOD'];
     $this->router = new routerController($this->url);
         
    }
-
-
-
 
     function initController(){
        
