@@ -29,6 +29,10 @@ class commentutilityUtility extends utility\mainUtility implements interfaces\ut
         $this->view->renderUtilJSON(array( "username" => $this->username, "commentID" => $id)); 
     }
 
+    function getComments(){
+        
+    }
+
     
 
     

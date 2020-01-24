@@ -10,7 +10,8 @@ class mainController{
     protected $loggedin;
     protected $input;
     protected $output;
- 
+   
+    
 
 
     function __construct($modelName,$title, $body, $input){

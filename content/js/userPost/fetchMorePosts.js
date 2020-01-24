@@ -50,7 +50,7 @@
     return $.ajax({
       async : false ,
       url: "indexPage",
-      method: "POST",
+      method: "GET",
       data:{grab : lastFetch, cat : category, sort : sortType, search: searchText, method: true,url : url.slice(3)}
     }).responseText;
    }

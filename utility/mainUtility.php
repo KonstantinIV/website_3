@@ -21,10 +21,6 @@ class mainUtility{
         $this->loggedIn     = isset($_SESSION['user']) ? true : false;
         $this->username = isset($_SESSION['user']) ? $_SESSION['user'] : false;
 
-
-      
-       
-        
     }
 
 
