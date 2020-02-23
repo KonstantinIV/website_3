@@ -60,7 +60,8 @@
 
       var filled = this.checkVote(button);
       var data   = this.sendvote(ID,voteType,postType,filled);
-      this.updateVisualVote(JSON.parse(data).message,filled,button,action,color,attribute,cssClass) ;
+      console.log(JSON.parse(data));
+      this.updateVisualVote(JSON.parse(data),filled,button,action,color,attribute,cssClass) ;
     
   },
 
@@ -76,7 +77,7 @@
   sendvote:function(ID,voteType,postType,filled){
    return  $.ajax({
       url: "vote",
-      method: "POST",
+      method: (filled) ?   "POST" :"DELETE" ,
       data:{ ID : ID , action : voteType, type : postType, update : filled},
       async:false,
   }).responseText;

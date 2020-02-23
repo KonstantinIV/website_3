@@ -19,16 +19,36 @@
       }
    });
    
-  
+   
    function generatePost(){
+    
 
     var url = window.location.href.split('/');
-    var data = getPost(last_grabbed,url[4],url[5],url[6],url);
+    var category = false;
+    var sortType = false;
+    var searchText = false;
+    var data ;
+
+    if(url[4] == "search"){
+
+      if(""){
+
+      }else{
+
+      }
+      data = getPost(last_grabbed,url[3],"",url[5],url);
+    }else if(url[5] == "search"){
+      data = getPost(last_grabbed,url[3],url[4],url[6],url);
+    }else{
+      data = getPost(last_grabbed,url[3],url[4],url[5],url);
+
+    }
+
     addPost(JSON.parse(data).content );
 
     flag = JSON.parse(data).flag;
     last_grabbed = last_grabbed + 10;
-    //console.log(data);
+    console.log(url);
 
     if(endOfContent== false && flag == true){
       addPost(`
@@ -46,12 +66,13 @@
    }
   
    
-   function getPost(lastFetch,category,sortType,searchText,url){
+   function getPost(lastFetch,sortType,category,searchText,url){
     return $.ajax({
       async : false ,
       url: "indexPage",
       method: "GET",
-      data:{grab : lastFetch, cat : category, sort : sortType, search: searchText, method: true,url : url.slice(3)}
+     
+      data:{grab : lastFetch, cat : category, sort : sortType, search: searchText, method: true,urlArr : url.slice(3)}
     }).responseText;
    }
 

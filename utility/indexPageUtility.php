@@ -7,96 +7,165 @@ use \src\controller\interfaces ;
 use \src\utility ;
 use \src\controller\helpers;
 
+
 class indexPageUtility extends utility\mainUtility implements interfaces\utilityInterface{ 
     
     private $model;
-    private $categoryName;
-    private $nextCount;
-    
-    
-    
+ 
+
     function __construct($input){
         parent::__construct();
-        $this->helper = new helpers\helpers();
-        //echo helpers\helpers::time_elapsed_string("2019-10-02 18:00:00")  ;
        $this->model = new model\postModel();
-       $input =  isset($_POST['url']) ? $_POST['url'] : false ;
-       $this->nextCount = isset($_POST['grab']) ? (int)$_POST['grab'] : 0 ;
-     // print_r($input);
+       $this->helper = new helpers\helpers();
+    }
 
-       if($input[0] == "new" || $input[0] =="popular"){
-        if($input[1] == "cat"){
-            $this->searchInput  = isset($input[4]) ? $input[4] : false;
-            $this->sort         = isset($input[0]) ? $input[0] : false;
-            $this->categoryName = empty($input[2]) ? "" : $input[2] ;
-        }else{
-            $this->sort         = isset($input[0]) ? $input[0] : false;
-            $this->searchInput  = isset($input[2]) ? $input[2] : false;
-        }
-    }else{
-        if($input[0] == "cat" ){
-            $this->searchInput  = isset($input[3]) ? $input[3] : false;
-            $this->categoryName = empty($input[1]) ? "" : $input[1] ;
-        }else{
-            $this->searchInput  = isset($input[1]) ? $input[1] : false;
+
+    function get($arr){
+        $result = "";
+        if((int)$arr['ID']){
+            $result = array($this->model->getSinglePost($arr['ID'],$this->username)[0]);
+
+            return $this->generatePosts($result);
         }
         
-        $this->sort         = "popular";
+        if($arr['cat'] != ""){
+            $this->view->pageData['metaData']['title']      =  $arr['cat'];
+            if($arr['sort'] == "new"){
+                $result =  $this->model->getNewPostsCategory($arr['cat'], (int)$arr['grab'],$this->loggedIn,$this->username,$arr['search']);
 
-    }
-        
-    }
+            }else{
+                $result = $this->model->getPopularPostsCategory($arr['cat'], (int)$arr['grab'],$this->loggedIn,$this->username,$arr['search']);
 
-    
-
-    function runScript(){
-        $this->output =  $this->getContent();
-        $this->view->renderUtilJSON($this->generatePosts()); 
-
-
-    }
-
-    function getContent(){
-        
-        if($this->categoryName != ""){
-             $this->view->pageData['metaData']['title']      =  $this->categoryName;
-             if($this->sort == "new"){
-                 return $this->model->getNewPostsCategory($this->categoryName, $this->nextCount,$this->loggedIn,$this->username,$this->searchInput);
- 
-             }
-             return $this->model->getPopularPostsCategory($this->categoryName, $this->nextCount,$this->loggedIn,$this->username,$this->searchInput);
-         }else{
-             if($this->sort == "new"){
-                // echo "ddd";
-                 return $this->model->getNewPosts($this->nextCount,$this->loggedIn,$this->username,$this->searchInput);
-          
-             }
-            // echo $this->sort."ssssssssssssss";
-             return $this->model->getPopularPosts($this->nextCount,$this->loggedIn,$this->username,$this->searchInput);
-          
-         }
+            }
+        }else{
+            if($arr['sort'] == "new"){
+               // echo "ddd";
+               $result = $this->model->getNewPosts((int)$arr['grab'],$this->loggedIn,$this->username,$arr['search']);
          
-     
-     }
+            }else{
+                $result = $this->model->getPopularPosts((int)$arr['grab'],$this->loggedIn,$this->username,$arr['search']);
 
-      function generatePosts(){
+            }
+           
+        //   print_r($result);
+            
+        }
+       return $this->generatePosts($result);
+    }
+
+/*
+    function runScript(){
+        $this->output =  array($this->model->getSinglePost($this->postID,$this->username)[0]);
+        return $this->generatePosts());  
+
+    }
+    function generatePosts(){
+        //echo json_encode(array("flag" => true));
+        //echo sizeof($this->output);
         ob_start();
             require "view/index/posts.php";
         $html = ob_get_clean();
-        $flag = (sizeof($this->output) < 10  ) ? true : false ; 
+
+        return array( "content" => $html);
+
+    }
+    
+
+*/
+
+
+    
+    function generatePosts($result){
+        $this->output = $result;
+        ob_start();
+            
+            require "view/index/posts.php";
+        $html = ob_get_clean();
+        $flag = (sizeof($result) < 10  ) ? true : false ; 
         return array("flag" => $flag, "content" => $html); 
 
     }
 
-    
+    function post($arr){
+        if($arr['text'] == "" ){
+            return array("flag" => false, "message" => "Wrong text");
+           
+            return false;
+        }elseif($arr['title'] == ""){
+            return array("flag" => false, "message" => "Wrong title");
+           
+            return false;
+        }elseif(!is_numeric($arr['day'])){
+            return array("flag" => false, "message" => "Wrong day");
+           
+            return false;
+        }elseif(!is_numeric($arr['month'])){
+            return array("flag" => false, "message" => "Wrong month");
+            
+            return false;
+        }elseif(!is_numeric($arr['year'])){
+            return array("flag" => false, "message" => "Wrong year");
+            
+            return false;
+        }elseif(!is_numeric($arr['category']) || $arr['category'] == 0 ){
+            return array("flag" => false, "message" => "Wrong category");
+            
+            return false;
+        }
+       
+     $date = $arr['year']."-".$arr['month']."-".$arr['day'];
 
-
+    $flag = $this->model->createPost($arr['title'], $arr['text'],$this->username,$date,$arr['category']);
+             //print_r($_POST);
   
+        return array("flag" => true, "message" => $flag );
+        
+
+    }
+    function put($arr){
+        if($arr['text'] == "" ){
+            return array("flag" => false, "message" => "Wrong text");
+           
+            return false;
+        }elseif($arr['title'] == ""){
+            return array("flag" => false, "message" => "Wrong title");
+           
+            return false;
+        }elseif(!is_numeric($arr['day'])){
+            return array("flag" => false, "message" => "Wrong day");
+           
+            return false;
+        }elseif(!is_numeric($arr['month'])){
+            return array("flag" => false, "message" => "Wrong month");
+            
+            return false;
+        }elseif(!is_numeric($arr['year'])){
+            return array("flag" => false, "message" => "Wrong year");
+            
+            return false;
+        }elseif(!is_numeric($arr['category']) || $arr['category'] == 0 ){
+            return array("flag" => false, "message" => "Wrong category");
+            
+            return false;
+        }
+       
+     $date = $arr['year']."-".$arr['month']."-".$arr['day'];
+     $flag =  $this->model->editPost($arr['title'], $arr['text'],$arr['ID'],$arr['category']);
+     //print_r($_POST);
+  
+        return array("flag" => true, "message" => $flag ? "Something went wrong" : "Change successful" );
+        
 
 
+    }
+    function delete(){
+        
+    }
 
     
-
+    function runScript(){
+        
+    }
     
 }
 

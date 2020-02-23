@@ -41,10 +41,10 @@
 
   function sendPost(postTitle,postYear,postMonth,postDay,postText,postCat,postID){
    return $.ajax({
-      url: "editutility",
-      method: "POST",
+      url: "indexPage",
+      method: postID ? "PUT" : "POST" ,
       async:false,
-      data:{title: postTitle , year: postYear ,month : postMonth, day : postDay, text:postText,category:postCat, postID : postID}
+      data:{title: postTitle , year: postYear ,month : postMonth, day : postDay, text:postText,category:postCat, ID : postID}
       
   }).responseText;
   }

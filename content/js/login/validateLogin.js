@@ -52,15 +52,15 @@
     }
     function usernameExists(username){
         return $.ajax({
-            url: "registerU/userVal",
+            url: "registerU",
             async: false,
-            method: "POST",
-            data:{user : username }
+            method: "GET",
+            data:{username : username , method:"userVal" }
         }).responseText;
     }
 
     function userNameVal(username){
-       // console.log(JSON.parse(usernameExists(username)));
+        console.log("aaa");
         if(!validateUsernameLength(username)){
             return {flag : false, message : "Invalid length"};
         }else if(!regexUsername(username)){
@@ -73,10 +73,10 @@
 
     function emailExists(email){
         return $.ajax({
-            url: "registerU/emailVal",
+            url: "registerU",
             async: false,
-            method: "POST",
-            data:{email : email }
+            method: "GET",
+            data:{email : email, method:"emailVal" }
         }).responseText;
     }
 

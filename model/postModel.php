@@ -11,14 +11,85 @@ class postModel extends core\modelController{
     }
 
 
-    
+    function getSinglePost($postID,$username){
+       
+        if($username){
+            $stmt = $this->pdo->prepare('SELECT post.ID,
+                if((SELECT likes.USER_ID from likes 
+                inner join user on user.ID = likes.USER_ID 
+                WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted,
+                 if((SELECT dislikes.USER_ID from dislikes 
+                 inner join user on user.ID = dislikes.USER_ID 
+                 WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted,
+                post.title, 
+                user.username, 
+                post.text, 
+                count(distinct dislikes.USER_ID) as dislikes, 
+                count(distinct likes.USER_ID) as likes, 
+                DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+                DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate     
+                from post 
+                INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                left JOIN likes on post.ID = likes.POST_ID 
+                where post.ID = :postID group by post.ID ');
+
+            $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        }else{
+           // print_r($postID);
+            $stmt = $this->pdo->prepare('SELECT 
+            post.ID, 
+            0 as livoted,
+            0 as divoted, 
+            post.title, 
+            user.username, 
+            post.text, 
+            count(distinct dislikes.USER_ID) as dislikes, 
+            count(distinct likes.USER_ID) as likes, 
+            DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
+            DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate      
+            from post 
+            INNER JOIN user ON user.ID = post.USER_ID 
+            LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+            left JOIN likes on post.ID = likes.POST_ID  
+            where post.ID = :postID group by post.ID ');
+        
+        }
+
+        $timezoneOffset = $_COOKIE['timezoneOffset'];
+        $stmt->bindParam(':timezoneOffset', $timezoneOffset, \PDO::PARAM_INT);
+     
+
+
+        
+        $stmt->bindParam(':postID', $postID, \PDO::PARAM_INT);
+        
+       if($stmt->execute()){
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }else{
+            return $stmt->errorInfo();
+        }
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+
+
+
+
+/*
+        $stmt = $this->pdo->prepare('SELECT post.ID,if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(rel_date,"%Y-%m-%d") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  where post.ID = :post_id group by post.ID' );
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        $stmt->bindParam(':post_id', $postID, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);*/
+
+    }
 
      //iNDEX next 10 pages DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
      //DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate
      //DATE_FORMAT(DATE_ADD(now(),INTERVAL :timezoneOffset HOUR),"%d/%m/%Y %H:%i:%S %H:%i:%S")
 
      function getPopularPosts( $nextCount,$loggedIn, $username,$search){
-
+        
         if($loggedIn){
             if($search){
                 $stmt = $this->pdo->prepare('SELECT 
@@ -116,6 +187,7 @@ class postModel extends core\modelController{
                 $stmt->bindParam(':search', $searchstr, \PDO::PARAM_STR);
 
             }else{
+                
                 $stmt = $this->pdo->prepare('SELECT 
                 post.ID, 
                 0 as livoted,
@@ -165,6 +237,13 @@ class postModel extends core\modelController{
         $stmt->bindParam(':nextCount', $nextCount, \PDO::PARAM_INT);
         $interval = self::INTERVAL;
         $stmt->bindParam(':interval', $interval, \PDO::PARAM_INT);
+        /*if($stmt->execute()){
+            return true;
+        }else{
+            return $stmt->errorInfo();
+        }*/
+
+
 
         $stmt->execute();
        
@@ -604,7 +683,7 @@ class postModel extends core\modelController{
         if($stmt->execute()){
             return true;
         }else{
-            return false;
+           return false;
             //return $stmt->errorInfo();
         }
         //return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -659,6 +738,7 @@ class postModel extends core\modelController{
                 $stmt = $this->pdo->prepare("insert into dislikes    (POST_ID, USER_ID) VALUES (:id,(SELECT ID from user where username = :username)) ");
                 break;
             case"likes":
+
                  $stmt = $this->pdo->prepare("insert into likes    (POST_ID, USER_ID) VALUES (:id,(SELECT ID from user where username = :username)) ");
                 break;
                 }
@@ -669,11 +749,13 @@ class postModel extends core\modelController{
     }
 
     function unvotePost($postID,$username, $action){
+
         switch($action){
             case "dislikes":
                 $stmt = $this->pdo->prepare("DELETE FROM dislikes WHERE POST_ID = :id and USER_ID = (SELECT ID from user where username = :username) ");
                 break;
             case"likes":
+
                  $stmt = $this->pdo->prepare("DELETE FROM likes WHERE POST_ID = :id and USER_ID = (SELECT ID from user where username = :username)  ");
                 break;
                 }
@@ -721,7 +803,7 @@ class postModel extends core\modelController{
                 $stmt = $this->pdo->prepare('select POST_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE username= :username and POST_ID =:postID LIMIT 1');
                 break;
             case"likes":
-           
+
                 $stmt = $this->pdo->prepare('select POST_ID from likes inner join user on user.ID = likes.USER_ID WHERE username= :username and POST_ID = :postID LIMIT 1');
                 break;
             }

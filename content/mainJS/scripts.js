@@ -10474,11 +10474,12 @@ console.log(timeSince(new Date(Date.now()-aDay*2)));
   function generateSinglePost(){
     var url = window.location.href.split('/');
     //console.log(url.slice(4));
+
      $.ajax({
        async : false ,
-       url: "singlePost",
-       method: "POST",
-       data:{ cat : url[4], sort : url[5], search: url[6], method: true,url : url.slice(3)},
+       url: "indexPage",
+       method: "GET",
+       data:{  ID:url[4], method: true,urlArr : url.slice(3)},
        success: function(data){
          $('.pop_post_cont').append(JSON.parse(data).content);
         // $('.pop_post_cont').append("ssssssssssssssssssss");
@@ -10786,10 +10787,10 @@ $(document).on('click', '.deletePost', function(){
 
   function sendPost(postTitle,postYear,postMonth,postDay,postText,postCat,postID){
    return $.ajax({
-      url: "editutility",
-      method: "POST",
+      url: "indexPage",
+      method: postID ? "PUT" : "POST" ,
       async:false,
-      data:{title: postTitle , year: postYear ,month : postMonth, day : postDay, text:postText,category:postCat, postID : postID}
+      data:{title: postTitle , year: postYear ,month : postMonth, day : postDay, text:postText,category:postCat, ID : postID}
       
   }).responseText;
   }
@@ -10968,9 +10969,13 @@ $(document).on('click', '.deletePost', function(){
                 $('#username').css("border", "1px solid red")
                 $('#password').css("border", "1px solid red")
                 return false;
-            }else if(!(JSON.parse(loginUser(username,password)).flag)) {
+            }
+            
+            var result = JSON.parse(loginUser(username,password));
 
-                $(".loginError").text("Username or Password incorrect")
+            if(!result.flag) {
+
+                $(".loginError").text(result.message)
                 $('#username').css("border", "1px solid red")
                 $('#password').css("border", "1px solid red")
 
@@ -10997,9 +11002,9 @@ $(document).on('click', '.deletePost', function(){
       function loginUser(username,password){
        return $.ajax({
             url: "loginUser",
-            method: "POST",
+            method: "GET",
             async:false,
-            data:{user : username , pass : password}
+            data:{username : username , password : password}
         }).responseText;
       }
 
@@ -11008,7 +11013,7 @@ $(document).on('click', '.deletePost', function(){
                 url: "registerU",
                 method: "POST",
                 async:false,
-                data:{user: username ,pass: password,email : email, join_date : join_date, birthday:birthday}
+                data:{username: username ,password: password,email : email, join_date : join_date, birthday:birthday}
             }).responseText;
       }
 
@@ -11070,15 +11075,15 @@ $(document).on('click', '.deletePost', function(){
     }
     function usernameExists(username){
         return $.ajax({
-            url: "registerU/userVal",
+            url: "registerU",
             async: false,
-            method: "POST",
-            data:{user : username }
+            method: "GET",
+            data:{username : username , method:"userVal" }
         }).responseText;
     }
 
     function userNameVal(username){
-       // console.log(JSON.parse(usernameExists(username)));
+        console.log("aaa");
         if(!validateUsernameLength(username)){
             return {flag : false, message : "Invalid length"};
         }else if(!regexUsername(username)){
@@ -11091,10 +11096,10 @@ $(document).on('click', '.deletePost', function(){
 
     function emailExists(email){
         return $.ajax({
-            url: "registerU/emailVal",
+            url: "registerU",
             async: false,
-            method: "POST",
-            data:{email : email }
+            method: "GET",
+            data:{email : email, method:"emailVal" }
         }).responseText;
     }
 
@@ -11315,16 +11320,36 @@ search.init();
       }
    });
    
-  
+   
    function generatePost(){
+    
 
     var url = window.location.href.split('/');
-    var data = getPost(last_grabbed,url[4],url[5],url[6],url);
+    var category = false;
+    var sortType = false;
+    var searchText = false;
+    var data ;
+
+    if(url[4] == "search"){
+
+      if(""){
+
+      }else{
+
+      }
+      data = getPost(last_grabbed,url[3],"",url[5],url);
+    }else if(url[5] == "search"){
+      data = getPost(last_grabbed,url[3],url[4],url[6],url);
+    }else{
+      data = getPost(last_grabbed,url[3],url[4],url[5],url);
+
+    }
+
     addPost(JSON.parse(data).content );
 
     flag = JSON.parse(data).flag;
     last_grabbed = last_grabbed + 10;
-    //console.log(data);
+    console.log(url);
 
     if(endOfContent== false && flag == true){
       addPost(`
@@ -11342,12 +11367,13 @@ search.init();
    }
   
    
-   function getPost(lastFetch,category,sortType,searchText,url){
+   function getPost(lastFetch,sortType,category,searchText,url){
     return $.ajax({
       async : false ,
       url: "indexPage",
       method: "GET",
-      data:{grab : lastFetch, cat : category, sort : sortType, search: searchText, method: true,url : url.slice(3)}
+     
+      data:{grab : lastFetch, cat : category, sort : sortType, search: searchText, method: true,urlArr : url.slice(3)}
     }).responseText;
    }
 
@@ -11491,7 +11517,8 @@ $(".box" ).remove();
 
       var filled = this.checkVote(button);
       var data   = this.sendvote(ID,voteType,postType,filled);
-      this.updateVisualVote(JSON.parse(data).message,filled,button,action,color,attribute,cssClass) ;
+      console.log(JSON.parse(data));
+      this.updateVisualVote(JSON.parse(data),filled,button,action,color,attribute,cssClass) ;
     
   },
 
@@ -11507,7 +11534,7 @@ $(".box" ).remove();
   sendvote:function(ID,voteType,postType,filled){
    return  $.ajax({
       url: "vote",
-      method: "POST",
+      method: (filled) ?   "POST" :"DELETE" ,
       data:{ ID : ID , action : voteType, type : postType, update : filled},
       async:false,
   }).responseText;
