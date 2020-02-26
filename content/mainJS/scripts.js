@@ -10580,7 +10580,7 @@ console.log(timeSince(new Date(Date.now()-aDay*2)));
       return $.ajax({
         url: "commentutility",
         method: "POST",
-        data:{ postID: postID, ID : ID, text : text},
+        data:{ postID: postID, commentParentID : ID, text : text},
         async:false
       }).responseText;
     }
@@ -10617,7 +10617,8 @@ console.log(timeSince(new Date(Date.now()-aDay*2)));
 (function() {
   
     $(document).on('click', '#replyComment', function(){
-      if(JSON.parse(isLoggedIn()).flag ){
+      console.log(JSON.parse(isLoggedIn()).flag);
+      if(!JSON.parse(isLoggedIn()).flag ){
         showMessage();
       }else{
         showTextbox($(this));
@@ -11362,7 +11363,7 @@ search.init();
       endOfContent = true;
     }
     attachHoverDate();
-
+    attachHoverStarVote()
 
    }
   
@@ -11409,6 +11410,43 @@ function() {
 $(".box" ).remove();  
 
 }); 
+
+}
+
+function attachHoverStarVote(){
+  $( ".starVote" ).hover(
+    function() {
+        for (var i = 0; i <= $( this ).index(); i++) {
+          $(this).closest('.starVoteBar').children('.starVote').eq(i).addClass("starVoteGreenHover");
+           // $( ".starVote" ).eq(i).addClass("starVoteGreen");
+          }
+        switch($( this ).index()) {
+            case 0:
+                $( this ).append( ' <div class="starVoteTextBox">Most of it was wrong</div>' );
+              break;
+            case 1:
+                $( this ).append( ' <div class="starVoteTextBox">Some  of it was true</div>' );                   
+                 break;
+              case 2:
+                $( this ).append( ' <div class="starVoteTextBox">Half of it was true</div>' );                    
+                break;
+              case 3:
+                $( this ).append( ' <div class="starVoteTextBox">More than half of it was true</div>' );
+                break;
+                case 4:
+                    $( this ).append( ' <div class="starVoteTextBox">Most of it was true</div>' );                        
+                    break;
+         
+          }
+    }, function() {
+        for (var i = 0; i <= $( this ).index(); i++) {
+          $(this).closest('.starVoteBar').children('.starVote').eq(i).removeClass("starVoteGreenHover");
+
+          }
+
+      $( this ).find( ".starVoteTextBox" ).last().remove();
+    }
+  );
 }
   }());
 
@@ -11455,6 +11493,44 @@ $(".box" ).remove();
 
 
 
+(function() {
+   
+  
+  
+
+
+
+
+    //comment
+    $(document).on('click', '.starVote', function(){
+
+
+      var points = $( this ).index()+1 ;
+      var ID = $(this).closest("div[data-id]").attr('data-id');
+      var starVoteContainer = $(this).closest(".starVoteContainer").find(".starVoteCount");
+      var starVoteCount = parseInt(starVoteContainer.text());
+      var data = JSON.parse(starVote(ID,points));
+      if(data ){
+       starVoteContainer.text( starVoteCount + 1);
+      }
+        
+
+        });
+
+       function starVote(ID,points){
+          return  $.ajax({
+             url: "starVote",
+             method:    "POST" ,
+             data:{ ID : ID , points : points},
+             async:false,
+         }).responseText;
+         
+       }
+          
+  }());
+  
+  
+  
 
  var voteModule = { 
 

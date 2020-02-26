@@ -83,3 +83,69 @@ text-align: center;
     
 
 }
+
+
+
+.starVoteContainer{
+    height : 35px;
+    background-color: #2f243f;
+    padding-top: 20px;
+    display: flex;
+}
+.starVoteStats{
+color:#564272;
+font-size: 14px;
+display: flex;
+font-family: sans-serif;
+//font-style: italic;
+}
+.starVoteCount{
+
+}
+.starVoteBar{
+    width: 45%;
+    max-width: 200px;
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+.starVote{
+    height: 20px;
+    width: 20px;
+    border-radius: 50px;
+    background-color: #2e5639 ;
+    position: relative;
+    cursor: pointer;
+}
+.starVoteTextBox{
+    transition: 0.2s;
+
+        position: absolute;
+        background-color: #1a0c2e ;
+        height: 25px;
+        width:  max-content;
+        top: -25px;
+        left: -40px;
+        line-height: 25px;
+        color: white;
+        padding: 0 5px;
+        border-radius: 5px;
+        font-size: 14px;
+    
+}
+.starVoteGreen{
+    background-color: #21d251;
+
+}
+.starVoteDarkGreen{
+    background-color: #2e5639 !important;
+
+}
+.starVoteGreenHover{
+    transition: 0.2s;
+
+    background: #5f56f5 !important;
+    
+
+}
+

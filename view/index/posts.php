@@ -62,6 +62,33 @@ if(is_array($this->output)){
                             
                             <a class="commentLinkButton" href="comment/<?php echo $arr['ID'];  ?>" ><div class="comment_button">COMMENTS</div></a>
                     </div>
+
+                    <div class="starVoteContainer">
+                        <div class="starVoteBar">
+                        <?php 
+
+
+
+
+                        for ($x = 0; $x < floor($arr["points"]); $x++) {
+                                echo '<div class="starVote starVoteGreen" > </div>';
+                        }
+                        if(floor($arr["points"]) != 5){
+                                echo '<div class="starVote starVoteDarkGreen"  style="background: linear-gradient(to right, #21d251 '.( 20 * ($arr["points"] - floor($arr["points"]))).'px, #2e5639 0px) "> </div>';
+                                for ($x = 0; $x < (5-1-floor($arr["points"])); $x++) {
+                                        echo '<div class="starVote starVoteDarkGreen" > </div>';
+                                }
+                        }
+                       
+ ?> 
+
+
+                               
+                        </div>
+                        <div class="starVoteStats">
+                        <div class="starVoteCount"><?php echo 0+$arr['starVotes'];  ?></div>&nbsp votes
+                        </div>
+                    </div>
     </div>
 <?php }}   ?>
 

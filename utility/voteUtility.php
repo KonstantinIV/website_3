@@ -17,11 +17,6 @@ class voteUtility extends utility\mainUtility implements interfaces\utilityInter
         parent::__construct();
         $this->model = new model\postModel();
 
-        $arr["ID"]   = isset($_POST['ID']) ? (int)$_POST['ID'] : false; 
-        $arr["action"]   =  isset($_POST['action']) ? $_POST['action'] : false; 
-        $arr["type"]   =  isset($_POST['type']) ? $_POST['type'] : false; 
-        $this->update   =  isset($_POST['update']) ? $_POST['update'] : false; 
-     
     }
 
 
@@ -31,19 +26,21 @@ class voteUtility extends utility\mainUtility implements interfaces\utilityInter
 
             return false;
         }
-        if(is_int($arr["ID"])  && $arr["action"] === "likes" || $arr["action"] === "dislikes" && $arr["type"] === "comment" || $arr["type"] === "post"){
+       /* if(is_int($arr["ID"])  && $arr["action"] === "likes" || $arr["action"] === "dislikes" && $arr["type"] === "comment" || $arr["type"] === "post"){
             return true;
-        }
-        return false;
+        }*/
+        return true;
     }
 
 
     function post($arr){
+      
 
         if(!$this->validateData($arr)){
            return false; 
         }
         if($arr["type"] ==  "comment"){
+
             if(!$this->model->voteExistsComment($this->username,$arr["ID"],$arr["action"])){
                 $this->model->voteComment($arr["ID"], $this->username, $arr["action"]);
                 //echo $arr["ID"]. " ". $this->username . " ". $arr["action"];

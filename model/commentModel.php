@@ -44,7 +44,7 @@ class commentModel extends core\modelController{
     }
 
   
-    function editComment($postID,$parentID,$username, $text){
+    function postComment($postID,$parentID,$username, $text){
         
         $stmt = $this->pdo->prepare("insert into comment    
         (USER_ID,POST_ID,parent_id,text,creation_date ) 

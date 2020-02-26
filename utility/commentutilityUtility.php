@@ -18,23 +18,29 @@ class commentutilityUtility extends utility\mainUtility implements interfaces\ut
         $this->model = new model\commentModel();
 
 
-        $this->text =  isset($_POST['text']) ? $_POST['text'] : "" ; 
-        $this->ID =   isset($_POST['ID']) ? (int)$_POST['ID'] : "" ; 
-        $this->postID          =    isset($_POST['postID']) ? (int)$_POST['postID'] : "" ; 
+       
+    }
+    function get($arr){
+        $id = $this->model->editComment($arr['postID'], $arr['commentParentID'], $this->username, $arr['text']);
+        return array( "username" => $this->username, "commentID" => $id); 
+    }
+    function post($arr){
+        $id = $this->model->postComment($arr['postID'], $arr['commentParentID'], $this->username, $arr['text']);
+        return array( "username" => $this->username, "commentID" => $id); 
+    }
+    function put($arr){
+        $id = $this->model->editComment($arr['postID'], $arr['commentParentID'], $this->username, $arr['text']);
+        return array( "username" => $this->username, "commentID" => $id); 
+    }
+    function delete($arr){
+        $id = $this->model->editComment($arr['postID'], $arr['commentParentID'], $this->username, $arr['text']);
+        return array( "username" => $this->username, "commentID" => $id); 
+    }
+
+ 
+function runScript(){
     
-    }
-
-    function runScript(){
-        $id = $this->model->editComment($this->postID, $this->ID, $this->username, $this->text);
-        $this->view->renderUtilJSON(array( "username" => $this->username, "commentID" => $id)); 
-    }
-
-    function getComments(){
-        
-    }
-
-    
-
+}
     
 
 

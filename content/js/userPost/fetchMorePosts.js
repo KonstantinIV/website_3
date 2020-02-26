@@ -61,7 +61,7 @@
       endOfContent = true;
     }
     attachHoverDate();
-
+    attachHoverStarVote()
 
    }
   
@@ -108,6 +108,43 @@ function() {
 $(".box" ).remove();  
 
 }); 
+
+}
+
+function attachHoverStarVote(){
+  $( ".starVote" ).hover(
+    function() {
+        for (var i = 0; i <= $( this ).index(); i++) {
+          $(this).closest('.starVoteBar').children('.starVote').eq(i).addClass("starVoteGreenHover");
+           // $( ".starVote" ).eq(i).addClass("starVoteGreen");
+          }
+        switch($( this ).index()) {
+            case 0:
+                $( this ).append( ' <div class="starVoteTextBox">Most of it was wrong</div>' );
+              break;
+            case 1:
+                $( this ).append( ' <div class="starVoteTextBox">Some  of it was true</div>' );                   
+                 break;
+              case 2:
+                $( this ).append( ' <div class="starVoteTextBox">Half of it was true</div>' );                    
+                break;
+              case 3:
+                $( this ).append( ' <div class="starVoteTextBox">More than half of it was true</div>' );
+                break;
+                case 4:
+                    $( this ).append( ' <div class="starVoteTextBox">Most of it was true</div>' );                        
+                    break;
+         
+          }
+    }, function() {
+        for (var i = 0; i <= $( this ).index(); i++) {
+          $(this).closest('.starVoteBar').children('.starVote').eq(i).removeClass("starVoteGreenHover");
+
+          }
+
+      $( this ).find( ".starVoteTextBox" ).last().remove();
+    }
+  );
 }
   }());
 

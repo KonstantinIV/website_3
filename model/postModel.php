@@ -143,13 +143,19 @@ class postModel extends core\modelController{
                 post.title, 
                 user.username, 
                 post.text, 
+
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
-                
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+            
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate, 
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate   
                 
                 from post INNER JOIN user ON user.ID = post.USER_ID 
+
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID 
+
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID  
                 
@@ -849,6 +855,40 @@ class postModel extends core\modelController{
         $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
         $stmt->bindParam(':postID', $postID, \PDO::PARAM_INT);
         $stmt->execute();
+    }
+
+    function starVote($postID,$points,$username){
+
+        $stmt = $this->pdo->prepare('insert into starVote    (POST_ID,USER_ID, points) VALUES (:postID,(SELECT ID from user where username = :username),:points) ');
+    
+
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+
+        $stmt->bindParam(':postID', $postID, \PDO::PARAM_INT);
+        $stmt->bindParam(':points', $points, \PDO::PARAM_INT);
+        if(!$stmt->execute()){
+            
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+    function checkStarVoteExists($postID,$username){
+      
+        $stmt = $this->pdo->prepare('select starVote.POST_ID FROM starVote inner join user on user.ID = starVote.USER_ID WHERE username= :username and POST_ID = :postID LIMIT 1 LIMIT 1');
+            
+     
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        $stmt->bindParam(':postID', $postID, \PDO::PARAM_INT);
+        $stmt->execute();
+        if(!$stmt->fetchColumn()){
+            
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
 
