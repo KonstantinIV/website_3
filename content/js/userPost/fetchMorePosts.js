@@ -112,6 +112,15 @@ $(".box" ).remove();
 }
 
 function attachHoverStarVote(){
+  $( ".starVoteWallImage" ).hover(
+    function() {
+      $( this ).append( ' <div class="starVoteTextBox">Locked until realease date</div>' );
+    }, function() {
+      $( this ).find( ".starVoteTextBox" ).last().remove();
+
+    }
+  );
+
   $( ".starVote" ).hover(
     function() {
         for (var i = 0; i <= $( this ).index(); i++) {

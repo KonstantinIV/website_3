@@ -64,14 +64,15 @@ if(is_array($this->output)){
                     </div>
 
                     <div class="starVoteContainer">
+                   
                         <div class="starVoteBar">
                         <?php 
 
 
 
-
+                        $default = $arr['starVoted'] == 1 ?  "starVoted" :"";
                         for ($x = 0; $x < floor($arr["points"]); $x++) {
-                                echo '<div class="starVote starVoteGreen" > </div>';
+                                echo '<div class="starVote starVoteGreen '.$default.' " > </div>';
                         }
                         if(floor($arr["points"]) != 5){
                                 echo '<div class="starVote starVoteDarkGreen"  style="background: linear-gradient(to right, #21d251 '.( 20 * ($arr["points"] - floor($arr["points"]))).'px, #2e5639 0px) "> </div>';
@@ -88,6 +89,18 @@ if(is_array($this->output)){
                         <div class="starVoteStats">
                         <div class="starVoteCount"><?php echo 0+$arr['starVotes'];  ?></div>&nbsp votes
                         </div>
+                        <div class='<?php if($arr['releaseDate'] > gmdate("Y-m-d") ){
+
+                                echo "starVoteWall";
+                                
+                        }
+                        ?> 
+                        '>
+                        <div class="starVoteWallLock">
+                         <div class="starVoteWallImage"><img  src="content/img/lock.svg" alt="icon"></div>
+                        </div>
+                        </div>
+
                     </div>
     </div>
 <?php }}   ?>

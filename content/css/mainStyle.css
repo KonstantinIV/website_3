@@ -919,6 +919,7 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
   margin-left: 20px;
   height: fit-content;
   max-height: 260px;
+  transition: 0.3s;
 }
 
 .text_cont * {
@@ -1118,12 +1119,14 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
   cursor: pointer;
   border: 1px solid #7cf04f;
   background-color: #36274b;
+  transition: 0.3s;
 }
 
 .dislike_button {
   cursor: pointer;
   border: 1px solid #ca3939;
   background-color: #36274b;
+  transition: 0.3s;
 }
 
 .like_button:hover {
@@ -1137,6 +1140,7 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 .comment_button {
   border: 1px solid gray;
   color: #8b8fa9;
+  transition: 0.3s;
 }
 
 .commentLinkButton:hover .comment_button {
@@ -1148,6 +1152,46 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
   background-color: #2f243f;
   padding-top: 20px;
   display: flex;
+  position: relative;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.starVoteWall {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 39, 49, 0.7);
+  position: absolute;
+  margin-top: -20px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.starVoteWallLock {
+  padding-top: 10px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.starVoteWallImage {
+  position: relative;
+}
+
+.starVoteWallImage .starVoteTextBox {
+  transition: 0.2s;
+  position: absolute;
+  background-color: #1a0c2e;
+  height: 25px;
+  width: max-content;
+  top: -25px;
+  left: -60px;
+  line-height: 25px;
+  color: white;
+  padding: 0 5px;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 .starVoteStats {
@@ -1171,6 +1215,7 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
   background-color: #2e5639;
   position: relative;
   cursor: pointer;
+  border: 3px solid #2f243f;
 }
 
 .starVoteTextBox {
@@ -1198,7 +1243,11 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 
 .starVoteGreenHover {
   transition: 0.2s;
-  background: #5f56f5 !important;
+  border: 3px solid #097474 !important;
+}
+
+.starVoted {
+  border: 3px solid #097474 !important;
 }
 
 .main_cont {

@@ -24,12 +24,22 @@ class postModel extends core\modelController{
                 post.title, 
                 user.username, 
                 post.text, 
+
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+
+                if((SELECT starVote.USER_ID from starVote 
+                inner join user on user.ID = starVote.USER_ID 
+                WHERE starVote.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS starVoted,
+
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate     
                 from post 
                 INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID 
                 where post.ID = :postID group by post.ID ');
@@ -46,10 +56,15 @@ class postModel extends core\modelController{
             post.text, 
             count(distinct dislikes.USER_ID) as dislikes, 
             count(distinct likes.USER_ID) as likes, 
+
+            ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+            
             DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
             DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate      
             from post 
             INNER JOIN user ON user.ID = post.USER_ID 
+            LEFT JOIN starVote ON post.ID = starVote.POST_ID
             LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
             left JOIN likes on post.ID = likes.POST_ID  
             where post.ID = :postID group by post.ID ');
@@ -110,11 +125,18 @@ class postModel extends core\modelController{
                 post.text, 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes,
-                
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+                if((SELECT starVote.USER_ID from starVote 
+                inner join user on user.ID = starVote.USER_ID 
+                WHERE starVote.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS starVoted,
+
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   
                 
                 from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID 
                 
@@ -146,8 +168,15 @@ class postModel extends core\modelController{
 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
+                if((SELECT starVote.USER_ID from starVote 
+                inner join user on user.ID = starVote.USER_ID 
+                WHERE starVote.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS starVoted,
+
                 ROUND(avg(starVote.points),2) as points ,
                 count(distinct starVote.USER_ID) as starVotes,
+                if((SELECT starVote.USER_ID from starVote 
+                inner join user on user.ID = starVote.USER_ID 
+                WHERE starVote.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS starVoted,
             
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate, 
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate   
@@ -178,11 +207,15 @@ class postModel extends core\modelController{
                 post.text, 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
                 
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR), "%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   
                 
                 from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID  
                 where  post.creation_date > DATE_SUB( NOW(), INTERVAL :interval DAY) and 
@@ -203,10 +236,15 @@ class postModel extends core\modelController{
                 post.text, 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   
                 
                 from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID  
                 
@@ -278,10 +316,19 @@ class postModel extends core\modelController{
                 post.text, 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+                if((SELECT starVote.USER_ID from starVote 
+                inner join user on user.ID = starVote.USER_ID 
+                WHERE starVote.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS starVoted,
+
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate  
 
-                from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
+                from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
+                LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID 
                 
                 where post.title like :search group by post.ID order by createdDate desc limit :nextCount , 10');
@@ -307,10 +354,18 @@ class postModel extends core\modelController{
                 post.text, 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+                if((SELECT starVote.USER_ID from starVote 
+                inner join user on user.ID = starVote.USER_ID 
+                WHERE starVote.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS starVoted,
+
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   
                 
                 from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID 
                 
@@ -326,16 +381,22 @@ class postModel extends core\modelController{
 
                 $stmt = $this->pdo->prepare('
                 SELECT post.ID,
-                0 as livoted,0 as divoted, 
+                0 as livoted,
+                0 as divoted, 
                 post.title, 
                 user.username, 
                 post.text, 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   
                 
-                from post INNER JOIN user ON user.ID = post.USER_ID 
+                from post INNER JOIN user ON user.ID = post.USER_ID
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID 
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID where post.title 
                 
@@ -355,10 +416,14 @@ class postModel extends core\modelController{
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
 
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate   
                 
                 from post INNER JOIN user ON user.ID = post.USER_ID 
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID  
                 group by post.ID order by createdDate DESC limit :nextCount , 10');
@@ -406,12 +471,20 @@ class postModel extends core\modelController{
                 post.text, 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+                if((SELECT starVote.USER_ID from starVote 
+                inner join user on user.ID = starVote.USER_ID 
+                WHERE starVote.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS starVoted,
                 
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
                 
                 from post inner join user on user.ID = post.USER_ID 
+
                 inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID   
                 
@@ -442,11 +515,19 @@ class postModel extends core\modelController{
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
                 
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+                if((SELECT starVote.USER_ID from starVote 
+                inner join user on user.ID = starVote.USER_ID 
+                WHERE starVote.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS starVoted,
+
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
                 
                 from post inner join user on user.ID = post.USER_ID 
                 inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID   
                 
@@ -468,12 +549,16 @@ class postModel extends core\modelController{
                 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
                 
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
                 
                 from post inner join user on user.ID = post.USER_ID 
                 inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID   
                 
@@ -494,12 +579,16 @@ class postModel extends core\modelController{
                 post.text, 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
                 
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
                 
                 from post inner join user on user.ID = post.USER_ID 
                 inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID   
                 
@@ -540,12 +629,19 @@ class postModel extends core\modelController{
                 post.text, 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
-                
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+                if((SELECT starVote.USER_ID from starVote 
+                inner join user on user.ID = starVote.USER_ID 
+                WHERE starVote.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS starVoted,
+
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
                 
                 from post inner join user on user.ID = post.USER_ID 
                 inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID   
                 
@@ -571,12 +667,19 @@ class postModel extends core\modelController{
                 post.text, 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+                if((SELECT starVote.USER_ID from starVote 
+                inner join user on user.ID = starVote.USER_ID 
+                WHERE starVote.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS starVoted,
                 
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
                 
                 from post inner join user on user.ID = post.USER_ID 
                 inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID   
                 
@@ -597,12 +700,16 @@ class postModel extends core\modelController{
                 post.text, 
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
+
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
                 
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
                 
                 from post inner join user on user.ID = post.USER_ID 
                 inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID   
                 
@@ -624,11 +731,15 @@ class postModel extends core\modelController{
                 count(distinct dislikes.USER_ID) as dislikes, 
                 count(distinct likes.USER_ID) as likes, 
 
+                ROUND(avg(starVote.points),2) as points ,
+                count(distinct starVote.USER_ID) as starVotes,
+
                 DATE_FORMAT(DATE_ADD(creation_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d %H:%i:%S") as createdDate, 
                 DATE_FORMAT(DATE_ADD(rel_date,INTERVAL :timezoneOffset HOUR),"%Y-%m-%d") as releaseDate 
 
                 from post inner join user on user.ID = post.USER_ID 
                 inner join category on category.ID = post.TOPIC_ID  
+                LEFT JOIN starVote ON post.ID = starVote.POST_ID
                 LEFT JOIN dislikes on post.ID = dislikes.POST_ID 
                 left JOIN likes on post.ID = likes.POST_ID   
 
@@ -876,7 +987,7 @@ class postModel extends core\modelController{
     }
     function checkStarVoteExists($postID,$username){
       
-        $stmt = $this->pdo->prepare('select starVote.POST_ID FROM starVote inner join user on user.ID = starVote.USER_ID WHERE username= :username and POST_ID = :postID LIMIT 1 LIMIT 1');
+        $stmt = $this->pdo->prepare('select starVote.POST_ID FROM starVote inner join user on user.ID = starVote.USER_ID WHERE username= :username and starVote.POST_ID = :postID LIMIT 1 ');
             
      
         $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
@@ -890,7 +1001,36 @@ class postModel extends core\modelController{
         }
 
     }
+    function replaceStarVote($postID,$points, $username){
+      
+        $stmt = $this->pdo->prepare('UPDATE starVote SET  points = :points  WHERE POST_ID = :postID AND USER_ID = (select ID from user where username = :username) ');
+            
+     
+        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
+        $stmt->bindParam(':postID', $postID, \PDO::PARAM_INT);
+        $stmt->bindParam(':points', $points, \PDO::PARAM_INT);
 
+        if(!$stmt->execute()){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+    function checkStarVoteDate($postID){
+        $stmt = $this->pdo->prepare('select post.ID FROM post where ID = :postID and post.rel_date < UTC_TIMESTAMP()  LIMIT 1 ');
+            
+     
+        $stmt->bindParam(':postID', $postID, \PDO::PARAM_INT);
+        $stmt->execute();
+        if(!$stmt->fetchColumn()){
+            
+            return false;
+        }else{
+            return true;
+        }
+    }
 
 
 

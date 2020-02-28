@@ -32,16 +32,29 @@ class starVoteUtility extends utility\mainUtility implements interfaces\utilityI
     function post($arr){
       //print_r($arr);
         if($this->validateData($arr)){
-            return false;
+            return array("flag" => false, "voted" => true,"message" => "username");
+        }
+        if(!$this->model->checkStarVoteDate($arr["ID"])){
+            return array("flag" => false, "voted" => true, "message" => "Error");
+
         }
         if($this->model->checkStarVoteExists($arr["ID"],$this->username)){
-            return false;
+           if( !$this->model->replaceStarVote($arr["ID"],$arr["points"],$this->username)){
+            return array("flag" => false, "voted" => true, "message" => "Error");
+
+            }
+            return array("flag" =>  true, "voted" => true);  
+            
+        }else{
+            if(!$this->model->starVote($arr["ID"],$arr['points'],$this->username)){
+                return array("flag" => false, "voted" => true, "message" => "Error");        
+            }
+
         }
 
-        if(!$this->model->starVote($arr["ID"],$arr['points'],$this->username)){
-            return false;
-        }
-        return true;
+        
+        return array("flag" =>  true, "voted" => false);        
+
 
         
     }
