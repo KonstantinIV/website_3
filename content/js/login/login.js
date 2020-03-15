@@ -48,9 +48,13 @@
                 $('#username').css("border", "1px solid red")
                 $('#password').css("border", "1px solid red")
                 return false;
-            }else if(!(JSON.parse(loginUser(username,password)).flag)) {
+            }
+            
+            var result = JSON.parse(loginUser(username,password));
 
-                $(".loginError").text("Username or Password incorrect")
+            if(!result.flag) {
+
+                $(".loginError").text(result.message)
                 $('#username').css("border", "1px solid red")
                 $('#password').css("border", "1px solid red")
 
@@ -77,9 +81,9 @@
       function loginUser(username,password){
        return $.ajax({
             url: "loginUser",
-            method: "POST",
+            method: "GET",
             async:false,
-            data:{user : username , pass : password}
+            data:{username : username , password : password}
         }).responseText;
       }
 
@@ -88,7 +92,7 @@
                 url: "registerU",
                 method: "POST",
                 async:false,
-                data:{user: username ,pass: password,email : email, join_date : join_date, birthday:birthday}
+                data:{username: username ,password: password,email : email, join_date : join_date, birthday:birthday}
             }).responseText;
       }
 

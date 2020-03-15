@@ -24,14 +24,13 @@ class indexController extends core\mainController implements interfaces\pageInte
         if(empty($input)){
             $input = [false];
         }else if($input[0] == "new" || $input[0] =="popular"){
-            if($input[1] == "cat"){
-                $this->view->pageData['metaData']['sortLinkPopular'] = "/popular"."/".$input[1] . "/". $input[2]."/";
-                $this->view->pageData['metaData']['sortLinkNew'] = "/new"."/".$input[1] . "/". $input[2]."/";
+            if($input[1] != ""){
+                $this->view->pageData['metaData']['sortLinkPopular'] =rtrim("/hot"."/".$input[1] . "/". $input[2]."/". $input[3]."/","/") ;
+                $this->view->pageData['metaData']['sortLinkNew'] = rtrim("/new"."/".$input[1] . "/". $input[2]."/". $input[3]."/","/"); 
+            }else{
+
             }
-        }else if($input[0] == "cat" ){
-                $this->view->pageData['metaData']['sortLinkPopular'] = "/popular"."/".$input[0] . "/". $input[1]."/";
-                $this->view->pageData['metaData']['sortLinkNew'] = "/new"."/".$input[0] . "/". $input[1]."/";
-            }
+        }
         
 
 

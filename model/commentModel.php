@@ -11,34 +11,7 @@ class commentModel extends core\modelController{
     }
 
     
-    function getSinglePost($postID,$username){
-       
-        if($username){
-            $stmt = $this->pdo->prepare('SELECT post.ID,if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(rel_date,"%Y-%m-%d") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID where post.ID = :postID group by post.ID ');
-            $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
-        }else{
-           // print_r($postID);
-            $stmt = $this->pdo->prepare('SELECT post.ID, 0 as livoted,0 as divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(rel_date,"%Y-%m-%d") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  where post.ID = :postID group by post.ID ');
-        
-        }
-        
-        $stmt->bindParam(':postID', $postID, \PDO::PARAM_INT);
-        $stmt->execute();
-       
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-
-
-
-
-/*
-        $stmt = $this->pdo->prepare('SELECT post.ID,if((SELECT likes.USER_ID from likes inner join user on user.ID = likes.USER_ID WHERE likes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS livoted, if((SELECT dislikes.USER_ID from dislikes inner join user on user.ID = dislikes.USER_ID WHERE dislikes.POST_ID = post.ID and user.username = :username limit 1 ) IS NOT NULL, 1, 0 ) AS divoted, post.title, user.username, post.text, count(distinct dislikes.USER_ID) as dislikes, count(distinct likes.USER_ID) as likes, DATE_FORMAT(creation_date,"%Y-%m-%d %H:%i:%S") as createdDate, DATE_FORMAT(rel_date,"%Y-%m-%d") as releaseDate   from post INNER JOIN user ON user.ID = post.USER_ID LEFT JOIN dislikes on post.ID = dislikes.POST_ID left JOIN likes on post.ID = likes.POST_ID  where post.ID = :post_id group by post.ID' );
-        $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
-        $stmt->bindParam(':post_id', $postID, \PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);*/
-
-    }
+  
 
    
     function getComments($postID,$username){
@@ -71,7 +44,7 @@ class commentModel extends core\modelController{
     }
 
   
-    function editComment($postID,$parentID,$username, $text){
+    function postComment($postID,$parentID,$username, $text){
         
         $stmt = $this->pdo->prepare("insert into comment    
         (USER_ID,POST_ID,parent_id,text,creation_date ) 

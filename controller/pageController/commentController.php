@@ -10,20 +10,22 @@ class commentController extends core\mainController implements interfaces\pageIn
     private $commentData;
     private $username;
     public $helper;
+
     function __construct($input){
        
         parent::__construct("commentModel", "Comments", "comment" , $input);
 
        $this->postID = empty($input[1]) ? $this->emptyID() : $input[1] ;
        $this->username     =  isset($_SESSION['user']) ? $_SESSION['user'] : false;
-  
+
         $this->commentData = $this->getComment();
-        
+       // print_r($this->commentData);
     }
 
     
 
     function getComment(){
+
         return $this->model->getComments($this->postID,$this->username);
         
     }
@@ -49,7 +51,7 @@ class commentController extends core\mainController implements interfaces\pageIn
                 require "view/comment/postReply.php";
             }
             require "view/comment/comment.php";
-
+            
         return  ob_get_clean();
 }
     

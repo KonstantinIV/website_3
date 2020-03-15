@@ -1,8 +1,28 @@
 .main_box{
     display: flex;
-    flex-wrap: wrap;
-    margin-top: 10px;
-    height: 90px;
+    position: fixed;
+    padding-top: 10px;
+flex-direction: column;
+width: 100%;
+z-index: 1;
+background-color: #36274b;
+
+}
+.navMainBar{
+  display: flex;
+  flex-wrap: wrap;
+  //margin-top: 10px;
+  height: 50px;
+  width: 100%;
+  background-color: #36274b;
+}
+.navSortBar{
+  display: flex;
+  flex-wrap: wrap;
+  //margin-top: 10px;
+  height: 50px;
+  width: 100%;
+  background-color: #36274b;
 }
 
 .row{

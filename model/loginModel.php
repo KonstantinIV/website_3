@@ -25,9 +25,8 @@ class loginModel extends core\modelController{
 
     //Register
     function usernameValidation($username){
-   
+        
         if( strlen($username) > 24 || strlen($username) < 3 || !is_string($username))  {
-
             return false;
         }else if(!preg_match("/^[a-zA-Z0-9_-]{3,24}$/",$username)){
 
@@ -41,7 +40,7 @@ class loginModel extends core\modelController{
         
        // echo strlen($password);
         if(strlen($password) < 8 || !is_string($password ))  {
-            
+
           return false;
         }
         return true;
@@ -62,15 +61,16 @@ class loginModel extends core\modelController{
     }
 
     
-    function usernameVerification($username){
+    function usernameExists($username){
         $stmt = $this->pdo->prepare('select username from user WHERE username=? LIMIT 1');
         $stmt->execute([$username]);
         //Exists user
        
         if($stmt->fetchColumn()){
-            
+
             return false;
         }else{
+
             return true;
         }
 

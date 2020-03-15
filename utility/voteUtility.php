@@ -17,104 +17,105 @@ class voteUtility extends utility\mainUtility implements interfaces\utilityInter
         parent::__construct();
         $this->model = new model\postModel();
 
-        $this->ID   = isset($_POST['ID']) ? (int)$_POST['ID'] : false; 
-        $this->action   =  isset($_POST['action']) ? $_POST['action'] : false; 
-        $this->type   =  isset($_POST['type']) ? $_POST['type'] : false; 
-        $this->update   =  isset($_POST['update']) ? $_POST['update'] : false; 
-     
     }
 
 
-    function runScript(){
-        $this->success($this->vote());
-    }
+    function validateData($arr){
 
-    function vote(){
         if(!$this->username){
+
             return false;
         }
-
-        if(is_int($this->ID)  && $this->username && $this->action === "likes" || $this->action === "dislikes" && $this->type === "comment" || $this->type === "post"){
-           
-                if($this->type ==  "comment"){
-                    if($this->update == "true"){
-
-
-                    if(!$this->model->voteExistsComment($this->username,$this->ID,$this->action)){
-                        $this->model->voteComment($this->ID, $this->username, $this->action);
-                        //echo $this->ID. " ". $this->username . " ". $this->action;
-                        return true;
-                    }else {
-                        return false;
-                    }
-                }elseif($this->update == "false"){
-                    if($this->model->voteExistsComment($this->username,$this->ID,$this->action)){
-                     
-                        $this->model->unvoteComment($this->ID, $this->username, $this->action);
-                        //echo $this->ID. " ". $this->username . " ". $this->action;
-                        return true;
-                    }else {
-                        return false;
-                    }
-                }
+       /* if(is_int($arr["ID"])  && $arr["action"] === "likes" || $arr["action"] === "dislikes" && $arr["type"] === "comment" || $arr["type"] === "post"){
+            return true;
+        }*/
+        return true;
+    }
 
 
-                }else if($this->type == "post"){
-                    
-                    if($this->update == "true"){
-                        
-                        if(!$this->model->voteExistsPost($this->username,$this->ID,$this->action)){
-                            $this->model->votePost($this->ID, $this->username, $this->action);
-                            return true;
-                        }else{
-        
-                                return false;
-                            }
+    function post($arr){
+      
 
-                    }elseif($this->update == "false"){
-                       
-                        if($this->model->voteExistsPost($this->username,$this->ID,$this->action)){
-                            
-                            $this->model->unvotePost($this->ID, $this->username, $this->action);
-                            
-                            return true;
-                        }else{
-        
-                                return false;
-                            }
+        if(!$this->validateData($arr)){
+           return false; 
+        }
+        if($arr["type"] ==  "comment"){
 
-                    }else{
-                        return false;
-                    }
-                        
-                }else{
+            if(!$this->model->voteExistsComment($this->username,$arr["ID"],$arr["action"])){
+                $this->model->voteComment($arr["ID"], $this->username, $arr["action"]);
+                //echo $arr["ID"]. " ". $this->username . " ". $arr["action"];
+                return true;
+            }else {
+                return false;
+            }
+        }elseif($arr["type"] ==  "post"){
+            if(!$this->model->voteExistsPost($this->username,$arr["ID"],$arr["action"])){
+                $this->model->votePost($arr["ID"], $this->username, $arr["action"]);
+                return true;
+            }else{
+    
                     return false;
                 }
-
-               
-           
-        }else{
-            return false;
         }
+        
+        return false;
+
+
+
+        
+    }
+    
+    function delete($arr){
+
+        
+
+        if(!$this->validateData($arr)){
+            return false; 
+         }
+
+        if($arr["type"] ==  "comment"){
+            if($this->model->voteExistsComment($this->username,$arr["ID"],$arr["action"])){
+                     
+                $this->model->unvoteComment($arr["ID"], $this->username, $arr["action"]);
+                //echo $arr["ID"]. " ". $this->username . " ". $arr["action"];
+                return true;
+            }else {
+                return false;
+            }
+        }elseif($arr["type"] ==  "post"){
+
+            if($this->model->voteExistsPost($this->username,$arr["ID"],$arr["action"])){
+
+                $this->model->unvotePost($arr["ID"], $this->username, $arr["action"]);
+                
+                return true;
+            }else{
+    
+                    return false;
+                }
+        }
+       return false;
+
+
+
        
-
     }
+    
 
-    function success($bool){
-        if($bool){
-            $this->view->renderUtilJSON(array("message" => true));
-
-        }else{
-            $this->view->renderUtilJSON(array("message" => false));
-
-        }
-
-    }
-
-   
 
     
 
+
+    function get(){
+
+    }
+   
+
+    function runScript(){
+        
+    }
+
+       
        
     
 

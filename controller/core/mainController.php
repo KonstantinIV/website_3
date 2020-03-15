@@ -10,7 +10,8 @@ class mainController{
     protected $loggedin;
     protected $input;
     protected $output;
- 
+   
+    
 
 
     function __construct($modelName,$title, $body, $input){
@@ -29,7 +30,7 @@ class mainController{
         $this->view->pageData['metaData']['title'] = $title;
         $this->view->pageData['metaData']['body']  = $body; 
 
-       $this->view->pageData['metaData']['sortLinkPopular'] = "/popular/";
+       $this->view->pageData['metaData']['sortLinkPopular'] = "/hot/";
        $this->view->pageData['metaData']['sortLinkNew'] = "/new/";
         
 

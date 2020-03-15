@@ -12,14 +12,23 @@ class isloggedUtility extends utility\mainUtility implements interfaces\utilityI
      
     }
 
+    function get($arr)
+    {
+        session_start();
+            if(isset($_SESSION['user'])){
+                return array( "flag" => true); 
+            }else{
+                return array( "flag" => false); 
+            }
+    }
 
     function runScript()
     {
         session_start();
             if(isset($_SESSION['user'])){
-                $this->view->renderUtilJSON(array( "flag" => true)); 
+                return array( "flag" => true); 
             }else{
-                $this->view->renderUtilJSON(array( "flag" => false)); 
+                return array( "flag" => false); 
             }
     }
 

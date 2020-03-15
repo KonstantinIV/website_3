@@ -34,7 +34,8 @@
 
 
 <div class="main_box">      
-<a class="logoLinkContainer" href="/"><div class="logo"><img  class="headerIcon" src="content/img/papirus.svg" alt="icon"><div class="logoText">METHOPHY</div></div></a>
+<div class="navMainBar">
+<a class="logoLinkContainer" href="/hot/"><div class="logo"><img  class="headerIcon" src="content/img/papirus.svg" alt="icon"><div class="logoText">METHOPHY</div></div></a>
         <div class="search_bar"><input class="search" id='searchInput' type="text" placeholder="Search.."><div class="search_button"><img src="content/img/search.svg" alt="icon"></div> </div>
         <ul class="row">   
         
@@ -81,8 +82,11 @@
                         </div>
                 </div>
         </div>
+</div>
+<div class="navSortBar">
+
+</div>
 </div>  
-<div class="options"></div>
 
 
 </header>

@@ -57,7 +57,7 @@
       return $.ajax({
         url: "commentutility",
         method: "POST",
-        data:{ postID: postID, ID : ID, text : text},
+        data:{ postID: postID, commentParentID : ID, text : text},
         async:false
       }).responseText;
     }
@@ -94,7 +94,8 @@
 (function() {
   
     $(document).on('click', '#replyComment', function(){
-      if(JSON.parse(isLoggedIn()).flag ){
+      console.log(JSON.parse(isLoggedIn()).flag);
+      if(!JSON.parse(isLoggedIn()).flag ){
         showMessage();
       }else{
         showTextbox($(this));
