@@ -26,7 +26,7 @@ class voteUtility extends utility\mainUtility implements interfaces\utilityInter
 
             return false;
         }
-       /* if(is_int($arr["ID"])  && $arr["action"] === "likes" || $arr["action"] === "dislikes" && $arr["type"] === "comment" || $arr["type"] === "post"){
+       /* if(is_int($arr["ID"])  && $arr["voteType"] === "likes" || $arr["voteType"] === "dislikes" && $arr["postType"] === "comment" || $arr["postType"] === "post"){
             return true;
         }*/
         return true;
@@ -39,18 +39,18 @@ class voteUtility extends utility\mainUtility implements interfaces\utilityInter
         if(!$this->validateData($arr)){
            return false; 
         }
-        if($arr["type"] ==  "comment"){
+        if($arr["postType"] ==  "comment"){
 
-            if(!$this->model->voteExistsComment($this->username,$arr["ID"],$arr["action"])){
-                $this->model->voteComment($arr["ID"], $this->username, $arr["action"]);
-                //echo $arr["ID"]. " ". $this->username . " ". $arr["action"];
+            if(!$this->model->voteExistsComment($this->username,$arr["ID"],$arr["voteType"])){
+                $this->model->voteComment($arr["ID"], $this->username, $arr["voteType"]);
+                //echo $arr["ID"]. " ". $this->username . " ". $arr["voteType"];
                 return true;
             }else {
                 return false;
             }
-        }elseif($arr["type"] ==  "post"){
-            if(!$this->model->voteExistsPost($this->username,$arr["ID"],$arr["action"])){
-                $this->model->votePost($arr["ID"], $this->username, $arr["action"]);
+        }elseif($arr["postType"] ==  "post"){
+            if(!$this->model->voteExistsPost($this->username,$arr["ID"],$arr["voteType"])){
+                $this->model->votePost($arr["ID"], $this->username, $arr["voteType"]);
                 return true;
             }else{
     
@@ -73,20 +73,20 @@ class voteUtility extends utility\mainUtility implements interfaces\utilityInter
             return false; 
          }
 
-        if($arr["type"] ==  "comment"){
-            if($this->model->voteExistsComment($this->username,$arr["ID"],$arr["action"])){
+        if($arr["postType"] ==  "comment"){
+            if($this->model->voteExistsComment($this->username,$arr["ID"],$arr["voteType"])){
                      
-                $this->model->unvoteComment($arr["ID"], $this->username, $arr["action"]);
-                //echo $arr["ID"]. " ". $this->username . " ". $arr["action"];
+                $this->model->unvoteComment($arr["ID"], $this->username, $arr["voteType"]);
+                //echo $arr["ID"]. " ". $this->username . " ". $arr["voteType"];
                 return true;
             }else {
                 return false;
             }
-        }elseif($arr["type"] ==  "post"){
+        }elseif($arr["postType"] ==  "post"){
 
-            if($this->model->voteExistsPost($this->username,$arr["ID"],$arr["action"])){
+            if($this->model->voteExistsPost($this->username,$arr["ID"],$arr["voteType"])){
 
-                $this->model->unvotePost($arr["ID"], $this->username, $arr["action"]);
+                $this->model->unvotePost($arr["ID"], $this->username, $arr["voteType"]);
                 
                 return true;
             }else{

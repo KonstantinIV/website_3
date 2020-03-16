@@ -30,6 +30,7 @@
 
      //post   
     $(document).on('click', '#likeButton', function(){
+      
         voteModule.vote(
             $(this),
             $(this).closest("div[data-id]").attr('data-id'),
