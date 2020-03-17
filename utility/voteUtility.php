@@ -36,9 +36,11 @@ class voteUtility extends utility\mainUtility implements interfaces\utilityInter
     function post($arr){
       
 
-        if(!$this->validateData($arr)){
-           return false; 
-        }
+        /* if(!$this->validateData($arr)){
+            return false; 
+         }
+*/
+         $this->username = "555";
         if($arr["postType"] ==  "comment"){
 
             if(!$this->model->voteExistsComment($this->username,$arr["ID"],$arr["voteType"])){
@@ -69,10 +71,10 @@ class voteUtility extends utility\mainUtility implements interfaces\utilityInter
 
         
 
-        if(!$this->validateData($arr)){
+       /* if(!$this->validateData($arr)){
             return false; 
          }
-
+*/$this->username = "555";
         if($arr["postType"] ==  "comment"){
             if($this->model->voteExistsComment($this->username,$arr["ID"],$arr["voteType"])){
                      

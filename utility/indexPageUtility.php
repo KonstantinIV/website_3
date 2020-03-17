@@ -22,7 +22,8 @@ class indexPageUtility extends utility\mainUtility implements interfaces\utility
 
     function get($arr){
         
- 
+        $this->username = "555";
+        $this->loggedIn = true;
         if($arr['sortType'] == "hot"){
             return $this->model->hotPosts((int)$arr['limit'],$this->loggedIn,$this->username,$arr['search'],$arr['thread'],$arr['filterVote'],1);
         }else if($arr['sortType'] == "top"){

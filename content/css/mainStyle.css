@@ -1090,6 +1090,11 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
   padding: 0 5px;
   border-radius: 5px;
   font-size: 14px;
+  display: none;
+}
+
+.show {
+  display: block;
 }
 
 .post_buttons {

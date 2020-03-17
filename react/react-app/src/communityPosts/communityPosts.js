@@ -42,7 +42,7 @@ export default class communityPosts extends React.Component {
           posts : JSON.parse(posts)
         });
 
-       // console.log(this.state.posts)
+        console.log(typeof(this.state.posts[0].likes))
      
       
     });

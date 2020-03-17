@@ -36,9 +36,10 @@
     
 }
 
-.text_cont:hover{
+.text_contHover:hover{
     border: 1px solid rgb(150, 150, 197);
 }
+
 .date_cont{
     display: block;
     
@@ -170,6 +171,8 @@ color:rgb(120, 120, 243);
     overflow:none;
     height: fit-content;
     max-height: none;
+border: 1px solid transparent;
+cursor: auto;
 
 }
 
@@ -216,4 +219,10 @@ color:#7cf04f;
     padding: 0 5px;
     border-radius: 5px;
     font-size: 14px;
+    display: none;
 }
+
+.show{
+    display: block;
+}
+

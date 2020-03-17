@@ -901,6 +901,7 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
   margin-left: auto;
   max-width: 650px;
   box-shadow: 0px 6px 12px #00000050;
+  border: 1px solid transparent;
 }
 
 .finalResult {
@@ -950,7 +951,7 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
   height: auto;
 }
 
-.text_cont:hover {
+.text_contHover:hover {
   border: 1px solid #9696c5;
 }
 
@@ -1055,6 +1056,8 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
   overflow: none;
   height: fit-content;
   max-height: none;
+  border: 1px solid transparent;
+  cursor: auto;
 }
 
 .date_cont * {
@@ -1090,6 +1093,11 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
   padding: 0 5px;
   border-radius: 5px;
   font-size: 14px;
+  display: none;
+}
+
+.show {
+  display: block;
 }
 
 .post_buttons {

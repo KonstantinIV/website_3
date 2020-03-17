@@ -1,7 +1,8 @@
 import React from "react";
 import parse from 'html-react-parser';
 import ajaxApi from "../helpers/ajaxApi";
-import toggleClass from 'jquery';
+import $ from 'jquery';
+
 
 export default class Post extends React.Component {
   constructor(props) {
@@ -9,7 +10,16 @@ export default class Post extends React.Component {
  
 
     this.state = {
-      class: false,
+      upvoted: (this.props.post.livoted == 1) ? true : false,
+      downvoted : (this.props.post.divoted == 1) ? true : false,
+
+      upvotes : parseInt(this.props.post.likes),
+      downvotes : parseInt(this.props.post.dislikes),
+
+      createdDateHover : false,
+      releaseDateHover : false,
+
+      expandText : false
     };
   
   }
@@ -46,118 +56,115 @@ timeElapsed(date){
 }
 
 vote(ID,postType,e){
+let boolVoted ;
+let element = e.target;
 
+ 
+if(element.classList.contains("like_button")){
+    boolVoted = this.state.upvoted;
+}else{
+     boolVoted = this.state.downvoted;
 
- this.setState({
-   class : true
- })
- return true;
-  let boolVoted = this.checkVote(this.state.class);
-  let voteType = boolVoted ? "like" : "dislike";
-  let voteColor  = boolVoted ? "green" : "red";
+}
+  
+  let voteType = element.classList.contains("like_button") ? "likes" : "dislikes";
 
   let params = {
                 ID : ID,
                 voteType : voteType,
                 postType : postType, //comment/post
-                boolVoted   : boolVoted
+                boolVoted   : this.state.class
   };
 
- ajaxApi("vote","POST",params, result => {
+ ajaxApi("vote",boolVoted ? "DELETE" : "POST",params, result => {
 
   if(JSON.parse(result)){
-    e.target.classList.toggle("full");
-    //this.updateVisualVote(boolVoted,e.target,voteMethod,voteColor);
+    if(element.classList.contains("like_button")){
+      this.setState({
+        upvoted: boolVoted ? false : true ,
+        upvotes :  (boolVoted ? this.state.upvotes -1 : this.state.upvotes + 1)
+      })
+    }else{
+      this.setState({
+        downvoted: boolVoted ? false : true,
+        downvotes :  (boolVoted ? this.state.downvotes  -1 : this.state.downvotes  + 1)
+
+      })
+    }
   }else{ 
-    //$("#loginPopupCont").css("visibility", "visible");
-    return 1 ;
+    $("#loginPopupCont").css("visibility", "visible");
+    console.log("aaa");
   }
   
 });
        
 
-  
- //console.log(JSON.parse(data));
- //this.updateVisualVote(JSON.parse(data),filled,button,action,color,attribute,cssClass) ;  
 
 
 
 }
-checkVote(button){
-  if(!button.classList.contains("full")){
-    return true; 
-  }else{
-    return false;
-  } 
+toggleReleaseDate(){
+  this.setState({
+    releaseDateHover : !this.state.releaseDateHover
+  });
+  //e.target.append(' <div class="box">   '  +new Date(date)+'   </div>');
 }
-/*updateVisualVote(boolVoted,button,voteMethod,voteColor,attribute,cssClass){
-
-  
-    if(boolVoted){
-      this.setImage(button,voteMethod,"content/img/"+voteColor+"Full.svg",true,1,attribute,cssClass);
-  
-    }else{
-      this.setImage(button,voteMethod,"content/img/"+voteColor+"Empty.svg",false,-1,attribute,cssClass);
-
-    }
-
+toggleCreatedDate(){
+  this.setState({
+    createdDateHover : !this.state.createdDateHover
+  });
+  //e.target.append(' <div class="box">   '  +new Date(date)+'   </div>');
 }
-setImage(button,voteMethod,voteColor,isSet,score,attribute,cssClass){
 
-  if(isSet){
-    button.toggleClass("full");
-  }else{
-    button.removeClass("full");
-  }
-  button.find("."+voteMethod+"Image").attr("src",voteColor);
-  var ss      = +button.closest(attribute).find(cssClass).text();
-  button.closest(attribute).find(cssClass).text(ss + score);
 
-}*/
+preciseDate(date){
+  let preciseDate = new Date(date).toString();;
+  return preciseDate;
+}
+expandText(){
+  this.setState({
+    expandText : true
+  })
+}
 
   render() {
     
-    
-   
-    
-     
-
     return (
         
-        <div className="post_cont" data-id = {this.props.post.postID}>
+        <div className={this.state.expandText ? "post_cont expand_text " : "post_cont"}  data-id = {this.props.post.postID}>
             <div className="post_header">{this.props.post.title}</div> 
             <div className="post_user">By 
                 <a href={"profile/"+this.props.post.username}> {this.props.post.username}</a>
                 <span className="usernameDot" >&nbsp;&nbsp;&nbsp;  </span>
-                <span className="createdDate" date={this.props.post.createdDate}>{this.timeElapsed(this.props.post.createdDate)} </span>
+    <span className="createdDate" date={this.props.post.createdDate} onMouseEnter={ () => this.toggleCreatedDate()} onMouseLeave={ () => this.toggleCreatedDate()}>  <div class={this.state.createdDateHover ? "box show" : "box"}> {this.preciseDate(this.props.post.createdDate)}  </div> {this.timeElapsed(this.props.post.createdDate)} </span>
             </div> 
 
             <div className="column_2">
-                    <div className="text_cont">
+                    <div className={this.state.expandText ? "text_cont expand_text " : "text_cont text_contHover"} onClick={() => this.expandText()}>
                       
                         {parse(this.props.post.text)}
                     </div>
                     <div className="date_cont">
                             <div className="post_date_2">
-                            <span className="releaseDate" date={this.props.post.releaseDate}>{this.timeElapsed(this.props.post.releaseDate)} </span> 
+                            <span className="releaseDate" date={this.props.post.releaseDate} onMouseEnter={ () => this.toggleReleaseDate()} onMouseLeave={ () => this.toggleReleaseDate()}> <div class={this.state.releaseDateHover ? "box show" : "box"}> {this.preciseDate(this.props.post.releaseDate)}  </div> {this.timeElapsed(this.props.post.releaseDate)} </span> 
                             </div>
                     </div>
         </div>
 
       <div className="post_buttons">
           <div className={"like_button"} id="likeButton" onClick={(e) => this.vote(this.props.post.ID,"post",e)}>
-              <img className="likeImage" src={this.state.class  ?  "content/img/greenFull.svg" : "content/img/greenEmpty.svg" } alt="arrow" />
+              <img className="likeImage" src={this.state.upvoted  ?  "content/img/greenFull.svg" : "content/img/greenEmpty.svg" } alt="arrow" />
           </div> 
                     
           <div className="di_li_cont">
-              <div className="likes">{this.props.post.likes}</div>
+              <div className="likes">{this.state.upvotes}</div>
               <div className="">&#9679;</div>
-              <div className="dislikes" >{this.props.post.dislikes}</div>
+              <div className="dislikes" >{this.state.downvotes}</div>
           </div>
 
 
-              <div className="dislike_button" id="dislikeButton">
-                <img className="dislikeImage" src="content/img/redEmpty.svg" alt="arrow" />
+              <div className="dislike_button" id="dislikeButton" onClick={(e) => this.vote(this.props.post.ID,"post",e)}>
+                <img className="dislikeImage" src={this.state.downvoted  ?  "content/img/redFull.svg" : "content/img/redEmpty.svg"} alt="arrow" />
               </div>
       
                 
