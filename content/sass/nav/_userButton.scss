@@ -1,0 +1,63 @@
+.userDropdownButton{
+    display: flex;
+    flex-flow: row;
+    transition: 0.3s;
+  flex-grow: 2;
+    height: 20px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 8px;
+    margin-top: 10px;
+    margin-right: 10px;
+    background-color: #523b71;
+    text-decoration: none;
+    font-family: sans-serif, Arial, Helvetica ;
+    outline:none;
+    color: white;
+    font-weight: 600;
+    line-height: 0px;
+    font-size: 18px;
+    cursor:pointer;
+    clear: both;
+    position:relative;
+    vertical-align: center;
+    border:1px solid #ae81ea;
+    border-radius: 4px;
+    min-width: 160px;
+    max-width: 260px;
+  }
+ 
+
+  .userDropdownButton:hover{
+    background-color: rgb(62, 82, 170);
+  }
+
+  .userDropdown-content {
+    display: none;
+    position: absolute;
+  margin-top: 30px;
+    z-index: 1;
+    width: 98%;
+    background-color: #3f235a;
+    height: fit-content;
+    padding-left: 5px;
+    right: 0;
+    border:1px solid  rgb(62, 82, 170);
+    padding-bottom: 5px;
+    cursor: default;
+    border-radius: 4px;
+  }
+ 
+  .dropdown-contentUser a:hover {
+    background-color: rgb(62, 82, 170);
+  }
+  .userIcon{
+    pointer-events: none;
+    padding-top: 1px;
+flex-grow: 1;
+ height: 22px;
+  }
+  .show {display:block;}
+
+  
+  

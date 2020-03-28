@@ -1,0 +1,18 @@
+html{
+    display: grid;
+}
+
+@import 'mainStyles/mainImport';
+@import 'nav/navImport';
+@import 'profile/profileImport';
+@import 'postContainer/postImport';
+@import 'comment/commentImport';
+@import 'editPost/editImport';
+@import 'loginForm/loginImport';
+@import 'settings/settingsImport';
+
+
+
+.show{
+    display: block;
+}

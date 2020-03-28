@@ -1,0 +1,36 @@
+.threadCont{
+    width: inherit;
+    //background-color: aqua;
+    border:3px solid #36274b;
+    margin: 2px;
+    margin-right: 4px;
+}
+.threadTitle{
+   // text-align: center;
+
+
+    font-family: $font;
+font-size: 15px;
+margin-top: 6px;
+padding-left: 20px;
+color:$post_cl;
+font-weight: bold;
+
+//border-bottom: 1px solid rgb(79, 74, 102);
+}
+
+.thread{
+margin-left: 20px;
+color: #7cf04f;
+font-family: sans-serif;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+
+@media (min-width: 0px) and (max-width: 1024px) {
+
+    .threadCont{
+
+        margin-right: 10px;
+    }
+    }

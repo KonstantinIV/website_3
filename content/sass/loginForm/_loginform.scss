@@ -1,0 +1,156 @@
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+ // color: white !important;
+  background-color:  #36274b !important;
+    -webkit-text-fill-color: white !important;
+    -webkit-box-shadow: 0 0 0px 1000px #36274b inset;
+   // -webki-text-color: white !important;
+   caret-color: white;
+}
+.cont{
+    width: 95%;;
+    margin: 0 auto;
+    background-color: #36274b;
+    border-radius: 10px;
+    display: flex;
+    padding-bottom: 30px;
+    margin-top: 50px;
+    justify-content: center;
+
+}
+.login_cont{
+    width: max-content;
+    
+    margin-left: 20px;
+    padding-top: 50px;
+}
+
+.sign{
+    color:#b982f3;
+    font-family: sans-serif;
+    font-size: 22px;
+    margin: 10px 0;
+    text-align: center;
+}
+.usernameInst{
+    font-size: 12px;
+    color: rgb(54, 104, 104);
+    font-family: sans-serif;
+}
+.inputMessageContainer{
+    
+    display: flex;
+    flex-flow: column-reverse;    
+
+}
+.inputMessage{
+    display: flex;
+align-items: center;
+   // padding-top: 8px;
+    padding-left: 10px;
+    
+   // flex-basis: 100%;
+    flex-grow: 1;
+    color: #e2333d;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 13px;
+}
+.loginError{
+    padding-top: 8px;
+}
+#regMessage{
+    padding-top: 7px;
+    text-align: center;
+    justify-content: center;
+}
+
+
+.username_in{
+    padding-left:10px;
+    background-color: transparent;
+    font-family: sans-serif;
+    font-size: 18px;
+    border: 1px solid #b982f3;
+    border-radius: 5px;
+    color:white;
+    outline:none;
+    height: 40px;
+outline-color: white;
+    margin: 5px 0 ;
+
+}
+
+.username_in:hover{
+    border: 1px solid #d7b2ff;
+
+}
+
+.password_in{
+    padding-left:10px;
+    background-color: transparent;
+    font-family: sans-serif;
+    font-size: 18px;
+    border: 1px solid #b982f3;
+    border-radius: 5px;
+    color:white;
+    height: 40px;
+
+
+    margin: 5px 0 ;
+
+}
+.password_in:hover{
+        border: 1px solid #d7b2ff;
+    
+    }
+
+
+.password div{
+    color:#b982f3;
+    font-family: sans-serif;
+    font-size: 18px;
+
+}
+.button_cont{
+    
+    display: flex;
+    justify-content: center;
+}
+.button{
+    background-color:#7cf04f;
+    width: 60%;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    font-family: sans-serif;
+    font-size: 16px;
+    border-radius: 5px;
+    color: #523b71;
+    cursor: pointer;
+
+}
+.button:hover{
+    background-color: #63d835;
+}
+
+
+
+
+
+
+.sign_up{
+    
+}
+
+
+
+

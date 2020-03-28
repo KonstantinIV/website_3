@@ -1,0 +1,42 @@
+.comment{
+    background-color: $post_cl;
+}
+.comment_user{
+    padding:7px 0 ;
+    display: flex;
+    flex-flow: row;
+    color: #9e9e9e;
+    color: #7979d4;
+    color: #575f8d;
+
+}
+.user{
+    color: #7979d4;
+    //color: #575f8d;
+}
+.user a:hover{
+    color: #7782c2;
+    text-decoration: underline;
+}
+.comment_date{
+    padding-left: 18px;
+    color: #9e9e9e;
+    color: #7979d4;
+    color: #575f8d;
+
+    position: relative;
+}
+
+.comment_user > div{
+    padding-right: 20px;
+}
+
+
+
+.comment_text{
+    padding: 4px 0;
+    //padding-right: 50px;
+    //width: 65%;
+    max-width: 650px;
+    line-height: 1.3;
+}

@@ -1,0 +1,29 @@
+.logoLinkContainer{
+    height: fit-content;
+  }
+  .logo{
+      font-family: sans-serif, Arial, Helvetica ;
+      display: flex;
+      flex-flow: row;
+      color: white;
+      height: 50px;
+      line-height: 15px;
+      font-size: 18px;
+      //padding-top: 20px;
+      text-align: center;
+      //flex-grow: 0.1;
+      flex-basis: 10%;
+      padding-left: 20px;
+      padding-right: 10px;
+  }
+  .headerIcon{
+    height: 50px;
+    width: 50px;
+    padding: 3px;
+  }
+  .logoText{
+    padding-top: 20px;
+    font-size: 20PX;
+    font-weight: bold;
+    color: #876ee8;
+  }
