@@ -240,11 +240,12 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 }
 
 .navMainBar {
-  display: flex;
+  /*display: flex;
   flex-wrap: wrap;
+  //margin-top: 10px;
   height: 50px;
   width: 100%;
-  background-color: #36274b;
+  background-color: #36274b;*/
 }
 
 .navMainSecondBar {
@@ -331,6 +332,11 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 }
 /*****************/
 /******************************************/
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
+  border-color: rgba(229, 103, 23, 0.8);
+  box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px rgba(229, 103, 23, 0.6);
+}
+
 .search {
   background-color: #36274b;
   border: none;
@@ -574,7 +580,7 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
   flex-grow: 1;
   display: flex;
   justify-content: space-evenly;
-  max-width: 120px;
+  max-width: fit-content;
   height: 35px;
   margin-right: 10px;
 }
@@ -654,6 +660,84 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 .order:hover {
   background-color: #653196;
   transition: 0.3s;
+}
+
+.navMainBar {
+  display: flex;
+  background-color: #36274b;
+  justify-content: space-around;
+}
+
+.navIconContainer {
+  display: flex;
+  margin: 0px 5px;
+}
+
+.navIconImageContainer {
+  margin-right: 10px;
+}
+
+.navIcon {
+  width: 40px;
+}
+
+.navIconText {
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: white;
+  line-height: 44px;
+}
+
+.navSearchContainer {
+  display: flex;
+  margin: 10px 5px;
+  height: 30px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.navSearchInput {
+  background-color: #523b71;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 3px;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+  border-style: none;
+  width: 100%;
+}
+
+.navSearchButton {
+  border-left: 1px solid #523b71;
+  background-color: #7452a0;
+  height: 30px;
+  width: 30px;
+}
+
+.navSearchIcon {
+  height: 25px;
+  margin: 2px;
+}
+
+.navLoginContainer {
+  display: flex;
+  margin: 10px 5px;
+}
+
+.navLoginButton {
+  width: 120px;
+  height: 35px;
+  border: 1px solid #523b71;
+  margin-right: 5px;
+  border-radius: 3px;
+}
+
+.navRegisterButton {
+  width: 120px;
+  height: 35px;
+  background-color: #7452a0;
+  border-radius: 3px;
 }
 
 .dash_cn {

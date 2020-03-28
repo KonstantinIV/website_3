@@ -11,7 +11,8 @@ export default class StatusContainer extends React.Component {
             dropDownOrderBool : false
 
         };
-   
+        this.dropDownItems = this.dropDownItems.bind(this);
+
       }
 
 
@@ -36,7 +37,7 @@ render(){
                             {this.props.status ? "RELEASED" : "UNRELEASED"}
                         </div>
                     </div>
-                {this.state.dropDownOrderBool ? <OrderMenuItems values={["RELEASED","UNRELEASED"]} handler={ this.props.changeStatus} /> : ""}
+                {this.state.dropDownOrderBool ? <OrderMenuItems values={["RELEASED","UNRELEASED"]} handler={ this.props.changeStatus} dropDownHandler={this.dropDownItems}/> : ""}
             </div>
 
 

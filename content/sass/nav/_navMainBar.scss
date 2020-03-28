@@ -1,0 +1,80 @@
+.navMainBar{
+    display: flex;
+    background-color: #36274b;
+    justify-content: space-around;
+}
+
+.navIconContainer{
+    display: flex;
+    margin: 0px 5px;
+}
+.navIconImageContainer{
+    margin-right: 10px;
+}
+.navIcon{
+    width: 40px;
+}
+.navIconText{
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: white;    
+    line-height: 44px;
+}
+
+
+
+
+
+
+.navSearchContainer{
+display: flex;
+//padding-top: 10px;
+margin: 10px 5px;
+height: 30px;
+width: 100%;
+max-width: 400px;
+
+}
+
+.navSearchInput{
+background-color: #523b71;
+font-size: 14px;
+font-family: Arial, Helvetica, sans-serif;
+border-radius: 3px;
+border-bottom-right-radius: 0px;
+border-top-right-radius: 0px;
+border-style: none;
+width: 100%;
+}
+
+.navSearchButton{
+    border-left: 1px solid #523b71;
+    background-color: #7452a0;
+    height: 30px;
+    width: 30px;
+    }
+    .navSearchIcon{
+        height: 25px;
+        margin: 2px;
+    }
+
+.navLoginContainer{
+    display: flex;
+    margin: 10px 5px;
+
+}
+.navLoginButton{
+    width: 120px;
+    height: 35px;
+    border: 1px solid  #523b71;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+.navRegisterButton{
+    width: 120px;
+    height: 35px;
+    background-color: #7452a0;
+    border-radius: 3px;
+
+}

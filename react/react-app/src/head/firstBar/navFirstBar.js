@@ -18,19 +18,36 @@ render(){
 
     return(
         <div className="navMainBar">
-      
-
-        <div  className="nav_button_ct" > 
-        
-                <div  className="nav_button" onclick="navDropdown()"> 
-                    <img  className="navDropdownButton" src={arrowDown} alt="icon" />
-                        <div id="navDropdown" className="dropdown-contentNav row_child ">
-                                <a href="login">LOG IN</a>
-                                <a href="register">SIGN UP</a>
-                        </div>
+            
+            <div className="navIconContainer">
+                <div className="navIconImageContainer">
+                    <img className="navIcon" src={arrowDown} alt="icon" />
                 </div>
+                <div className="navIconText">
+                    NAVICONTEXT
+                </div>
+            </div>
+            <div className="navSearchContainer">
+                    <input className="navSearchInput" type="text" name="name" />
+                <div className="navSearchButton">
+                    <img className="navSearchIcon" src={arrowDown} alt="icon"/>
+                </div>
+
+            </div>
+            <div className="navLoginContainer">
+                <div className="navLoginButton">
+
+                </div>
+                <div className="navRegisterButton">
+
+                </div>
+
+
+            </div>
+
+
+
         </div>
-</div>
     )
 }
 

@@ -11,7 +11,7 @@ export default class OrderMenuItems extends React.Component{
 
         {this.props.values.map( element => (
 
-        <div className="order" onClick={() => this.props.handler(element)}>{element}</div>
+        <div className="order" onClick={() => {this.props.handler(element); this.props.dropDownHandler()}} >{element} </div>
 
         ))}
         

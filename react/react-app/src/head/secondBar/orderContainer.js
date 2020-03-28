@@ -12,7 +12,7 @@ export default class OrderContainer extends React.Component {
             dropDownOrderBool : false
 
         };
-   
+        this.dropDownItems = this.dropDownItems.bind(this);
       }
 
       dropDownItems(){
@@ -43,7 +43,7 @@ render(){
                             <img className="arrowDown" src={arrowDown} alt="icon"/>
                         </div>
 
-                        {this.state.dropDownOrderBool ? <OrderMenuItems values={["HOT","TOP","NEW"]} handler={ this.props.changeOrder}/> : ""}
+                        {this.state.dropDownOrderBool ? <OrderMenuItems values={["HOT","TOP","NEW"]} handler={ this.props.changeOrder} dropDownHandler={this.dropDownItems}/> : ""}
                 </div>
 
 

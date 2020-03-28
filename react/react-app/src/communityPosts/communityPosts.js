@@ -75,7 +75,7 @@ export default class communityPosts extends React.Component {
   }
 
 onScroll(){
-  if(!this.state.scrolled){
+  if(!this.state.scrolled ){
     if ((window.innerHeight + window.scrollY+20) >= document.body.offsetHeight) {
       console.log(this.state.scrolled);
         this.setState({
@@ -102,6 +102,11 @@ onScroll(){
 
 changeStatus(element){
   let status = (element === "RELEASED") ? true : false; 
+  console.log(status);
+
+  if(this.state.status !== status){
+  
+
 
   this.setState({
     status : status,
@@ -112,21 +117,24 @@ changeStatus(element){
   
   () => this.getPosts(()=>{}));
 
+}
   
-  
-  console.log(this.state);
-  //console.log(this.state.order);
+  //console.log(this.state.order);s
 }
 
 
 changeOrder(order){
+  if(this.state.order !== order.toLowerCase()){
+
+ 
   this.setState({
-    order : order,
+    order : order.toLowerCase(),
     posts : [],
     endOfResults : false,
     limit : 0
-  })
-  this.getPosts(()=>{});
+  },() => this.getPosts(()=>{}))
+  ;
+}
   //console.log(this.state.order);
 }
 
