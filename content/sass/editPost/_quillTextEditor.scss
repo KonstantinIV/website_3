@@ -1,0 +1,62 @@
+
+.ql-toolbar.ql-snow{
+background-color: #6f5892;
+width: 90%;
+padding: 8px 10px;
+
+}
+
+.ql-snow .ql-picker-options {
+    background-color: #6d5295;
+}
+
+.ql-toolbar.ql-snow .ql-picker-options {
+    border: none;
+}
+.ql-toolbar.ql-snow {
+    border: none;
+    box-sizing: unset;
+
+}
+
+.ql-snow .ql-picker {
+    color: #36274b;
+}
+
+.ql-snow .ql-stroke {
+    fill: none;
+    stroke: #36274b;
+}
+.ql-container.ql-snow {
+     border: none; 
+}
+.ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill {
+    fill: #36274b;
+}
+.ql-snow .ql-transparent {
+    opacity: 1;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border-top: 1px solid #694d92;
+    
+    width: 90%;
+    padding: 0 10px;
+    background-color: #694d92;
+    min-height: 200px;
+
+}
+.ql-snow {
+     box-sizing: initial; 
+}
+.ql-snow .ql-picker.ql-expanded .ql-picker-label .ql-stroke {
+    stroke: #36274b;
+}
+.ql-editor {
+    height: -webkit-fill-available;
+    color: white;
+}
+#toolbar-container .ql-color .ql-color-label.ql-stroke {
+    stroke: #00ff00;
+  }
+  

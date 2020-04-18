@@ -1,0 +1,68 @@
+.da_cont{
+    width: 90.7%;
+    margin: 5px auto;
+    margin-left: 0;
+}
+
+.datepicker{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+.datepicker .textarea{
+    text-align: center;
+    line-height: 30px;
+    margin-right: 2px;
+    height: 30px;
+
+    padding: 0 10px;
+    font-family: sans-serif;
+    font-weight: 600;
+}
+
+
+
+.year{
+    flex-grow: 2;
+    width: 30%;
+    color: #36274b;
+}
+
+.year::-webkit-scrollbar {
+    width: 20px;
+    background-color: transparent;
+    border-radius: 5px;
+}
+.year::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 5px;
+	background-color:  #523b71;
+}
+.year::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #36274b;
+}
+
+
+.date{
+    flex-grow: 1;
+    width: 20%;
+    color: #36274b;
+}
+.categoryPicker{
+    height: 30px;
+    width: 44%;
+}
+
+
+
+.dat_text{
+    flex-grow: 4;
+    color: #6c479d;
+    width: 100%;
+    line-height: 30px;
+    font-size: 13px;
+    font-family: sans-serif;
+
+}

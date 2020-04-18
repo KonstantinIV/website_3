@@ -1,0 +1,132 @@
+.formContainerBorder{
+   /* width: 100%;
+    height: 100% ;
+   
+    background-color: rgba(44, 44, 44, 0.5);
+    position: absolute;
+    z-index: 1;
+    left:0;
+    top: 0;*/
+}
+.formContainer{
+    opacity: 1;
+    width: 500px;
+    height: fit-content;
+    background-color: #43305e;
+    position: fixed;
+    display: flex;
+    z-index: 2;
+    margin: auto auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom:0;
+    display: flex;
+    flex-flow: column;
+    cursor: initial;
+    border-radius: 3px;
+    padding-bottom: 30px;
+    //transition: 0.3s;
+}
+.formTitle{
+    font-size: 20px;
+    text-align: center;
+    color: white;
+font-family: Arial, Helvetica, sans-serif;
+}
+.loginErrorMessage{
+    font-size: 20px;
+    text-align: center;
+    color: #e55757;
+font-family: Arial, Helvetica, sans-serif;
+height: 25px;
+}
+.formLogin{
+    display: flex;
+    flex-flow: column;
+
+
+}
+
+.closeLoginForm{
+    display: flex;
+    justify-content: flex-end;
+}
+.closeButton{
+    width: 50px;
+    height: 50x;
+    margin-top: 5px;;
+    margin-right: 5px;
+    cursor: pointer;
+    background-color: #3f235a;
+    border-radius: 3px;;
+    font-weight: 600;
+    transition: 0.3s;
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.closeButton:hover{
+    background-color: #633c89;
+
+}
+.usernameInputContainer{
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+.usernameInput{
+    padding-left:10px;
+    background-color: transparent;
+    font-family: sans-serif;
+    font-size: 18px;
+    border: 1px solid #b982f3;
+    border-radius: 5px;
+    color:white;
+    outline:none;
+    height: 40px;
+outline-color: white;
+    margin: 5px 0 ;
+    width: 60%;
+}
+.passwordInputContainer{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+.passwordInput{
+    padding-left:10px;
+    background-color: transparent;
+    font-family: sans-serif;
+    font-size: 18px;
+    border: 1px solid #b982f3;
+    border-radius: 5px;
+    color:white;
+    height: 40px;
+
+    width: 60%;
+    margin: 5px 0 ;
+}
+.loginButtonContainer{
+    display: flex;
+    justify-content: center;
+}
+.loginButton{
+    background-color: #21d251;
+    border-radius: 3px;
+    width: 312px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    line-height: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    //max-width: 200px;
+}
+.loginButton:hover{
+    background-color:  #36b458;
+}
+
