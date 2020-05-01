@@ -56,6 +56,9 @@ changeInterval={this.props.changeInterval}
 changeStatus={this.props.changeStatus} 
 status={this.props.status}
 
+changeSearchType={this.props.changeSearchType}
+searchType={this.props.searchType}
+searchBool={this.props.searchBool}
 />
 </div>  
 

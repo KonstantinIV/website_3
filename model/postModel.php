@@ -65,9 +65,9 @@ class postModel extends core\modelController{
     left JOIN likes on post.ID = likes.POST_ID  
     
     where category.category = if("" = :cat ,category.category, :cat) 
-    AND   post.rel_date <= if("" = :voteType ,post.rel_date, NOW()) 
+    AND   post.rel_date <= if("false" = :voteType ,post.rel_date, NOW()) 
     AND   post.creation_date >= if( "" = :topType ,post.creation_date ,DATE_SUB( NOW(), INTERVAL :interval HOUR) )
-    AND   post.title like IF("%%" = :search , "%" ,:search ) group by post.ID ';
+    AND   post.title like IF("" = :search , "%" ,:search ) group by post.ID ';
 
     function __construct(){
        parent::__construct();

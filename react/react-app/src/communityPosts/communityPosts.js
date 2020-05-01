@@ -28,12 +28,8 @@ export default class communityPosts extends React.Component {
       interval : "DAY",
       intervalInt : 24,
       endOfResults : false,
-
-
-
-
-      userLoggedIn : false,
-      username     : ""
+      searchType   : "posts",
+      searchBool   : false
     };
   this.getPosts( ()=>{});
 
@@ -42,35 +38,14 @@ export default class communityPosts extends React.Component {
     this.changeStatus = this.changeStatus.bind(this);
     this.searchPosts = this.searchPosts.bind(this);
     this.changeInterval = this.changeInterval.bind(this);
-
-    this.loginUser = this.loginUser.bind(this);
+    this.changeSearchType = this.changeSearchType.bind(this);
     
-    this.isLoggedIn();
-  }
-  isLoggedIn(){
-    let params = {};
-    ajaxApi("islogged","GET",params, result => {
-      if(!result.flag){
-        this.setState({
-          userLoggedIn : false
-
-        })
-      }else{
-        this.setState({
-          userLoggedIn : true,
-          username     : result.username
-        })
-      }
     
-  })
+    //this.isLoggedIn();
   }
+ 
 
-  loginUser(username){
-    this.setState({
-      userLoggedIn : !this.state.userLoggenIn,
-      username : username
-    })
-  }
+
   
 
   // sortType = hot,new, top
@@ -101,6 +76,37 @@ export default class communityPosts extends React.Component {
 
         this.setState( {
           posts : postsCopy,
+          limit: this.state.limit + 10
+        });
+        
+        callback();
+        //console.log(typeof(this.state.posts[0].likes))
+     
+      
+    });
+  }   
+  }
+  getThreads( callback) {
+    return false;
+    let params = {
+      limit    : this.state.limit,
+      search   : this.state.search
+      
+            };
+
+     if(!this.state.endOfResults){
+
+        
+    ajaxApi("threads","GET",params, threads => {
+      if(threads.length < 10){
+        this.setState( {
+          endOfResults : true
+        });
+      }
+       let threadsCopy = this.state.threads.concat(threads);
+
+        this.setState( {
+          threads : threadsCopy,
           limit: this.state.limit + 10
         });
         
@@ -211,16 +217,37 @@ changeInterval(interval){
   //console.log(this.state.order);
 }
 
+changeSearchType(searchType){
+  if(searchType.toLowerCase() !== this.state.searchType){
+
+  
+  this.setState({
+    searchType : searchType.toLowerCase(),
+    status: false,
+    order: "hot",
+    posts : [],
+    endOfResults : false,
+    limit : 0
+  },
+  () => ( this.state.searchType === "threads" ? this.getThreads(()=>{}) :  this.getPosts(()=>{})   ))
+  ;
+}
+}
+
 searchPosts(search){
+  if(search !== ""){
+
+  
   this.setState({
     search: search,
+    searchBool : true,
     status: false,
     order: "hot",
     posts : [],
     endOfResults : false,
     limit : 0
   },() => this.getPosts(()=>{}));
-
+  }
 }
 
 
@@ -228,15 +255,20 @@ searchPosts(search){
     return (
 <div>
   <Header 
-  userLoggedIn={this.state.userLoggedIn} 
-  loginUser={this.loginUser}
-  username = {this.state.username} 
+  userLoggedIn={this.props.userLoggedIn} 
+  loginUser={this.props.loginUser}
+  username = {this.props.username} 
   order={this.state.order} 
   status={this.state.status} 
   interval={this.state.interval}
+  searchType={this.state.searchType}
+  searchBool={this.state.searchBool}
+
   changeInterval={this.changeInterval}
   changeOrder={ this.changeOrder} 
   changeStatus={this.changeStatus} 
+  changeSearchType={this.changeSearchType}
+
   searchPosts={this.searchPosts}
   
   />
@@ -245,11 +277,17 @@ searchPosts(search){
 <div id="mn_cont" class="main_cont" onWheel={ () => this.onScroll()}>
       <div class="pop_post_cont">
 {console.log(this.state.posts)}
+
+
+
 { this.state.posts.map(item => (
   
-  <Post post={item} />
+  this.state.searchType === "posts" ? <Post post={item} /> : <Threads thread={item} />
  
 ))}
+
+
+
 {this.state.endOfResults ? <NoResults /> : ""}
      
       </div>

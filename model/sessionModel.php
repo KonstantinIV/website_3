@@ -7,7 +7,7 @@ class sessionModel{
     }
 
     function userSetVar($username){
-        
+        session_start();
         $_SESSION['user'] = $username;
         $_SESSION['adm']  = 1;
     }
@@ -17,7 +17,7 @@ class sessionModel{
         $_SESSION = array();
         $_COOKIE  = array();
         session_destroy();
-        header('Location: /');
+        //header('Location: /');
         
     }
 

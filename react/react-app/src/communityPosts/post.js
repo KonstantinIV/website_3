@@ -10,8 +10,8 @@ export default class Post extends React.Component {
  
 
     this.state = {
-      upvoted: (this.props.post.livoted === 1) ? true : false,
-      downvoted : (this.props.post.divoted === 1) ? true : false,
+      upvoted: (this.props.post.livoted === "1") ? true : false,
+      downvoted : (this.props.post.divoted === "1") ? true : false,
 
       upvotes : parseInt(this.props.post.likes),
       downvotes : parseInt(this.props.post.dislikes),
@@ -63,16 +63,16 @@ timeElapsed(date){
 vote(ID,postType,e){
 let boolVoted ;
 let element = e.target;
-
+let type    = (element.classList.contains("like_button") || element.classList.contains("likeImage")) ? true : false;
  
-if(element.classList.contains("like_button")){
+if(type){
     boolVoted = this.state.upvoted;
 }else{
      boolVoted = this.state.downvoted;
 
 }
   
-  let voteType = element.classList.contains("like_button") ? "likes" : "dislikes";
+  let voteType = type ? "likes" : "dislikes";
 
   let params = {
                 ID : ID,
@@ -84,7 +84,7 @@ if(element.classList.contains("like_button")){
  ajaxApi("vote",boolVoted ? "DELETE" : "POST",params, result => {
 
   if(result){
-    if(element.classList.contains("like_button")){
+    if(type){
       this.setState({
         upvoted: boolVoted ? false : true ,
         upvotes :  (boolVoted ? this.state.upvotes -1 : this.state.upvotes + 1)
@@ -140,7 +140,7 @@ sendStarVote(ID,points){
   let params = {ID : ID,
                 points : points}
   ajaxApi("starVote","POST",params, result => {
-    if(!result.flag){
+    if(result.flag){
       this.setState({
         starVotedPoints : points
       })
@@ -185,20 +185,53 @@ sendStarVote(ID,points){
         </div>
 
       <div className="post_buttons">
+
+        {!(this.props.post.releaseDate > new Date()) ? 
           <div className={"like_button"} id="likeButton" onClick={(e) => this.vote(this.props.post.ID,"post",e)}>
               <img className="likeImage" src={this.state.upvoted  ?  "content/img/greenFull.svg" : "content/img/greenEmpty.svg" } alt="arrow" />
-          </div> 
+            </div>
+
+        : 
+
+            <div class="upvoteWall"> 
+                <div className="upvoteWallLock">
+                  <div className="upvoteWallImage"><img  src="content/img/lock.svg" alt="icon" /></div>
+               </div>
+             </div> 
+
+        }
+
+          
                     
-          <div className="di_li_cont">
+          <div className="di_li_cont_main">
+
+            <div className="di_li_cont">
               <div className="likes">{this.state.upvotes}</div>
               <div className="">&#9679;</div>
               <div className="dislikes" >{this.state.downvotes}</div>
+            </div>
+            
+            <div className="di_li_bar">
+                <div className="di_li_bar_green" style={{width : ((this.state.upvotes*100) /(this.state.upvotes + this.state.downvotes))+"%"}}></div>
+                <div className="di_li_bar_red"></div>
+            </div>
+
           </div>
 
-
+          {!(this.props.post.releaseDate > new Date()) ? 
               <div className="dislike_button" id="dislikeButton" onClick={(e) => this.vote(this.props.post.ID,"post",e)}>
                 <img className="dislikeImage" src={this.state.downvoted  ?  "content/img/redFull.svg" : "content/img/redEmpty.svg"} alt="arrow" />
               </div>
+
+            : 
+
+            <div class="upvoteWall"> 
+                <div className="upvoteWallLock">
+                  <div className="upvoteWallImage"><img  src="content/img/lock.svg" alt="icon" /></div>
+              </div>
+            </div> 
+
+            } 
       
                 
                 <a className="commentLinkButton" href={"comment/"+this.props.post.ID} >
@@ -233,7 +266,7 @@ sendStarVote(ID,points){
             </div>
 
 
-            {!(this.props.post.releaseDate > new Date()) ? "" : 
+            {(this.props.post.releaseDate > new Date()) ? "" : 
             
             <div class="starVoteWall"> 
                 <div className="starVoteWallLock">

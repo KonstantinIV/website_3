@@ -15,7 +15,7 @@ class mainController{
 
 
     function __construct($modelName,$title, $body, $input){
-        $this->sessionModel = new model\sessionModel();
+        //$this->sessionModel = new model\sessionModel();
         $this->view  = new viewController();
        
 

@@ -10,13 +10,14 @@
     padding-top: 5px;
     border-radius: 5px;
     margin-left: 10px;
+    position: relative;
 }
 .post_buttons *{
     height: 40px;
     flex-grow: 1;
     margin: 2px 4px;
     border-radius: 5px;
-    margin-bottom: 30px;
+    //margin-bottom: 30px;
 
     line-height: 40px;
 font-size: 18px;
@@ -26,12 +27,45 @@ font-family: sans-serif;
 text-align: center;
 
 }
+.di_li_cont_main{
+    display: flex;
+    
+    flex-direction: column;
+
+}
 .di_li_cont{
     display: flex;
     flex-wrap: wrap;
+    height: 36px;
+    margin-bottom: 0px;
 
 }
+.di_li_bar{
+    display: flex;
+    height: 2px;
+   
+    
+    margin: 0px;
+}
+.di_li_bar_green{
+    border-radius: 0px;
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+    margin: 0px;
+    height: 4px;
+    background-color: #7cf04f;
+    flex-grow: 0;
+}
+.di_li_bar_red{
+    border-radius: 0px;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    margin: 0px;
+    height: 4px;
+    background-color:#ca3939 ;
+   }
 .likes{
+    
     color:#7cf04f;
 
 }
@@ -41,7 +75,7 @@ text-align: center;
 
 
 .post_buttons div:nth-child(4){
-    background-color: transparent; 
+    //background-color: transparent; 
 
 }
 .like_button{
@@ -49,12 +83,15 @@ text-align: center;
     border:1px solid #7cf04f;
     background-color: #36274b;
     transition: 0.3s;
+    position: relative;
+    
 }
 .dislike_button{
     cursor: pointer;
     border:1px solid #ca3939;
     background-color: #36274b;
     transition: 0.3s;
+    
 }
 .like_button:hover{
     
@@ -67,6 +104,49 @@ text-align: center;
     border:1px solid #ec1111;
     
 
+}
+//WALL
+
+.upvoteWall{
+   /* width: 103%;
+    height: 105%;
+    background-color: rgba(26, 39, 49, 0.7);
+    position: absolute;
+    margin-top: -60px;
+    margin-left: -2px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    border: 1px solid rgba(26, 39, 49, 0.7);
+    border-radius: 5px;*/
+    height: 40px;
+    flex-grow: 1;
+    margin: 2px 4px;
+    border-radius: 5px;
+    line-height: 40px;
+    font-size: 18px;
+    font-weight: 550;
+    color: #3f4566;
+    font-family: sans-serif;
+    text-align: center;
+    
+    border: 1px solid rgba(26, 39, 49, 0.7);
+    background-color:  rgba(26, 39, 49, 0.7);
+    transition: 0.3s;
+    position: relative;
+
+}
+
+.upvoteWallLock{
+    padding-top:0px;
+    font-size: 30px;
+    text-align: center;
+}
+.upvoteWallImage img{
+    width: 30px;
+    margin-top: -2px;
 }
 
 

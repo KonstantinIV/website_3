@@ -377,7 +377,9 @@ class UserDropdownMenuList extends React.Component{
         let params = {};
         ajaxApi("logout","GET",params, result => {
             if(result.flag){
+                document.cookie = "PHPSESSID" +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
                 this.props.loginUser();
+                
                 window.location.href = "/";
             }
           
@@ -388,7 +390,7 @@ class UserDropdownMenuList extends React.Component{
     render(){
         return(
         <div className="userOptionsList">
-            <div className="userOption">Profile</div>
+            <div className="userOption"><a href="/profile">Profile</a></div>
             <div className="userOption">Create Post</div>
             <div className="userOption" onClick={() => this.logoutUser()}>Log Out</div>
        </div>

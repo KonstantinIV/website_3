@@ -14,7 +14,9 @@ class logoutUtility extends utility\mainUtility implements interfaces\utilityInt
 
     function get($arr)
     {
-        
+        session_start();
+        $_SESSION = array();
+        //unset($_COOKIE['PHPSESSID']); 
         session_destroy();
 
                 return array( "flag" => true); 

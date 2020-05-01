@@ -39,20 +39,22 @@ class voteUtility extends utility\mainUtility implements interfaces\utilityInter
         /* if(!$this->validateData($arr)){
             return false; 
          }
-*/
-         $this->username = "555";
+*/      session_start();
+        if(!isset($_SESSION['user']) ){
+            return false;
+        }
         if($arr["postType"] ==  "comment"){
 
-            if(!$this->model->voteExistsComment($this->username,$arr["ID"],$arr["voteType"])){
-                $this->model->voteComment($arr["ID"], $this->username, $arr["voteType"]);
+            if(!$this->model->voteExistsComment($_SESSION['user'],$arr["ID"],$arr["voteType"])){
+                $this->model->voteComment($arr["ID"], $_SESSION['user'], $arr["voteType"]);
                 //echo $arr["ID"]. " ". $this->username . " ". $arr["voteType"];
                 return true;
             }else {
                 return false;
             }
         }elseif($arr["postType"] ==  "post"){
-            if(!$this->model->voteExistsPost($this->username,$arr["ID"],$arr["voteType"])){
-                $this->model->votePost($arr["ID"], $this->username, $arr["voteType"]);
+            if(!$this->model->voteExistsPost($_SESSION['user'],$arr["ID"],$arr["voteType"])){
+                $this->model->votePost($arr["ID"], $_SESSION['user'], $arr["voteType"]);
                 return true;
             }else{
     
@@ -74,11 +76,14 @@ class voteUtility extends utility\mainUtility implements interfaces\utilityInter
        /* if(!$this->validateData($arr)){
             return false; 
          }
-*/$this->username = "555";
+*/session_start();
+if(!isset($_SESSION['user']) ){
+    return false;
+}
         if($arr["postType"] ==  "comment"){
-            if($this->model->voteExistsComment($this->username,$arr["ID"],$arr["voteType"])){
+            if($this->model->voteExistsComment($_SESSION['user'],$arr["ID"],$arr["voteType"])){
                      
-                $this->model->unvoteComment($arr["ID"], $this->username, $arr["voteType"]);
+                $this->model->unvoteComment($arr["ID"], $_SESSION['user'], $arr["voteType"]);
                 //echo $arr["ID"]. " ". $this->username . " ". $arr["voteType"];
                 return true;
             }else {
@@ -86,9 +91,9 @@ class voteUtility extends utility\mainUtility implements interfaces\utilityInter
             }
         }elseif($arr["postType"] ==  "post"){
 
-            if($this->model->voteExistsPost($this->username,$arr["ID"],$arr["voteType"])){
+            if($this->model->voteExistsPost($_SESSION['user'],$arr["ID"],$arr["voteType"])){
 
-                $this->model->unvotePost($arr["ID"], $this->username, $arr["voteType"]);
+                $this->model->unvotePost($arr["ID"], $_SESSION['user'], $arr["voteType"]);
                 
                 return true;
             }else{
