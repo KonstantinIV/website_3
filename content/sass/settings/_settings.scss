@@ -1,3 +1,17 @@
+
+.profileSettingsContainer{
+    width: 95%;
+    //text-align: center;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+
+
 .containerSetings{
     width: 85%;
     font-family: sans-serif;
@@ -21,6 +35,8 @@
     font-size: 14px;
     font-weight: 200;
     margin-top: 10px;
+    color: #aca8b2;
+    font-family: Arial, Helvetica, sans-serif;
     //color: #876ee8;
 }
 .buttonSettings{
@@ -28,11 +44,14 @@
     //background-color: #36274b;
     color: #8bc34a;
     font-size: 14px;;
-    padding: 10px;
+    padding: 8px;
     border: 1px solid #8bc34a ;
     display: block;
     width: fit-content;
     cursor: pointer;
+    transition: 0.3s;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 3px;
 }
 .buttonSettings:hover{
     border: 1px solid #a9ec5b ;
@@ -59,6 +78,8 @@
     border-bottom: 1px solid #876ee8;
     padding-bottom: 20px;
     font-size: 20px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;;
 }
 
 
@@ -79,6 +100,7 @@ display: none;
     display: inline-block;
     position: absolute;
     margin: 25px;
+    
 
 }
 

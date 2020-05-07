@@ -85,7 +85,7 @@
       //console.log("ll")
        $(document).on('click', '#avatarButtonSettings', function() {
         var formData = new FormData();
-        formData.append('image', $("#inputImageSettings")[0].files[0]);
+        formData.append('image', $("#inputImageSettings").files[0]);
         
          console.log(formData);
         console.log(saveAvatar(formData));

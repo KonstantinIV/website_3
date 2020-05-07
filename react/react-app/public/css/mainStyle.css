@@ -1074,6 +1074,7 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
   padding-left: 20px;
   color: #36274b;
   font-weight: bold;
+  width: max-content;
 }
 
 .user_stats {
@@ -2313,6 +2314,11 @@ input, textarea:focus {
   background-color: #36b458;
 }
 
+.profileSettingsContainer {
+  width: 95%;
+  margin: 0 auto;
+}
+
 .containerSetings {
   width: 85%;
   font-family: sans-serif;
@@ -2335,17 +2341,22 @@ input, textarea:focus {
   font-size: 14px;
   font-weight: 200;
   margin-top: 10px;
+  color: #aca8b2;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .buttonSettings {
   border-radius: 3px;
   color: #8bc34a;
   font-size: 14px;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #8bc34a;
   display: block;
   width: fit-content;
   cursor: pointer;
+  transition: 0.3s;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 3px;
 }
 
 .buttonSettings:hover {
@@ -2372,6 +2383,8 @@ input, textarea:focus {
   border-bottom: 1px solid #876ee8;
   padding-bottom: 20px;
   font-size: 20px;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .inputImageSettings {

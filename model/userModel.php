@@ -1,7 +1,7 @@
 <?php 
 namespace src\model;
 use \src\controller\core;
-class profileModel extends core\modelController{
+class userModel extends core\modelController{
 
     
    
@@ -70,26 +70,26 @@ class profileModel extends core\modelController{
         return true;
     }
 
-    function postCount($username){
+    function userTotalPosts($username){
         $stmt = $this->pdo->prepare('SELECT count(post.ID) from post INNER JOIN user ON user.ID = post.USER_ID where username = ?');
         $stmt->execute([$username]);
         return $stmt->fetchColumn();
     }
 
-    function likeCount($username){
+    function userTotalLikesReceived($username){
         $stmt = $this->pdo->prepare('SELECT count(likes.POST_ID) from likes INNER JOIN post on post.ID = likes.POST_ID INNER JOIN user ON user.ID = post.USER_ID where username= ?');
         $stmt->execute([$username]);
         return $stmt->fetchColumn();
     }
-
-    function commentCount($username){
+//SELECT post.ID from post inner join likes on likes.POST_ID = post.ID inner join user on user.ID = likes.USER_ID where username="sfdds";
+    function userTotalComments($username){
         $stmt = $this->pdo->prepare('SELECT count(comment.ID) from comment INNER JOIN post on post.ID = comment.POST_ID INNER JOIN user ON user.ID = post.USER_ID where username = ?');
         $stmt->execute([$username]);
         return $stmt->fetchColumn();
     }
 
-    function getUserJoinDate($username){
-        $stmt = $this->pdo->prepare('select join_date from user where username = ?');
+    function userJoinDate($username){
+        $stmt = $this->pdo->prepare('select DATE_FORMAT(join_date, "%d %M %Y") from user where username = ?');
         $stmt->execute([$username]);
         return $stmt->fetchColumn();
     }

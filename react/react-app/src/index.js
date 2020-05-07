@@ -7,7 +7,7 @@ import {  Route, Switch } from 'react-router-dom';
 //import Header from './head/Header';
 import CommunityPosts from './communityPosts/communityPosts';
 import Profile from './profile/profile';
-
+import ErrorPage from './error/errorPage';
 import * as serviceWorker from './serviceWorker';
 
 class Main extends React.Component{
@@ -42,7 +42,7 @@ class Main extends React.Component{
     }
     loginUser(username){
       this.setState({
-        userLoggedIn : !this.state.userLoggenIn,
+        userLoggedIn : !this.state.userLoggedIn,
         username : username
       })
     }
@@ -56,7 +56,8 @@ class Main extends React.Component{
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/profile">
-            <Profile loginUser={this.loginUser} userLoggedIn={this.state.userLoggedIn} username={this.state.username}/>
+            {this.state.userLoggedIn ?   <Profile loginUser={this.loginUser} userLoggedIn={this.state.userLoggedIn} username={this.state.username}/> : <ErrorPage />}
+           
           </Route>
           <Route path="/users">
           <div></div>

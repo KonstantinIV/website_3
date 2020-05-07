@@ -14,31 +14,36 @@ class avatarSettingsUtility extends utility\mainUtility implements interfaces\ut
     function __construct($data){
         parent::__construct();
 
-        $this->model = new model\profileModel();
+        $this->model = new model\userModel();
         $this->image = isset($_FILES['image']) ? $_FILES['image'] : "" ; 
         $this->fileSizeMax = 15000000; //bytes
         $this->imageExtension = pathinfo($this->image['name'], PATHINFO_EXTENSION);
        
-        print_r($_FILES);
+        //print_r($_FILES);
     
     }
 
-    function runScript(){
+    function post($arr){
         if(!isset($_SESSION['user'])){
             return false;
-        }else if($this->checkFileExtension()){
+        }else if(!$this->checkFileExtension()){
             return false;
         }
 
 
         if($this->checkFileSize($this->image['size'])){
             $this->model->saveAvatar($this->image,$_SESSION['user'],$this->imageExtension);
-            $this->view->renderUtilJSON(array( "flag" => true)); 
+           
+            return array( "flag" => true); 
         }else{
-            $this->view->renderUtilJSON(array(  "flag" => false, "message" => "File size is too big")); 
+            return array(  "flag" => false, "message" => "File size is too big"); 
         }
 
         //$this->view->renderUtilJSON(array( "username" => $this->username, "commentID" => $id)); 
+    }
+
+    function runScript(){
+      
     }
 
 
