@@ -6,7 +6,7 @@ import ajaxApi from "../helpers/ajaxApi";
 export default class CommentSection extends React.Component {
     constructor(props) {
       super(props);
-      //let { id } = useParams();
+      //let { id } = useParams();a
       this.state = {
        post : []
       };
