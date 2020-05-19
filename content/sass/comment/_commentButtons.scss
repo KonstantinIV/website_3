@@ -1,0 +1,59 @@
+// Thir cont bottom buttons
+.comment_buttons{
+    display: flex;
+    height:20px;
+    //border-top: 1px solid #7cf04f;
+    flex-flow:row;
+    padding-top: 30px;
+    width: 40%;
+    padding-bottom: 5px;
+}
+.comment_buttons *{
+    height: 20px;
+    flex-grow: 1;
+    border-radius: 5px;
+    line-height: 22px;
+font-size: 14px;
+font-weight: 550;
+color:#3f4566;
+font-family: sans-serif;
+text-align: center;
+
+}
+.comment_di_li_cont{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.comment_likes{
+    color:#7cf04f;
+
+}
+.comment_dislikes{
+    color:#ca3939;
+}
+
+
+.comment_buttons div:nth-child(4){
+    background-color: transparent; 
+
+}
+.comment_like_button{
+    cursor: pointer;
+    border:1px solid #7cf04f;
+    //background-color: #36274b;
+    flex-grow: 0.6;
+
+}
+.comment_dislike_button{
+    cursor: pointer;
+    border:1px solid #ca3939;
+   // background-color: #36274b;
+    flex-grow: 0.6;
+}
+.comment_comment_button{
+    background-color: gray;
+    color: #8b8fa9;
+    cursor: pointer;
+    padding: 0 30px;
+}

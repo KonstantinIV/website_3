@@ -1,0 +1,127 @@
+
+.profileSettingsContainer{
+    width: 95%;
+    max-width: 700px;
+    min-width: fit-content;
+    //text-align: center;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+.containerSetings{
+    width: 85%;
+    font-family: sans-serif;
+    margin: 0 auto;
+    color:#876ee8;
+}
+.blockSettings{
+    border: none;
+}
+
+
+.headerSettings{
+    font-size: 28px;
+    color:inherit;
+    font-family: inherit;
+    
+}
+
+.labelSettings{
+    display: block;
+    font-size: 14px;
+    font-weight: 200;
+    margin-top: 10px;
+    color: #aca8b2;
+    font-family: Arial, Helvetica, sans-serif;
+    //color: #876ee8;
+}
+.buttonSettings{
+    border-radius: 3px;
+    //background-color: #36274b;
+    color: #8bc34a;
+    font-size: 14px;;
+    padding: 8px;
+    border: 1px solid #8bc34a ;
+    display: block;
+    width: fit-content;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 3px;
+}
+.buttonSettings:hover{
+    border: 1px solid #a9ec5b ;
+    color:#a9ec5b;
+}
+
+//sssssssssss
+
+.tabNavSettings{
+    display: flex;
+    flex-direction: row;
+    margin: 15px 0px;
+    border-bottom: 1px solid #6847a0;
+    padding-bottom: 0px;;
+}
+.tabSettings{
+    flex-grow: 1;
+    max-width: 100px;
+    margin-right: 5px;
+}
+
+.blockSettingsHeader{
+    margin: 20px 0;
+    border-bottom: 1px solid #876ee8;
+    padding-bottom: 20px;
+    font-size: 20px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;;
+}
+
+
+
+
+
+.inputImageSettings{
+display: none;
+}
+
+.outputImageSettings{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    //position: absolute;
+}
+.inputImageButtonSettings{
+    display: inline-block;
+    position: absolute;
+    margin: 25px;
+    
+
+}
+
+.avatarSettings{
+    color: inherit;
+    
+    font-family: inherit;
+
+}
+.settingsErrorMessage{
+    color: #cd6565;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 19px;
+}
+.inputSettings{
+    background-color: #36274b;
+    border: none;
+    border-radius: 3px;
+    color: #876ee8;
+    padding: 9px;
+    margin: 5px 0px;
+}
