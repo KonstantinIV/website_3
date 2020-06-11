@@ -1,0 +1,48 @@
+
+//Dropdown reply container
+.commentReplyContainer{
+    //  position: absolute;
+      width: 100%;
+     // background-color: #7cf04f;
+      height: 100px;
+      padding-bottom: 50px;
+      padding-top: 10px;
+      padding-left: 0px !important;
+  }
+  .replyTextarea{
+      display: block;
+      width: 96%;
+      height: 90px;
+      //margin: 0px auto;
+      background-color: #3f2e57;
+      border:none;
+      color: white;
+      resize: none;
+      outline: none;
+      border-radius: 5px;
+      border: 1px solid gray;
+      padding: 10px;
+  }
+  .commentReplyButton{
+      border: 1px solid gray;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      width:100px;
+      margin-top: 5px;
+      text-align: center;
+      cursor: pointer;
+      color: white;
+      font-family: sans-serif;
+  }
+  #postReplyButton{
+      border: 1px solid gray;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      width:100px;
+      margin-top: 5px;
+      text-align: center;
+      cursor: pointer;
+      color: white;
+      font-family: sans-serif;
+  }
+

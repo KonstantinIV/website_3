@@ -1,0 +1,117 @@
+.dash_thread{
+    height: 70px;
+    width: 100%;
+    background-color: #36274b;
+    margin: 3px;
+    font-family: sans-serif;
+    color: white;
+    display: flex;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding-left: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+    padding-right: 10px;
+}
+.dash_thread:hover{
+    background-color:#44305f;
+}
+.profileThreadTitleContainer{
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+
+}
+.profileThreadTitle{
+ font-size: 20px;
+ //height: 100%;
+ padding-top: 1px;
+}
+.profileThreadDateCreated{
+    font-size: 12px;
+    opacity: 0.70;
+    color: #9e8b8b;
+}
+
+.profileThreadFollwers{
+padding-top: 22px;
+font-size: 14px;
+margin-left: 20px;
+color: #c0c0c0;
+}
+
+
+
+///****************
+
+.profileCreateThread{
+    background-color: #36274b;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+}
+.profileCreateThreadTitleContainer{
+    margin-bottom: 10px;
+}
+.profileCreateThreadTitleTag{
+    color: rgb(133, 133, 133);
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 3px 0;
+}
+.profileCreateThreadTitle{
+    background-color: #523b71;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 5px;
+    width: -webkit-fill-available;
+    color: #e6e6e6;;
+    
+}
+.profileCreateThreadDescriptionContainer{
+    margin-bottom: 10px;
+}
+.profileCreateThreadDescription{
+    background-color: #523b71;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 2px 3px;
+    width: -webkit-fill-available;
+    min-height: 120px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
+    color: #15101b;
+    resize: none;
+}
+.profileCreateThreadButtonContainer{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.profileCreateThreadDateContainer{
+    margin-bottom: 10px;
+}
+.profileCreateThreadButton{
+height: 40px;;
+width: fit-content;
+background-color:#5db33d;
+font-size: 16px;
+color: #36274b;
+font-family: Arial, Helvetica, sans-serif;
+cursor: pointer;
+line-height: 40px;
+padding: 0 10px;
+border-radius: 3px;
+font-weight: 500;
+transition: 0.3s;;
+}
+.profileCreateThreadButton:hover{
+    
+    background-color:#6ce241;
+   
+    
+    }

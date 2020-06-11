@@ -1,0 +1,110 @@
+
+  .ql-toolbar.ql-snow {
+    border: none !important;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    padding: 8px;
+}
+
+.ql-toolbar.ql-snow:focus {
+    background-color: #83719d !important;;
+}
+.ql-toolbar.ql-snow{
+background-color: #6f5892;
+width: 90%;
+padding: 8px 10px;
+
+}
+.quill{
+   // padding-left: 10px;
+   // padding-right: 10px;
+    width: 100%;
+}
+
+.ql-toolbar.ql-snow {
+    
+    width: 100%;
+   
+}
+.ql-snow .ql-picker-options {
+    background-color: #6d5295 !important
+    ;
+    border: none !important;
+}
+.ql-formats:focus{
+outline: none;
+}
+.ql-toolbar.ql-snow .ql-picker-options {
+    border: none;
+}
+.ql-toolbar.ql-snow {
+    border: none;
+    box-sizing: unset;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.ql-snow .ql-picker {
+    color: #36274b !important;
+}
+
+.ql-snow .ql-stroke {
+    fill: none;
+    stroke: #36274b !important;
+}
+.ql-container.ql-snow {
+     border: none; 
+}
+.ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill {
+    fill: #36274b;
+}
+.ql-snow .ql-transparent {
+    opacity: 1;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+    border: none !important;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    //border-radius: 3px;
+    width: 100%;
+    padding: 5px 5px;
+    background-color: #523b71;
+    min-height: 200px;
+
+}
+.ql-snow {
+     box-sizing: initial; 
+}
+.ql-snow .ql-picker.ql-expanded .ql-picker-label .ql-stroke {
+    stroke: #36274b;
+}
+.ql-editor {
+    //height: -webkit-fill-available;
+    color: #e6e6e6;
+    min-height: inherit;
+    padding: 0 !important;
+}
+#toolbar-container .ql-color .ql-color-label.ql-stroke {
+    stroke: #00ff00;
+  }
+  
+  .ql-formats > button:hover{
+      background-color: #83719d !important;;
+      border-radius: 3px;
+  }
+
+.ql-snow.ql-toolbar button.ql-active{
+    background-color:#83719d !important;;
+    border-radius: 3px;
+}
+.ql-picker-label:hover{
+    color: inherit !important;
+    background-color:#83719d !important;
+}
+
+.ql-container {
+    
+    font-size: 16px !important;
+    
+}

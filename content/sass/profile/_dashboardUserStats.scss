@@ -1,0 +1,41 @@
+
+
+
+
+
+.user_stats{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 150px 0px 0px;
+}
+.user_stats > div{
+    //background-color: rgb(73, 126, 73);
+    border:3px solid $post_cl;
+    margin: 2px;
+    
+}
+
+.exp{
+    font-family: $font;
+    font-size: 14px;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: bold;
+    color: $post_cl;
+
+}
+.val{
+    font-family: $font;
+    font-size: 40px;
+    text-align: center;
+    padding: 20px;
+    color: $green_scr;
+}
+@media (min-width: 0px) and (max-width: 1024px) {
+    
+    .dash_stats{
+    margin-left: 0;
+    }
+
+   
+    }

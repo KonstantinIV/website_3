@@ -1,0 +1,226 @@
+//TWO CONTAINERS
+.column_2{
+    display: flex;
+    flex-direction: column-reverse ;
+    height: fit-content;
+    align-items: stretch;
+    
+}
+
+
+.text_cont{
+    border: 1px solid transparent;
+    border-radius: 5px;
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-align: left;
+    flex-grow: 1;
+    //flex: 1  1 1;
+    //flex-shrink: 2;
+    flex-basis: 65%;
+    position: relative;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-left: 20px;
+    height: fit-content;
+    max-height: 260px;
+    transition: 0.3s;
+}
+.text_cont * {
+    color: white;
+}
+.text_cont img{
+    max-width: 100%;
+    height: auto;
+    
+}
+
+.text_contHover:hover{
+    border: 1px solid rgb(150, 150, 197);
+}
+
+.date_cont{
+    display: block;
+    
+    //flex-grow: 4;
+    border-color: aquamarine;
+}
+
+
+.expand_post{
+    //position: absolute;
+    //bottom: 20px;
+    //width: 100%;
+    //height: 100%;
+    //top:0;
+    background-color: transparent;
+    
+    color: white;
+    //width: 100%;
+    text-align: center;
+    //border-radius: 10px;
+    //height: 0px;
+    //margin-bottom: 30px;
+    //border: 3px solid transparent;
+    cursor: pointer; 
+}
+.expand_post div{
+    bottom: 0;
+    //position: absolute;
+    text-align: center;
+    width: 30%;
+    //margin: -9px;
+    //padding-bottom: 10px;
+    font-family: sans-serif;
+    font-size: 25px;
+    background-color: #694d92;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top:3px; 
+
+    
+
+
+    
+}
+
+.expand_post:hover div{
+
+color:rgb(120, 120, 243);
+}
+
+
+//FIRST CONTAINER
+.post_header{
+    line-height: 30px;
+    font-size: 30px;
+    color: white;
+    height:30px;
+    line-height: 30px;
+    margin-bottom: 8px;
+    margin-left: 20px;
+    padding-top: 10px;
+    font-family: sans-serif;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+  
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.post_user{
+    margin-left: 20px;
+    line-height: 0px;
+    margin-bottom: 10px;
+    color: #575f8d;
+    
+
+}
+.usernameDot{
+    font-size: 10px;
+}
+.post_user:hover{
+ 
+}
+.post_user a:hover{
+    color: #7782c2;
+    text-decoration: underline;
+}
+.post_cont hr{
+    margin: 10px auto;
+    width: 92%;
+
+}
+
+.post_text{
+    font-size: 18px;
+    color: white;
+    height:30px;
+    margin-bottom: 0px;
+    margin-left: 20px;
+    overflow: hidden;
+    font-family: sans-serif;
+    height: 100%;
+    margin-top: 6px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+  
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+.expand_text{
+    overflow:none;
+    height: fit-content;
+    max-height: none;
+border: 1px solid transparent;
+cursor: auto;
+
+}
+
+
+
+
+//Second container
+.date_cont *{
+    margin: 3px 0;
+
+margin-left: 20px;
+//height: 40px;
+font-size: 14px;
+//line-height: 30px;
+//font-weight: 550;
+color:#7cf04f;
+}
+
+.createdDate{
+    font-size: 14px;
+    position: relative;
+    font-family: sans-serif;
+
+}
+.releaseDate{
+    font-size: 14px;
+    color: #65c240;
+    margin-left: 0px;
+    position: relative;
+    font-family: sans-serif;
+
+
+    
+}
+.box{
+    position: absolute;
+    background-color: #1a0c2e !important;
+    height: 25px;
+    width:  max-content;
+    top: -25px;
+    left: 0px;
+    line-height: 25px;
+    color: white;
+    padding: 0 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: none;
+}
+
+
+

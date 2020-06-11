@@ -1,0 +1,148 @@
+.main_box{
+    display: flex;
+    position: fixed;
+flex-direction: column;
+width: 100%;
+z-index: 1;
+background-color: #523b71;
+border-bottom: 1px solid #c086c0;
+}
+.navMainBar{
+  /*display: flex;
+  flex-wrap: wrap;
+  //margin-top: 10px;
+  height: 50px;
+  width: 100%;
+  background-color: #36274b;*/
+}
+.navMainSecondBar{
+  
+}
+.navSortBar{
+  display: flex;
+  flex-wrap: wrap;
+  //margin-top: 10px;
+  height: 50px;
+  width: 100%;
+  background-color: #36274b;
+}
+
+.row{
+    flex-grow: 4;
+    display: inline-flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 10px;
+    flex-wrap: wrap;
+    
+}
+.row_child{
+    
+    flex-grow: 1;
+    
+}
+
+
+
+
+@media (min-width: 1281px) {
+  
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+}
+
+
+
+
+
+
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  
+
+
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+  
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 30px) and (max-width: 480px) {
+  /*
+.nav_button_ct{
+      
+ height: 30px;
+ margin-top: 12px;
+}
+.nav_button{
+  
+  display: block;
+  float: right;
+}
+.row {
+  -webkit-flex-flow: column wrap;
+  flex-flow: column wrap;
+  padding: 0;
+  order:3;
+  display: flex;
+  flex-basis:500px;
+  visibility: hidden;
+  opacity: 0;
+  
+}
+.row_child{
+   
+    flex-grow: 1;
+    
+}
+
+.row_appear{
+  visibility: visible;
+  opacity:1;
+  transition:0.5s;
+}*/
+ 
+  
+}
+
+/*****************/
+@media (min-width: 320px) and (max-width: 1024px) {
+  
+
+
+
+
+}
+/******************************************/
