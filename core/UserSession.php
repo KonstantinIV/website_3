@@ -13,7 +13,7 @@ class UserSession {
     public function getUsername(){
         return $this->username;
     }
-    protected function isAuthenticated(){
+    public function isAuthenticated(){
         return empty($this->username) ? false : true;
     }
 

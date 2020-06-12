@@ -28,7 +28,7 @@ class AvatarModel extends core\Model{
         $this->deleteAvatar($username);
 
         move_uploaded_file($image["tmp_name"],"/var/www/html/i/".$username.".".$imageExtension);
-
+return true;
     }
 
     function getAvatarPath($username){

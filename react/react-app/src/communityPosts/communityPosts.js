@@ -68,11 +68,12 @@ export default class communityPosts extends React.Component {
 
         
     ajaxApi("/Post","GET",params, posts => {
-      if(posts.length < 10){
-        this.setState( {
-          endOfResults : true
-        });
-      }
+      if(posts){
+        if(posts.length < 10){
+          this.setState( {
+            endOfResults : true
+          });
+        }
        let postsCopy = this.state.posts.concat(posts);
 
         this.setState( {
@@ -82,7 +83,11 @@ export default class communityPosts extends React.Component {
         
         callback();
         //console.log(typeof(this.state.posts[0].likes))
-     
+      }else{
+        this.setState( {
+          endOfResults : true
+        });
+      }
       
     });
   }   

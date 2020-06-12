@@ -7,33 +7,64 @@ use \src\controller ;
 
 class CommentController extends controller\MainController {
     
-    private $text;
-    private $ID;
-    private $postID;
+    
 
 
     function get($arr){
-        return  $this->model->getComments($arr["postID"],$this->username);
+        $this->setResult(  
+            $this->model->getComments(
+                $arr["postID"],
+                $this->userSession->getUsername()
+            )
+        );
+        return true;
+       
         
        
     }
     function post($arr){
-        if(!$this->username){
-            return array( "flag" => false ,"message" => "not authorized"); 
-        }
-        $id = $this->model->postComment($arr['postID'], $arr['parentID'], $this->username, $arr['text']);
+        if($this->validation->validateComment($arr)){
+
+        
+        $id = $this->model->postComment($arr['postID'], $arr['parentID'], $this->userSession->getUsername(), $arr['text']);
+
         if(!$id){
-            return array( "flag" => false ,"message" => "something went wrong"); 
+            $this->setErrorMessage(
+                $this->getErrorMessage(
+                    $code = 422
+                    )
+            );
+            return false;
+        }else{
+            $this->setResult($id);
+            return true; 
         }
-        return array( "flag" => true , "commentID" => $id); 
+        }else{
+            $this->setErrorMessage(
+                $this->validation->getErrorMessage()
+           );
+           return false;
+        }
     }
+
+
     function put($arr){
-        $id = $this->model->editComment($arr['postID'], $arr['commentParentID'], $this->username, $arr['text']);
-        return array( "username" => $this->username, "commentID" => $id); 
+         $this->setErrorMessage(
+            $this->getErrorMessage(
+                $code = 405
+                )
+        );
+        return false; 
     }
+
+
     function delete($arr){
-        $id = $this->model->editComment($arr['postID'], $arr['commentParentID'], $this->username, $arr['text']);
-        return array( "username" => $this->username, "commentID" => $id); 
+        $this->setErrorMessage(
+            $this->getErrorMessage(
+                $code = 405
+                )
+        );
+        return false; 
     }
 
  

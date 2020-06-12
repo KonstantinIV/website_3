@@ -8,8 +8,8 @@ use \src\validation;
 
 class Bootstrap {
 
-    private $validReqMethods = ["GET","POST","DELETE","PATCH","PUT"];
-    private $authroziedMethods = ["POST","DELETE","PATCH","PUT"];
+    private $validReqMethods = ["GET","POST","DELETE","PUT"];
+    private $authroziedMethods = ["POST","DELETE","PUT"];
     private $reqMethod ;
     private $queryParams;
 

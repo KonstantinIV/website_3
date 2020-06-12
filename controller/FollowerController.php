@@ -14,18 +14,43 @@ class FollowerController extends controller\MainController{
 
   
     function get($arr){
-        return array("flag" => $this->model->followingUser($_SESSION['user'],$arr['username']));
-        
-       
+        $this->setResult( 
+            $this->model->followingUser(
+                $this->userSession->getUsername(),
+                $arr['username']
+            )
+        );
+
+       return true;
     }
     function post($arr){
-        return array("flag" => $this->model->followUser($_SESSION['user'],$arr['username']));
+
+        $this->setResult( 
+            $this->model->followUser(
+                $this->userSession->getUsername(),
+                $arr['username']
+            )
+        );
+        return true;
     }
+
     function put($arr){
-         
+        $this->setErrorMessage(
+            $this->getErrorMessage(
+                $code = 405
+                )
+        );
+        return false;
     }
     function delete($arr){
-        return array("flag" => $this->model->unfollowUser($_SESSION['user'],$arr['username']));
+         $this->setResult( 
+            $this->model->unfollowUser(
+                $this->userSession->getUsername(),
+                $arr['username']
+            )
+        );
+        return true;
+    }
     }
 
 

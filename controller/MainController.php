@@ -1,13 +1,22 @@
 <?php
 namespace src\controller;
 
-use src\model;
+use \src\model;
 use \src\core;
+use \src\validation;
 abstract class MainController{
 
     protected $sessionModel;
-    protected $validation;
 
+    protected $validation;
+    protected $errors = array( 
+        405 => "Method Not Allowed",
+        422  => "Unprocessable Entity", //Correct syntax, but wrong params that fail to follow instructions
+        
+        
+       
+
+    );
 
 
 
@@ -24,18 +33,12 @@ abstract class MainController{
         $this->userSession = $userSession;
         $this->validation  = $validation;
         
-        $this->sessionModel = new model\sessionModel();
-        
-
-        $this->loggedIn     = isset($_SESSION['user']) ? true : false;
-        $this->username = isset($_SESSION['user']) ? $_SESSION['user'] : false;
+       
 
     }
-    private function setValidationClass(){
+  
 
-    }
-
-    protected function setErrorMessage($errorMessage){
+    protected function setErrorMesssage($errorMessage){
         $this->errorMessage = $errorMessage;
     }
     protected function setHttpCode($httpCode){
@@ -45,8 +48,8 @@ abstract class MainController{
         $this->result = $result;
     }
 
-    protected function getErrorMessage(){
-        return $this->errorMessage ;
+    protected function getErrorMessage($errorCode){
+        return $this->errors[$errorCode] ;
     }
     protected function getHttpCode(){
         return  $this->httpCode ;

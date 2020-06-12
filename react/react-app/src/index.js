@@ -29,7 +29,7 @@ class Main extends React.Component{
     }
     clientData(){
         let params = {};
-    ajaxApi("/islogged","GET",params, result => {
+    ajaxApi("/Session","GET",params, result => {
       if(!result.flag){
         this.setState({
           userLoggedIn : false

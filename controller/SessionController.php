@@ -1,20 +1,20 @@
 <?php
 namespace src\controller;
-use \src\controller\interfaces ;
 
-use src\model;
 use \src\controller ;
 
-class loginUserController extends controller\MainController {
-
-
+class SessionController extends controller\MainController { 
+    
    
+  
 
-
-
-
-
-    function get($arr){
+    function get($arr){       
+        $this->setResult(  
+                $this->userSession->isAuthenticated()
+        );
+        return true;
+    }
+    function post($arr){
         if (!$this->model->usernameValidation((string)$arr['username'])) {
             return array( "flag" => false , "message" => "Invalid username or password"); 
 
@@ -27,21 +27,32 @@ class loginUserController extends controller\MainController {
         return array( "flag" => true , "user" => (string)$arr['username']); 
 
 
-       
-       
-        
-    }
 
-    function post($arr){
-         
+
+        $this->setErrorMessage(
+            $this->getErrorMessage(
+                $code = 405
+                )
+        );
+        return false;
     }
     function delete($arr){
-         
+        $this->setErrorMessage(
+            $this->getErrorMessage(
+                $code = 405
+                )
+        );
+        return false;
     }
     function put($arr){
-         
+        $this->setErrorMessage(
+            $this->getErrorMessage(
+                $code = 405
+                )
+        );
+        return false;
     }
-    
+
    
 
     
