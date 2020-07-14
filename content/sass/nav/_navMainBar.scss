@@ -1,0 +1,209 @@
+.navMainBar{
+    display: flex;
+    //background-color: #36274b;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding-top: 5px;
+    //padding-bottom: 5px;
+    //background-color: #2f243f;;
+}
+
+.navIconContainer{
+    display: flex;
+    margin: 0px 5px;
+    //height: 60px;
+}
+.navIconImageContainer{
+    margin-right: 10px;
+    height: 40px;
+}
+.navIcon{
+    width: 40px;
+}
+.navIconText{
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: white;    
+    line-height: 40px;
+}
+
+
+
+
+
+
+.navSearchContainer{
+display: flex;
+//padding-top: 10px;
+margin: 0px 5px;
+height: 30px;
+width: 100%;
+max-width: 400px;
+margin-top: 5px;
+}
+
+.navSearchInput{
+background-color: #2f243f;
+font-size: 14px;
+font-family: Arial, Helvetica, sans-serif;
+border-radius: 3px;
+border-bottom-right-radius: 0px;
+border-top-right-radius: 0px;
+border-style: none;
+width: 100%;
+color: white;
+padding: 0 5px;
+}
+
+.navSearchButton{
+    border-left: 1px solid #523b71;
+    background-color: #7452a0;
+    height: 30px;
+    width: 30px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    cursor: pointer;
+    transition: 0.3s;
+    }
+.navSearchButton:hover{
+    background-color: #8d65c1;
+
+}
+    .navSearchIcon{
+        height: 25px;
+        margin: 2px;
+    }
+
+.navLoginContainer{
+    display: flex;
+    margin: 0px 5px;
+    margin-top: 5px;
+}
+.navLoginButton{
+    width: 120px;
+    border: 1px solid  #2f243f;
+    margin-right: 5px;
+    border-radius: 3px;
+
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    line-height: 30px;
+    height:30px;
+    cursor: pointer;
+    position: relative;
+    transition: 0.3s;
+
+}
+
+.navLoginButton:hover{
+    border: 1px solid #634c85;;
+}
+.navRegisterButton{
+    width: 120px;
+    background-color: #7452a0;
+    border-radius: 3px;
+
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    line-height: 30px;
+    height:30px;
+    cursor: pointer;
+    transition: 0.3s;
+
+}
+.navRegisterButton:hover{
+    background-color:  #7f5cae;
+}
+
+//*****************
+.userOptionsContainer{
+  min-width: fit-content;
+max-width: 120px;
+    flex-grow: 1;
+    position: relative;
+    margin-right: 20px;
+    display: flex;
+    
+
+}
+.userOptionsUsernameContainer:hover{
+    background-color: #8b62c1;
+}
+
+.userOptionsUsernameContainer{
+
+    background-color: #7452a0;
+    display: flex;
+  justify-content: space-evenly;
+     font-family: Arial, Helvetica, sans-serif;
+     //border: 1px solid #7b87a6;
+     padding: 5px 4px;
+     border-radius: 3px;
+     line-height: 23px;
+     cursor:pointer;
+     border:1px solid transparent;
+     width: 90px;
+
+}
+.userOptionsUsername{
+    margin-right: 3px;
+    font-size: 14px;
+    color: white;
+}
+.userOptionsList{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #7452a0;
+    
+    width: 100%;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.userOption{
+color: white;
+padding: 10px;
+cursor: pointer;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 14px;
+transition: 0.3s;
+}
+.userOption:hover{
+    background-color:#65488a;
+}
+
+.navNotifications{
+    height: 35px;
+    width: 35px;
+    border-radius: 3px;
+    background-color: #65488a;
+    display: flex;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.navNotifications img{
+    height: 20px;
+    width: 20px;
+    margin: 8px;
+}
+.navNotifications:hover{
+    
+    background-color: #8456c1;
+    
+}
+.navNotificationDOT{
+    background-color: orange;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    position: absolute;
+    margin-left: 25px;
+    margin-top: 5px;
+}

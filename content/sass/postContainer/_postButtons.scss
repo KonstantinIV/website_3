@@ -1,0 +1,280 @@
+
+// Thir cont bottom buttons
+.post_buttons{
+    display: flex;
+    height:50px;
+    //border-top: 1px solid #7cf04f;
+    border:4px solid #36274b;
+    border-top: none;
+    flex-flow:row;
+    padding-top: 5px;
+    border-radius: 5px;
+    margin-left: 10px;
+    position: relative;
+}
+.post_buttons *{
+    height: 40px;
+    flex-grow: 1;
+    margin: 2px 4px;
+    border-radius: 5px;
+    //margin-bottom: 30px;
+
+    line-height: 40px;
+font-size: 18px;
+font-weight: 550;
+color:#3f4566;
+font-family: sans-serif;
+text-align: center;
+
+}
+.di_li_cont_main{
+    display: flex;
+    
+    flex-direction: column;
+
+}
+.di_li_cont{
+    display: flex;
+    flex-wrap: wrap;
+    height: 36px;
+    margin-bottom: 0px;
+
+}
+.di_li_bar{
+    display: flex;
+    height: 2px;
+   
+    
+    margin: 0px;
+}
+.di_li_bar_green{
+    border-radius: 0px;
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+    margin: 0px;
+    height: 4px;
+    background-color: #7cf04f;
+    flex-grow: 0;
+}
+.di_li_bar_red{
+    border-radius: 0px;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    margin: 0px;
+    height: 4px;
+    background-color:#ca3939 ;
+   }
+.likes{
+    
+    color:#7cf04f;
+
+}
+.dislikes{
+    color:#ca3939;
+}
+
+
+.post_buttons div:nth-child(4){
+    //background-color: transparent; 
+
+}
+.like_button{
+    cursor: pointer;
+    border:1px solid #7cf04f;
+    background-color: #36274b;
+    transition: 0.3s;
+    position: relative;
+    
+}
+.dislike_button{
+    cursor: pointer;
+    border:1px solid #ca3939;
+    background-color: #36274b;
+    transition: 0.3s;
+    
+}
+.like_button:hover{
+    
+    border:1px solid #255a11;
+    
+
+}
+.dislike_button:hover{
+    
+    border:1px solid #ec1111;
+    
+
+}
+//WALL
+
+.upvoteWall{
+   /* width: 103%;
+    height: 105%;
+    background-color: rgba(26, 39, 49, 0.7);
+    position: absolute;
+    margin-top: -60px;
+    margin-left: -2px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    border: 1px solid rgba(26, 39, 49, 0.7);
+    border-radius: 5px;*/
+    height: 40px;
+    flex-grow: 1;
+    margin: 2px 4px;
+    border-radius: 5px;
+    line-height: 40px;
+    font-size: 18px;
+    font-weight: 550;
+    color: #3f4566;
+    font-family: sans-serif;
+    text-align: center;
+    
+    border: 1px solid rgba(26, 39, 49, 0.7);
+    background-color:  rgba(26, 39, 49, 0.7);
+    transition: 0.3s;
+    position: relative;
+
+}
+
+.upvoteWallLock{
+    padding-top:0px;
+    font-size: 30px;
+    text-align: center;
+}
+.upvoteWallImage img{
+    width: 30px;
+    margin-top: -2px;
+}
+
+
+
+.comment_button{
+    border:1px solid gray;
+  
+    color: #8b8fa9;
+    transition: 0.3s;
+}
+
+.commentLinkButton:hover .comment_button{
+    
+    border:1px solid rgb(88, 88, 88);
+    
+
+}
+
+
+
+.starVoteContainer{
+    height : 35px;
+    background-color: #2f243f;
+    padding-top: 20px;
+    display: flex;
+    position: relative;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.starVoteWall{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 39, 49, 0.7);
+    position: absolute;
+    margin-top: -20px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    justify-content: center;
+
+}
+.starVoteWallLock{
+    padding-top:10px;
+    font-size: 30px;
+    text-align: center;
+    
+}
+.starVoteWallImage{
+    position: relative;
+}
+.starVoteWallImage .starVoteTextBox{
+    transition: 0.2s;
+
+    position: absolute;
+    background-color: #1a0c2e ;
+    height: 25px;
+    width:  max-content;
+    top: -25px;
+    left: -60px;
+    line-height: 25px;
+    color: white;
+    padding: 0 5px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.starVoteStats{
+color:#564272;
+font-size: 14px;
+display: flex;
+font-family: sans-serif;
+//font-style: italic;
+}
+.starVoteCount{
+
+}
+.starVoteBar{
+    width: 45%;
+    max-width: 200px;
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+.starVote{
+    height: 20px;
+    width: 20px;
+    border-radius: 50px;
+    background-color: #2e5639 ;
+    position: relative;
+    cursor: pointer;
+    border: 3px solid #2f243f;
+}
+.starVoteTextBox{
+    transition: 0.2s;
+
+        position: absolute;
+        background-color: #1a0c2e ;
+        height: 25px;
+        width:  max-content;
+        top: -25px;
+        left: -40px;
+        line-height: 25px;
+        color: white;
+        padding: 0 5px;
+        border-radius: 5px;
+        font-size: 14px;
+        display: none;
+    
+}
+.starVoteGreen{
+    background-color: #21d251;
+
+}
+.starVoteDarkGreen{
+    background-color: #2e5639 !important;
+
+}
+.starVoteGreenHover{
+    transition: 0.2s;
+    //background: #5f56f5 !important;
+    border: 3px solid #097474 !important;
+
+}
+.starVoted{
+    border: 3px solid #097474 !important;
+
+    //background: #5f56f5 !important;
+    
+
+}
+

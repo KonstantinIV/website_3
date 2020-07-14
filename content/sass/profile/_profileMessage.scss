@@ -1,0 +1,26 @@
+.profileMessageContainer{
+    background-color:#36274b;
+    height: 50px;
+    padding: 10px;
+}
+.profileMessage{
+font-size: 16px;
+color: #d5d0dc;
+line-height: 50px;
+font-family: Arial, Helvetica, sans-serif;
+}
+.profileMessageUsername{
+ display: inline;
+ color: #9769d8;;
+ cursor: pointer;
+ transition: 0.3s;
+}
+
+.profileMessageUsername:hover{
+    text-decoration: underline;
+    color: #8852d3;;
+  
+   }
+   .profileMessageIsRead{
+        background-color:#201530;
+   }

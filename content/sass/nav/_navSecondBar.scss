@@ -1,0 +1,98 @@
+.navMainSecondBar{
+padding-top: 5px;
+padding-bottom: 5px;
+display: flex;
+}
+
+.filterContainer{
+    display: flex;
+}
+
+.orderContainer{
+flex-grow: 1;
+display: flex;
+justify-content : space-evenly;
+max-width: fit-content;
+
+height: 35px;
+margin-right: 10px;
+}
+.orderTag{
+    flex-grow: 1;
+    color:white;
+     font-size: 10px;
+     font-family: Arial, Helvetica, sans-serif;
+     font-weight: 700;
+     letter-spacing: 0.5px;
+     padding: 0px 5px;
+     line-height: 32px;
+     opacity: 60%;
+     //margin: 0 20px;
+}
+.chosenOrderContainer{
+    display: flex;
+  justify-content: space-evenly;
+     font-family: Arial, Helvetica, sans-serif;
+    
+     //border: 1px solid #7b87a6;
+     padding: 5px 10px;
+     border-radius: 3px;
+     line-height: 23px;
+     cursor:pointer;
+    background-color:#401e60;
+    border:1px solid transparent;
+
+}
+.chosenOrderContainer:hover{
+    border:1px solid #656d82;
+    transition: 0.3s;
+}
+.chosenOrderText{
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color:white;
+    font-size: 10px;
+    padding: 0 5px;
+    //line-height: 20px;
+}
+.arrowDown{
+    pointer-events: none;
+    padding-top: 1px;
+
+ width: 8px;
+ height: 20px;
+}
+
+.hotIcon{
+    width: 15px;
+    height: 17px;
+    
+    
+  }
+
+  .orderMenu{
+    position: relative;
+  }
+
+  .menuOrders{
+    position: absolute;
+    width: 100%;
+    
+    background-color: #401e60;
+    border-radius: 3px;
+  }
+  .order{
+      color: white;
+      padding: 5px 5px;
+      font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .order:hover{
+      background-color: #653196;
+    transition: 0.3s;
+  }
