@@ -36,18 +36,27 @@ class UserController extends controller\MainController {
                 $this->setErrorMessage(
                    "Passwords do not match"
                 );
+                $this->setHttpCode(
+                    401
+                );
                 return false;
             }
             if (!$this->model->passwordValidation($arr['password1']) ){
                 $this->setErrorMessage(
                     "Non valid password"
                  );
+                 $this->setHttpCode(
+                    401
+                );
                  return false;
             }
             if(!$this->model->userAuth($this->userSession->getUsername(),$arr['oldPassword'])){
                 $this->setErrorMessage(
                     "Wrong password"
                  );
+                 $this->setHttpCode(
+                    401
+                );
                  return false;
             }
             
@@ -56,6 +65,9 @@ class UserController extends controller\MainController {
                 $this->setErrorMessage(
                     "Something went wrong"
                  );
+                 $this->setHttpCode(
+                    401
+                );
                 return false;
             }
 
@@ -123,7 +135,8 @@ class UserController extends controller\MainController {
             return false;  
         } 
         
-        
+        $this->userSession->setUsername($arr['username']);
+
         return true;
 
 

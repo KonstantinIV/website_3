@@ -1,4 +1,12 @@
 RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-f
+
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /index.php?url=$1 [NC,L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} ^/api
+RewriteRule ^api/(.*)$ /index.php?url=$1 [NC,L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^(.*)$ /react/react-app/build/index.html [NC,L,QSA]
+
+

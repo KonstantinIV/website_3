@@ -160,6 +160,20 @@ class userModel extends core\Model{
         }
 
     }
+    function emailExists($email){
+        $stmt = $this->pdo->prepare('select email from user WHERE email=? LIMIT 1');
+        $stmt->execute([$email]);
+        //Exists user
+       
+        if($stmt->fetchColumn()){
+
+            return false;
+        }else{
+
+            return true;
+        }
+
+    }
 
 
     function emailVerification($email){

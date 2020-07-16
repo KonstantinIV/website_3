@@ -144,7 +144,7 @@ class UserProfile extends React.Component {
     let params = {username : this.props.username};
     ajaxApi("/Avatar","GET",params, (result,status) => {
         if(status ){
-            if(result !== "0"){
+            if(result !== "0" || result !== "false"){
               this.setState({
                 avatarPath : "/i/"+this.props.username+"."+result
               })
@@ -644,7 +644,7 @@ class UserPosts extends React.Component {
             
          
         let objCopy = prevstate.posts;
-        objCopy.unshift({ID: result.ID,
+        objCopy.unshift({ID: result,
           title: title,
           upvotes: 0,
           downvotes: 0,
@@ -870,7 +870,7 @@ class UserThreads extends React.Component {
   }
   getUserThreads(){
     let params = {};
-    ajaxApi("/thread","GET",params, threads => {
+    ajaxApi("/Thread","GET",params, threads => {
       this.setState( {
           threads : threads
           
@@ -1166,7 +1166,7 @@ class CreatePost extends React.Component {
           <select  class=" date year"  value={this.state.year} onChange={this.changeYear.bind(this)}>
           {//this.dateList()
              Array.apply(null, Array(100)).map((item,index) => (
-              <option value={index+2019}>{index+2019}</option>
+              <option value={index+2021}>{index+2021}</option>
           ))
           }
            </select>

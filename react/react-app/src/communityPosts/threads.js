@@ -25,15 +25,17 @@ export default class Threads extends React.Component {
 <div class="right_cont">
                 
                 <div class="smaller_cont">
-                <h3 class="cat_head">Categories</h3>
+                <h3 class="cat_head">Threads</h3>
                         <ul class="list_category">
-                                <li><a class="" href="popular/Books/" >Books</a></li>
-                                <li><a class="" href="popular/Tvshow/" >TV show</a></li>
-                                <li><a class="" href="popular/Animemanga/" >Anime/Manga</a></li>
-                                <li><a class="" href="popular/Movies/" >Movies</a></li>
-                                <li><a class="" href="popular/Events/" >Events</a></li>
-                                <li><a class="" href="popular/Gaming/" >Gaming</a></li>
-                                <li><a class="" href="popular/Sport/" >Sport</a></li>
+                                <li><a class="" href="/" >All</a></li>
+                                <li><a class="" href="/thread/Books/" >Books</a></li>
+                                <li><a class="" href="/thread/Tvshow/" >TV show</a></li>
+                                
+                                <li><a class="" href="/thread/Movies/" >Movies</a></li>
+                                <li><a class="" href="/thread/Events/" >Events</a></li>
+                                <li><a class="" href="/thread/Gaming/" >Gaming</a></li>
+                                <li><a class="" href="/thread/Sport/" >Sport</a></li>
+
                         </ul>
 
                 </div>

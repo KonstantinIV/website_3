@@ -97,7 +97,7 @@ namespace src\validation;
 
 
 
-
+/*
 
         if(!$this->isValidPostTitleLength($params['title'])){
             $this->setErrorMessage(1);
@@ -112,7 +112,7 @@ namespace src\validation;
             $this->setErrorMessage(4);
             return false;
         }
-        return true;
+        return true;*/
     }
 
 
@@ -149,9 +149,9 @@ protected   function checkImageFileExtension($imageExtension){
     }
 
     protected function isValidRealeaseDate($year,$month,$day){
-        if(!checkdate($year,$month,$day)){
+        /*if(!checkdate($year,$month,$day)){
             return false;
-        }
+        }*/
         return true;
     }
     protected function isRealeaseDatePast($date){
@@ -161,11 +161,11 @@ protected   function checkImageFileExtension($imageExtension){
         return true;
     }
 
-    protected function setErrorMesssage($errorCode){
+    public function setErrorMessage($errorCode){
        
         $this->errorMessage = $this->validationErrors[$errorCode];
     }
-    protected function getErrorMesssage(){
+    public function getErrorMessage(){
        
        return $this->errorMessage ;
     }

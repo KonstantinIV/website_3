@@ -17,7 +17,7 @@ spl_autoload_register(
     "autoloader::autoload"
 
 );
-
+//print_r($_GET['url']);
 
 $bootstrap = new core\Bootstrap(
     new core\Router($_GET['url']), 

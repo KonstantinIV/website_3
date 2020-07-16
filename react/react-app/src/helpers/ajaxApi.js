@@ -25,7 +25,7 @@ import $ from 'jquery';
 export default function ajaxApi(url,requestType,params,callback){
     $.ajax({
       
-      url: url,
+      url: "/api" + url,
       method: requestType,
       data : params,
      // headers: {'Accept':'application/json'},

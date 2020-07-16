@@ -83,7 +83,9 @@ class PostController extends controller\MainController{
                 $code = 422
                 )
         );
-
+        $this->setHttpCode(
+            401
+        );
         return false;
 
 
@@ -97,24 +99,35 @@ class PostController extends controller\MainController{
         
     if($this->validation->validatePost($arr)){
 
-       if( $this->model->createPost(
+        $result = $this->model->createPost(
             $arr['title'], 
             $arr['text'],
             $this->userSession->getUsername(),
-            $date,
+            $arr['year'].'-'.$arr['month'].'-'.$arr['day'],
             $arr['thread']
-        )){
+        );
+        
+        if($result){
+            $this->setResult( 
+                $result);
+
             return true;
         }else{
             $this->setErrorMessage(
                 $code = 422
              );
+             $this->setHttpCode(
+                401
+            );
             return false;
         }
 
     }else{
         $this->setErrorMessage(
              $this->validation->getErrorMessage()
+        );
+        $this->setHttpCode(
+            401
         );
         return false;
     }
@@ -129,6 +142,9 @@ class PostController extends controller\MainController{
                 $code = 405
                 )
         );
+        $this->setHttpCode(
+            401
+        );
         return false;
 
     }
@@ -139,6 +155,9 @@ class PostController extends controller\MainController{
             $this->setErrorMessage(
                 $code = 422
              );
+             $this->setHttpCode(
+                401
+            );
             return false;
         }
        

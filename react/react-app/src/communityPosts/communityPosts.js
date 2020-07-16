@@ -287,7 +287,7 @@ searchPosts(search){
       <div class="pop_post_cont">
 {console.log(this.state.posts)}
 
-{this.state.searchType === "posts" ? <ThreadTitle threadName={this.state.thread}/> :""}
+{this.state.searchType === "posts" ? <ThreadTitle key={this.state.thread} threadName={this.state.thread}/> :""}
 
 { this.state.posts.map(item => (
   
@@ -336,7 +336,7 @@ class ThreadTitle extends React.Component {
       <div class="indexPageThreadTitleContainer">
           
           <div class="indexPageThreadTitle">
-          {this.props.threadName ? this.props.thread : "All"}
+          {this.props.threadName ? this.props.threadName : "All"}
 
       </div>
       </div>

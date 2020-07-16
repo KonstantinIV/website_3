@@ -78,7 +78,7 @@ class Main extends React.Component{
           </Route>
 
           
-          <Route path="/:t?/:threadName?" render={(props) => (<CommunityPosts {...props} loginUser={this.loginUser}  userLoggedIn={this.state.userLoggedIn} username={this.state.username}/>)} />
+          <Route path="/:t?/:threadName?" render={(props) => (<CommunityPosts {...props} key={this.state.username} loginUser={this.loginUser}  userLoggedIn={this.state.userLoggedIn} username={this.state.username}/>)} />
           
           
          

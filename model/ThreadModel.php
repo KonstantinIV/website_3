@@ -1,7 +1,7 @@
 <?php 
 namespace src\Model;
 use \src\core;
-class threadModel extends core\Model{}
+class threadModel extends core\Model{
 
     
    

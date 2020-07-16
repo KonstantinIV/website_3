@@ -252,8 +252,8 @@ class RegisterForm extends React.Component{
                 password : this.state.passwordText,
                 email    : this.state.emailText
             }
-            ajaxApi("/registerU","POST",params, result => {
-                if(!result.flag){
+            ajaxApi("/User","POST",params, (result,status) => {
+                if(!status){
                     this.setState({
                         registerErrorMessage : result.message
                     })
@@ -419,7 +419,7 @@ class UserDropdownMenuList extends React.Component{
         return(
         <div className="userOptionsList">
             <div className="userOption"><a href={"/user/" + this.props.username}>Profile</a></div>
-            <div className="userOption">Create Post</div>
+            
             <div className="userOption" onClick={() => this.logoutUser()}>Log Out</div>
        </div>
         )
