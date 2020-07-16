@@ -7,3 +7,4 @@ Second stage is after the release date when users rate with points from 0 to 5 i
 ).
 
 Users can also create their own threads/communities.
+Website can be found temp. here http://161.35.205.15/
